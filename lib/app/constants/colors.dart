@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 sealed class AppColors {
   static const primary =  Color(0xFF155DFC);
+  static const primaryBgLight =  Color(0xFFE7EFFF);
   static const grey =  Color(0xFF4A5565);
   static const hintText =  Color(0xFF717182);
   static const formIcon =  Color(0xFF4A5565);

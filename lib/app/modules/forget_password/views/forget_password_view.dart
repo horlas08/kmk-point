@@ -49,13 +49,29 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                     textAlign: TextAlign.center,
                   ),
                   vSpace(40),
-                  CustomInput(itemController: controller.phoneController, itemHintText: "enter_phone".tr, prefixIcon: SvgPicture.asset(callSvg, fit: BoxFit.scaleDown,),),
-                  vSpace(8),
-                  Text("otp_info".tr, style: textRegularGrey),
-                  vSpace(40),
-                  CustomButton(text: "confirm".tr, onPressed: () {
-                    Get.toNamed(Routes.OTP_VERIFICATION);
-                  }),
+                  Form(
+                    child: Column(
+                      children: [
+                        CustomInput(
+                          itemController: controller.phoneController,
+                          itemHintText: "enter_phone".tr,
+                          prefixIcon: SvgPicture.asset(
+                            callSvg,
+                            fit: BoxFit.scaleDown,
+                          ),
+                        ),
+                        vSpace(8),
+                        Text("otp_info".tr, style: textRegularGrey),
+                        vSpace(40),
+                        CustomButton(
+                          text: "confirm".tr,
+                          onPressed: () {
+                            Get.toNamed(Routes.OTP_VERIFICATION);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

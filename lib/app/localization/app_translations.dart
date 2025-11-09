@@ -13,7 +13,7 @@ class AppTranslations extends Translations {
       'no_internet': 'لا يوجد اتصال بالإنترنت',
       'enter_otp': 'اكتب رمز OTP',
       'enter_otp_sent': 'أدخل الرمز المرسل الى رقم هاتفك',
-      'otp_valid_for': 'الكود صالح لمدة 00:59',
+      'otp_valid_for': 'الكود صالح لمدة ',
       'reset_password_title': 'اعادة تعين كلمة السر الخاصة بك',
       'enter_phone_for_otp': 'أدخل رقم هاتفك لأستقبال كود التأكيد',
       'enter_phone': 'أدخل رقم هاتفك',

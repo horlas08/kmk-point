@@ -26,8 +26,8 @@ class OTPTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
-      width: 48.w,
-      height: 52.h,
+      width: 50.5.w,
+      height: 56.h,
       textStyle: TextStyle(
         color: Colors.white,
         fontSize: 16,
@@ -40,8 +40,8 @@ class OTPTextField extends StatelessWidget {
     );
 
     final submittedPinTheme = PinTheme(
-      width: 48.w,
-      height: 52.h,
+      width: 50.5.w,
+      height: 56.h,
       textStyle: TextStyle(
         color: Colors.white,
         fontSize: 16,
@@ -56,8 +56,8 @@ class OTPTextField extends StatelessWidget {
     );
 
     final cursor = Container(
-      width: 48.w,
-      height: 52.h,
+      width: 50.5.w,
+      height: 56.h,
       decoration: BoxDecoration(
         border: Border.all(
           color: AppColors.primary,
@@ -87,8 +87,8 @@ class OTPTextField extends StatelessWidget {
       preFilledWidget: preFilledWidget,
       onCompleted: onCompleted,
       length: length ?? 6,
-      useNativeKeyboard: false,
-      pinAnimationType: PinAnimationType.scale,
+      useNativeKeyboard: true,
+      pinAnimationType: PinAnimationType.none,
       controller: controller,
       focusNode: focusNode,
       defaultPinTheme: defaultPinTheme,

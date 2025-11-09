@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:point_system/app/modules/change_password/controllers/change_password_controller.dart';
 
 import '../../../common/style/text_style.dart';
 import '../../../common/widgets/custom_appbar.dart';
@@ -13,10 +14,9 @@ import '../../../common/widgets/text_field.dart';
 import '../../../constants/image_path.dart';
 import '../../../constants/svg_path.dart';
 import '../../../routes/app_pages.dart';
-import '../controllers/otp_verification_controller.dart';
 
-class OtpVerificationView extends GetView<OtpVerificationController> {
-  const OtpVerificationView({super.key});
+class ChangePasswordView extends GetView<ChangePasswordController> {
+  const ChangePasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,28 +51,39 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                   vSpace(40),
                   Form(
                     key: controller.formKey,
-                    child: OTPTextField(
-                      controller: controller.otpController,
-                      focusNode: controller.focusNode,
-                      // validator: FormValidator.isValidOTP,
-                      onCompleted: (String otp) {
-                        // controller.verifyOtp();
-                      },
+                    child: Column(
+                      children: [
+                        CustomInput(
+                          itemController: controller.newpasswordController,
+                          itemHintText: "enter_new_password".tr,
+                          prefixIcon: SvgPicture.asset(
+                            lockSvg,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          isAuthField: true,
+                        ),
+                        vSpace(8),
+                        CustomInput(
+                          itemController: controller.newpasswordController,
+                          itemHintText: "confirm_new_password".tr,
+                          prefixIcon: SvgPicture.asset(
+                            lockSvg,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          isAuthField: true,
+                        ),
+                        vSpace(40),
+                        CustomButton(
+                          text: "confirm".tr,
+                          onPressed: () {
+                            Get.toNamed(Routes.LOGIN);
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  vSpace(8),
-                  Text.rich(
-                    TextSpan(text: "otp_valid_for".tr, style: textRegularGrey,children: [
-                      TextSpan(text: "00:59")
-                    ]),
-                  ),
-                  vSpace(40),
-                  CustomButton(
-                    text: "confirm".tr,
-                    onPressed: () {
-                      Get.toNamed(Routes.CHANGE_PASSWORD);
-                    },
-                  ),
+
+
                 ],
               ),
             ),
