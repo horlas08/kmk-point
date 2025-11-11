@@ -30,7 +30,7 @@ class AppTranslations extends Translations {
       'balance': 'الرصيد',
       'point': 'نقطة',
       'points': 'النقاط',
-      'rank': 'المرتبة #7',
+      'rank': 'المرتبة ',
       'this_month': 'هذا الشهر',
       'increase': 'زيادة 15%',
       'this_week': 'هذا الأسبوع',

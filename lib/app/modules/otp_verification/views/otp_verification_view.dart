@@ -54,23 +54,46 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                     child: OTPTextField(
                       controller: controller.otpController,
                       focusNode: controller.focusNode,
-                      // validator: FormValidator.isValidOTP,
+                      validator: (v) {
+                        final val = v?.trim() ?? '';
+                        if (val.isEmpty) return 'This field is required';
+                        if (val.length < 6) return 'Enter 6-digit code';
+                        if (!RegExp(r'^\d{6}$').hasMatch(val)) return 'Digits only';
+                        return null;
+                      },
                       onCompleted: (String otp) {
-                        // controller.verifyOtp();
+                        // Optionally trigger auto-validate on complete
                       },
                     ),
                   ),
                   vSpace(8),
-                  Text.rich(
-                    TextSpan(text: "otp_valid_for".tr, style: textRegularGrey,children: [
-                      TextSpan(text: "00:59")
-                    ]),
-                  ),
+                  Obx(() {
+                    if (!controller.canResend.value) {
+                      return Text.rich(
+                        TextSpan(
+                          text: "otp_valid_for".tr,
+                          style: textRegularGrey,
+                          children: [
+                            TextSpan(text: controller.formattedTime),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return GestureDetector(
+                        onTap: controller.resendOtp,
+                        child: Text(
+                          "resend".tr,
+                          style: textRegularGrey.copyWith(decoration: TextDecoration.underline),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    }
+                  }),
                   vSpace(40),
                   CustomButton(
                     text: "confirm".tr,
                     onPressed: () {
-                      Get.toNamed(Routes.CHANGE_PASSWORD);
+                      controller.validateAndProceed(() => Get.toNamed(Routes.CHANGE_PASSWORD));
                     },
                   ),
                 ],

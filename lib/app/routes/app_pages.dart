@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/base_view/bindings/base_view_binding.dart';
+import '../modules/base_view/views/base_view_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/change_password_view.dart';
 import '../modules/forget_password/bindings/forget_password_binding.dart';
@@ -16,7 +18,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.BASE_VIEW;
 
   static final routes = [
     GetPage(
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.CHANGE_PASSWORD,
       page: () => const ChangePasswordView(),
       binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.BASE_VIEW,
+      page: () => const BaseViewView(),
+      binding: BaseViewBinding(),
     ),
   ];
 }

@@ -54,27 +54,34 @@ class LoginView extends GetView<LoginController> {
                   textAlign: TextAlign.center,
                 ),
                 vSpace(40),
-                CustomInput(
-                  itemController: TextEditingController(),
-                  itemHintText: "phone_or_id".tr,
-                  prefixIcon: SvgPicture.asset(
-                    userSvg,
-                    fit: BoxFit.scaleDown,
-                    height: 20,
-                    color: AppColors.formIcon,
-                  ),
-                ),
-                vSpace(8),
-                CustomInput(
-                  itemController: TextEditingController(),
-                  itemHintText: "phone_or_id".tr,
-                  isAuthField: true,
-                  suffixIcon: SvgPicture.asset(eyeSvg),
-                  prefixIcon: SvgPicture.asset(
-                    userSvg,
-                    fit: BoxFit.scaleDown,
-                    height: 20,
-                    color: AppColors.formIcon,
+                Form(
+                  key: controller.formKey,
+                  child: Column(
+                    children: [
+                      CustomInput(
+                        itemController: controller.phoneOrIdController,
+                        itemHintText: "phone_or_id".tr,
+                        prefixIcon: SvgPicture.asset(
+                          userSvg,
+                          fit: BoxFit.scaleDown,
+                          height: 20,
+                          color: AppColors.formIcon,
+                        ),
+                      ),
+                      vSpace(8),
+                      CustomInput(
+                        itemController: controller.passwordController,
+                        itemHintText: "password".tr,
+                        isAuthField: true,
+                        suffixIcon: SvgPicture.asset(eyeSvg),
+                        prefixIcon: SvgPicture.asset(
+                          userSvg,
+                          fit: BoxFit.scaleDown,
+                          height: 20,
+                          color: AppColors.formIcon,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 vSpace(8),
@@ -90,7 +97,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                 ),
                 vSpace(40),
-                CustomButton(text: "login".tr),
+                CustomButton(text: "login".tr, onPressed: controller.submit),
               ],
             ),
           ),

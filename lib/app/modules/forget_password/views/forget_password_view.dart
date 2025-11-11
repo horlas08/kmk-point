@@ -50,15 +50,22 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                   ),
                   vSpace(40),
                   Form(
+                    key: controller.formKey,
                     child: Column(
                       children: [
                         CustomInput(
                           itemController: controller.phoneController,
                           itemHintText: "enter_phone".tr,
+                          itemKeyboardType: TextInputType.phone,
                           prefixIcon: SvgPicture.asset(
                             callSvg,
                             fit: BoxFit.scaleDown,
                           ),
+                          validator: (v) {
+                            if (v == null || v.trim().isEmpty) return 'This field is required';
+                            if (v.replaceAll(RegExp(r'[^0-9]'), '').length < 10) return 'Enter valid phone';
+                            return null;
+                          },
                         ),
                         vSpace(8),
                         Text("otp_info".tr, style: textRegularGrey),
@@ -66,7 +73,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                         CustomButton(
                           text: "confirm".tr,
                           onPressed: () {
-                            Get.toNamed(Routes.OTP_VERIFICATION);
+                            controller.submit(() => Get.toNamed(Routes.OTP_VERIFICATION));
                           },
                         ),
                       ],

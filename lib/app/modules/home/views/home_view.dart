@@ -5,17 +5,30 @@ import 'package:get/get.dart';
 import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/constants/colors.dart';
 import 'package:point_system/app/constants/svg_path.dart';
+import 'package:point_system/app/modules/home/widgets/home_board.dart';
+import 'package:point_system/app/modules/home/widgets/home_card.dart';
+import 'package:point_system/app/modules/home/widgets/point_overview.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../../common/style/text_style.dart';
 import '../controllers/home_controller.dart';
+import '../widgets/top_students.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeController());
     return Scaffold(
-      body: SafeArea(child: SingleChildScrollView(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+        },
+        child: SvgPicture.asset(qrScanSvg),
+        backgroundColor: AppColors.primary,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      body: SafeArea(
+          child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
@@ -50,41 +63,11 @@ class HomeView extends GetView<HomeController> {
               vSpace(16),
               Text("welcome_user".tr, style: textMediumBlack,),
               vSpace(8),
-              Stack(
-                children: [
-                  Container(
-                    height: 164,
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(12)
-                    ),
-
-                  ),
-                  Positioned(
-                    left: -70,
-                    top: -70,
-                    child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white.withValues(alpha: 0.1)
-                    ),
-                    width: 160,
-                    height: 160,
-                  ),),
-                  Positioned(
-                    right: -40,
-                    bottom: -40,
-                    child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white.withValues(alpha: 0.1)
-                    ),
-                    width: 97,
-                    height: 97,
-                  ),)
-                ],
-              )
+              HomeCard(),
+              PointOverview(),
+              HomeBoard(),
+              TopStudents(),
+              vSpace(200),
             ],
           ),
         ),

@@ -61,22 +61,32 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                             fit: BoxFit.scaleDown,
                           ),
                           isAuthField: true,
+                          validator: (v) {
+                            if (v == null || v.trim().isEmpty) return 'This field is required';
+                            if (v.length < 6) return 'Password too short';
+                            return null;
+                          },
                         ),
                         vSpace(8),
                         CustomInput(
-                          itemController: controller.newpasswordController,
+                          itemController: controller.confirmNewpasswordController,
                           itemHintText: "confirm_new_password".tr,
                           prefixIcon: SvgPicture.asset(
                             lockSvg,
                             fit: BoxFit.scaleDown,
                           ),
                           isAuthField: true,
+                          validator: (v) {
+                            if (v == null || v.trim().isEmpty) return 'This field is required';
+                            if (v != controller.newpasswordController.text) return 'Passwords do not match';
+                            return null;
+                          },
                         ),
                         vSpace(40),
                         CustomButton(
                           text: "confirm".tr,
                           onPressed: () {
-                            Get.toNamed(Routes.LOGIN);
+                            controller.submit(() => Get.toNamed(Routes.LOGIN));
                           },
                         ),
                       ],
