@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:point_system/app/constants/svg_path.dart';
+import 'package:point_system/app/modules/bonus_request/views/bonus_request_view.dart';
 import 'package:point_system/app/modules/home/views/home_view.dart';
+
+import '../../points/views/points_view.dart';
 
 class BaseViewController extends GetxController {
   final iconList = [
@@ -18,26 +21,13 @@ class BaseViewController extends GetxController {
   ];
   final List<Widget> nestedPage = [
     HomeView(),
-    HomeView(),
-    HomeView(),
+    PointsView(),
+    BonusRequestView(),
     HomeView(),
   ];
 
   final activeIndex = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void setActiveTab(tab) => activeIndex.value = tab;
+
 }

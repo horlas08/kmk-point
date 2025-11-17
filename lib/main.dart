@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:point_system/app/constants/colors.dart';
 import 'package:point_system/app/modules/login/controllers/login_controller.dart';
 
 import 'app/common/widgets/connection_overlay.dart';
@@ -18,7 +19,14 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      systemNavigationBarColor: AppColors.primary,
+      statusBarIconBrightness: Brightness.dark, // Android
+      statusBarBrightness: Brightness.light,
+    ),
+  );
   runApp(
     ScreenUtilInit(
       designSize: const Size(390, 844),
@@ -28,7 +36,7 @@ void main() {
           title: "app_title".tr,
           initialBinding: BindingsBuilder(() {
             Get.put(LoginController());
-            Get.put(ConnectivityController(),permanent: true);
+            Get.put(ConnectivityController(), permanent: true);
           }),
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
@@ -67,15 +75,15 @@ void main() {
                 : TextDirection.ltr;
             return Directionality(
               textDirection: direction,
-              child: kDebugMode ? child! :Stack(
-                  children: [
-                    ConnectionOverlay(
-
-                      child: child ?? const SizedBox(),
-                    )
-                  ]
-              ),
-            );;
+              child: kDebugMode
+                  ? child!
+                  : Stack(
+                      children: [
+                        ConnectionOverlay(child: child ?? const SizedBox()),
+                      ],
+                    ),
+            );
+            ;
           },
         );
       },

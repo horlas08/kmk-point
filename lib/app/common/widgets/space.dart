@@ -16,6 +16,12 @@ Widget hSpace(double width) {
 EdgeInsetsGeometry simPad(double v, double h) {
   return EdgeInsets.symmetric(vertical: v.h, horizontal: h.w);
 }
+EdgeInsetsGeometry allPad(double a) {
+  return EdgeInsets.all(a);
+}
+EdgeInsetsGeometry onlyPad({double top = 0, double right=0, double bottom=0, double left=0}) {
+  return EdgeInsets.only(right: right, left: left, top: top, bottom: bottom );
+}
 
 EdgeInsets simMag(double v, double h) {
   return EdgeInsets.symmetric(vertical: v.h, horizontal: h.w);

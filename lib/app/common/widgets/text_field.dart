@@ -16,6 +16,7 @@ class CustomInput extends StatefulWidget {
     this.onChanged,
     this.suffixIcon,
     this.prefixIcon,
+    this.maxLines = 1,
     this.isAuthField = false,
     this.obscureText = false,
   });
@@ -30,6 +31,7 @@ class CustomInput extends StatefulWidget {
   final Widget? prefixIcon;
   final bool isAuthField;
   final bool obscureText;
+  final int? maxLines;
 
   @override
   State<CustomInput> createState() => _FormFieldWidgetState();
@@ -53,6 +55,7 @@ class _FormFieldWidgetState extends State<CustomInput> {
       controller: widget.itemController,
       obscureText: _obscureText,
       keyboardType: widget.itemKeyboardType,
+      maxLines: widget.maxLines,
       style: const TextStyle(color: Colors.white),
       onChanged: ((value) => widget.onChanged?.call(value)),
       decoration: InputDecoration(

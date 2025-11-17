@@ -9,6 +9,8 @@ abstract class Routes {
   static const OTP_VERIFICATION = _Paths.OTP_VERIFICATION;
   static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
   static const BASE_VIEW = _Paths.BASE_VIEW;
+  static const POINTS = _Paths.POINTS;
+  static const BONUS_REQUEST = _Paths.BONUS_REQUEST;
 }
 
 abstract class _Paths {
@@ -19,4 +21,6 @@ abstract class _Paths {
   static const OTP_VERIFICATION = '/otp-verification';
   static const CHANGE_PASSWORD = '/change-password';
   static const BASE_VIEW = '/base-view';
+  static const POINTS = '/points';
+  static const BONUS_REQUEST = '/bonus-request';
 }

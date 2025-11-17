@@ -109,6 +109,7 @@ class HomeCard extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       width: 43,
                       height: 43,
+                      color: Colors.white,
                     ),
                   ),
                 ],

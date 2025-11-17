@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/base_view/bindings/base_view_binding.dart';
 import '../modules/base_view/views/base_view_view.dart';
+import '../modules/bonus_request/bindings/bonus_request_binding.dart';
+import '../modules/bonus_request/views/bonus_request_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/change_password_view.dart';
 import '../modules/forget_password/bindings/forget_password_binding.dart';
@@ -12,6 +14,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/otp_verification/bindings/otp_verification_binding.dart';
 import '../modules/otp_verification/views/otp_verification_view.dart';
+import '../modules/points/bindings/points_binding.dart';
+import '../modules/points/views/points_view.dart';
 
 part 'app_routes.dart';
 
@@ -50,6 +54,16 @@ class AppPages {
       name: _Paths.BASE_VIEW,
       page: () => const BaseViewView(),
       binding: BaseViewBinding(),
+    ),
+    GetPage(
+      name: _Paths.POINTS,
+      page: () => const PointsView(),
+      binding: PointsBinding(),
+    ),
+    GetPage(
+      name: _Paths.BONUS_REQUEST,
+      page: () => const BonusRequestView(),
+      binding: BonusRequestBinding(),
     ),
   ];
 }
