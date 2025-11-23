@@ -11,6 +11,8 @@ abstract class Routes {
   static const BASE_VIEW = _Paths.BASE_VIEW;
   static const POINTS = _Paths.POINTS;
   static const BONUS_REQUEST = _Paths.BONUS_REQUEST;
+  static const MORE = _Paths.MORE;
+  static const SCAN = _Paths.SCAN;
 }
 
 abstract class _Paths {
@@ -23,4 +25,6 @@ abstract class _Paths {
   static const BASE_VIEW = '/base-view';
   static const POINTS = '/points';
   static const BONUS_REQUEST = '/bonus-request';
+  static const MORE = '/more';
+  static const SCAN = '/scan';
 }

@@ -11,6 +11,7 @@ final String successImage = '$assetsImageBasePath/success.png';
 final String userImage = '$assetsImageBasePath/success.png';
 final String planeImage = '$assetsImageBasePath/plane.png';
 final String keyImage = '$assetsImageBasePath/key.png';
+final String profileImage = '$assetsImageBasePath/profile_image.png';
 
 /*
 * bottom nav imagw

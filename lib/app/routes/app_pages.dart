@@ -12,10 +12,14 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/more/bindings/more_binding.dart';
+import '../modules/more/views/more_view.dart';
 import '../modules/otp_verification/bindings/otp_verification_binding.dart';
 import '../modules/otp_verification/views/otp_verification_view.dart';
 import '../modules/points/bindings/points_binding.dart';
 import '../modules/points/views/points_view.dart';
+import '../modules/scan/bindings/scan_binding.dart';
+import '../modules/scan/views/scan_view.dart';
 
 part 'app_routes.dart';
 
@@ -64,6 +68,16 @@ class AppPages {
       name: _Paths.BONUS_REQUEST,
       page: () => const BonusRequestView(),
       binding: BonusRequestBinding(),
+    ),
+    GetPage(
+      name: _Paths.MORE,
+      page: () => const MoreView(),
+      binding: MoreBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCAN,
+      page: () => const ScanView(),
+      binding: ScanBinding(),
     ),
   ];
 }

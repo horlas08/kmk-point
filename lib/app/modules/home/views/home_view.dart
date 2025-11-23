@@ -8,6 +8,7 @@ import 'package:point_system/app/constants/svg_path.dart';
 import 'package:point_system/app/modules/home/widgets/home_board.dart';
 import 'package:point_system/app/modules/home/widgets/home_card.dart';
 import 'package:point_system/app/modules/home/widgets/point_overview.dart';
+import 'package:point_system/app/routes/app_pages.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../../common/style/text_style.dart';
@@ -22,6 +23,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          Get.toNamed(Routes.SCAN);
         },
         child: SvgPicture.asset(qrScanSvg),
         backgroundColor: AppColors.primary,

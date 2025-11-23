@@ -13,7 +13,7 @@ class PointCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(Get.isRegistered<PointsController>()){
+    if(!Get.isRegistered<PointsController>()){
       Get.put(PointsController());
     }
     final controller = Get.find<PointsController>();

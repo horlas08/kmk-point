@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:point_system/app/constants/svg_path.dart';
 import 'package:point_system/app/modules/bonus_request/views/bonus_request_view.dart';
 import 'package:point_system/app/modules/home/views/home_view.dart';
+import 'package:point_system/app/modules/more/views/more_view.dart';
 
 import '../../points/views/points_view.dart';
 
@@ -23,7 +24,7 @@ class BaseViewController extends GetxController {
     HomeView(),
     PointsView(),
     BonusRequestView(),
-    HomeView(),
+    MoreView(),
   ];
 
   final activeIndex = 0.obs;

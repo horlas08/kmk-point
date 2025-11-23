@@ -1,23 +1,35 @@
 import 'package:get/get.dart';
 
 class BonusRequestController extends GetxController {
-  //TODO: Implement BonusRequestController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  final bonusList = [
+    {
+      "reward": "رحلة",
+      "point": "50",
+      "date": "15 أكتوبر 2025",
+    },{
+      "reward": "رحلة",
+      "point": "50",
+      "date": "15 أكتوبر 2025",
+    },{
+      "reward": "رحلة",
+      "point": "50",
+      "date": "15 أكتوبر 2025",
+    },{
+      "reward": "رحلة",
+      "point": "50",
+      "date": "15 أكتوبر 2025",
+    },{
+      "reward": "رحلة",
+      "point": "50",
+      "date": "15 أكتوبر 2025",
+    },{
+      "reward": "رحلة",
+      "point": "50",
+      "date": "15 أكتوبر 2025",
+    },{
+      "reward": "رحلة",
+      "point": "50",
+      "date": "15 أكتوبر 2025",
+    },
+  ];
 }
