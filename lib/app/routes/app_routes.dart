@@ -13,6 +13,11 @@ abstract class Routes {
   static const BONUS_REQUEST = _Paths.BONUS_REQUEST;
   static const MORE = _Paths.MORE;
   static const SCAN = _Paths.SCAN;
+  static const ACCOUNT_SETTING = _Paths.ACCOUNT_SETTING;
+  static const MANAGE_PROFILE = _Paths.MANAGE_PROFILE;
+  static const SCAN_SUCCESSFUL = _Paths.SCAN_SUCCESSFUL;
+  static const SCAN_HISTORY = _Paths.SCAN_HISTORY;
+  static const POINT_DETAILS = _Paths.POINT_DETAILS;
 }
 
 abstract class _Paths {
@@ -27,4 +32,9 @@ abstract class _Paths {
   static const BONUS_REQUEST = '/bonus-request';
   static const MORE = '/more';
   static const SCAN = '/scan';
+  static const ACCOUNT_SETTING = '/account-setting';
+  static const MANAGE_PROFILE = '/manage-profile';
+  static const SCAN_SUCCESSFUL = '/scan-successful';
+  static const SCAN_HISTORY = '/scan-history';
+  static const POINT_DETAILS = '/point-details';
 }

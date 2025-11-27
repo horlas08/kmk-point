@@ -7,6 +7,8 @@ import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/constants/svg_path.dart';
 import 'package:point_system/app/modules/home/controllers/home_controller.dart';
 import 'package:point_system/app/modules/points/controllers/points_controller.dart';
+import 'package:point_system/app/routes/app_pages.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../../constants/colors.dart';
 
@@ -27,9 +29,14 @@ class PointDetails extends StatelessWidget {
             children: [
               Text("تفاصيل النقاط".tr, style: textMediumBlack),
               Spacer(),
-              Text(
-                "عرض المزيد",
-                style: textMediumBlack.copyWith(color: AppColors.primary),
+              TouchableOpacity(
+                onTap: () {
+                  Get.toNamed(Routes.POINT_DETAILS);
+                },
+                child: Text(
+                  "عرض المزيد",
+                  style: textMediumBlack.copyWith(color: AppColors.primary),
+                ),
               ),
             ],
           ),

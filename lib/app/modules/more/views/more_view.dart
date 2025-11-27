@@ -107,31 +107,41 @@ class MoreView extends GetView<MoreController> {
               ),
               child: Row(
                 children: [
-                  Container(
-                    height: 48,
-                    width: 48,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryBgLight,
-                      borderRadius: BorderRadius.circular(16.0),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryBgLight,
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: SvgPicture.asset(userSvg, fit: BoxFit.scaleDown),
                     ),
-                    child: SvgPicture.asset(userSvg, fit: BoxFit.scaleDown),
                   ),
                   hSpace(16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("profile".tr, style: textMediumBlack),
-                      AutoSizeText(
-                        "view_edit_profile".tr,
-                        style: textRegularGrey.copyWith(fontSize: 14),
-                      ),
-                    ],
+                  Expanded(
+                    flex: 10,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("profile".tr, style: textMediumBlack),
+                        AutoSizeText(
+                          "view_edit_profile".tr,
+                          style: textRegularGrey.copyWith(fontSize: 14),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
                   Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                    color: AppColors.grey,
+                  Expanded(
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                      color: AppColors.grey,
+                    ),
                   ),
                 ],
               ),
@@ -239,25 +249,33 @@ class MoreView extends GetView<MoreController> {
               ),
               child: Row(
                 children: [
-                  Container(
-                    height: 48,
-                    width: 48,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryBgLight,
-                      borderRadius: BorderRadius.circular(16.0),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryBgLight,
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: SvgPicture.asset(supportSvg, fit: BoxFit.scaleDown),
                     ),
-                    child: SvgPicture.asset(supportSvg, fit: BoxFit.scaleDown),
                   ),
                   hSpace(16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("help_support".tr, style: textMediumBlack),
-                      AutoSizeText(
-                        "احصل على المساعدة واتصل بالدعم",
-                        style: textRegularGrey.copyWith(fontSize: 14),
-                      ),
-                    ],
+                  Expanded(
+                    flex: 10,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("help_support".tr, style: textMediumBlack),
+                        AutoSizeText(
+                          "احصل على المساعدة واتصل بالدعم",
+                          style: textRegularGrey.copyWith(fontSize: 14),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
                   Spacer(),
                   Icon(

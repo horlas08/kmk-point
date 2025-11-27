@@ -16,6 +16,7 @@ class CustomInput extends StatefulWidget {
     this.onChanged,
     this.suffixIcon,
     this.prefixIcon,
+    this.contentPadding,
     this.maxLines = 1,
     this.isAuthField = false,
     this.obscureText = false,
@@ -31,6 +32,7 @@ class CustomInput extends StatefulWidget {
   final Widget? prefixIcon;
   final bool isAuthField;
   final bool obscureText;
+  final EdgeInsetsGeometry? contentPadding;
   final int? maxLines;
 
   @override
@@ -56,7 +58,7 @@ class _FormFieldWidgetState extends State<CustomInput> {
       obscureText: _obscureText,
       keyboardType: widget.itemKeyboardType,
       maxLines: widget.maxLines,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black),
       onChanged: ((value) => widget.onChanged?.call(value)),
       decoration: InputDecoration(
         suffixIcon: widget.isAuthField
@@ -80,12 +82,20 @@ class _FormFieldWidgetState extends State<CustomInput> {
         prefixIcon: widget.prefixIcon,
         hintText: widget.itemHintText,
         hintStyle: TextStyle(color: AppColors.grey.withValues(alpha: 0.4)),
-        contentPadding: const EdgeInsets.symmetric(
+        contentPadding: widget.contentPadding?? const EdgeInsets.symmetric(
           vertical: 17,
           horizontal: 12,
         ),
 
         border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            color: AppColors.stroke,
+            width: 1,
+            strokeAlign: -1,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
             color: AppColors.stroke,
