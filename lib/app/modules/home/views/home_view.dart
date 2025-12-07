@@ -9,6 +9,7 @@ import 'package:point_system/app/modules/home/widgets/home_board.dart';
 import 'package:point_system/app/modules/home/widgets/home_card.dart';
 import 'package:point_system/app/modules/home/widgets/point_overview.dart';
 import 'package:point_system/app/routes/app_pages.dart';
+import 'package:point_system/app/services/auth/auth_service.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../../common/style/text_style.dart';
@@ -20,6 +21,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Get.put(HomeController());
+    final student = Get.find<AuthService>().loginData.value!.student;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -63,7 +65,7 @@ class HomeView extends GetView<HomeController> {
                 ],
               ),
               vSpace(16),
-              Text("welcome_user".tr, style: textMediumBlack,),
+              Text("${'welcome_user'.tr} ${student?.user?.username ??student?.user?.firstName}", style: textMediumBlack,),
               vSpace(8),
               HomeCard(),
               PointOverview(),

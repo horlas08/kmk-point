@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../modules/account_setting/bindings/account_setting_binding.dart';
 import '../modules/account_setting/views/account_setting_view.dart';
 import '../modules/base_view/bindings/base_view_binding.dart';
+import '../modules/base_view/middlewares/check_token.dart';
 import '../modules/base_view/views/base_view_view.dart';
 import '../modules/bonus_request/bindings/bonus_request_binding.dart';
 import '../modules/bonus_request/views/bonus_request_view.dart';
@@ -45,6 +46,9 @@ class AppPages {
       name: _Paths.HOME,
       page: () => const HomeView(),
       binding: HomeBinding(),
+      middlewares: [
+        CheckToken()
+      ]
     ),
     GetPage(
       name: _Paths.LOGIN,

@@ -1,29 +1,3 @@
-class Endpoints {
-  static const String websocket = "ws://api.voucherhub.ng";
-  static const String requestOtp = "/users/request-otp";
-  static const String verifyOtp = "/users/verify-otp";
-  static const String forgetPasswordOtp = "/users/verify-forget-password-otp";
-  static const String createUser = "/users/create-user";
-  static const String loginUser = "/users/login";
-  static const String googleLogin = "/users/auth/google-login";
-  static const String appleLogin = "/users/auth/apple-login";
-  static const String getUser = "/users/user-info";
-  static const String getHubs = "/hub/all";
-  static const String forgetPassword = "/users/forgot-password";
-  static const String resetPassword = "/users/reset-password";
-  static const String updateLocation = "/users/update-location";
-  static const String buyPlan = "/vouchers/buy";
-  static const String fetchTransaction = "/users/transactions";
-  static const String fetchNotification = "/notifications/notifications";
-  static const String setPin = "/settings/set-pin";
-  static const String depositWallet = "/deposit/webhook/paystack";
-  static const String updateUserInfo = "/users/update-user-info";
-  static const String validatePin = "/settings/validate-pin-change-otp";
-  static const String validateTransactionPin = "/settings/validate-pin";
-  static const String confirmPin = "/settings/confirm-pin-change";
-  static const String requestPinChange = "/settings/request-pin-change";
-  static const String requestPasswordChange = "/settings/request-password-change";
-  static const String requestPasswordOtp = "/settings/validate-password-change-otp";
-  static const String confirmPasswordChange = "/settings/confirm-password-change";
-  static const String buyPlanPayStack = "/vouchers/buy-voucher/paystack";
+sealed class Endpoints {
+  static const String login = "/points-plugin/login";
 }

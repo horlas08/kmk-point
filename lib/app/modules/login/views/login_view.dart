@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:form_validator/form_validator.dart';
 
 import 'package:get/get.dart';
 import 'package:point_system/app/common/widgets/custom_appbar.dart';
@@ -61,6 +62,7 @@ class LoginView extends GetView<LoginController> {
                       CustomInput(
                         itemController: controller.phoneOrIdController,
                         itemHintText: "phone_or_id".tr,
+                        validator: ValidationBuilder(localeName: "ar").required().build(),
                         prefixIcon: SvgPicture.asset(
                           userSvg,
                           fit: BoxFit.scaleDown,

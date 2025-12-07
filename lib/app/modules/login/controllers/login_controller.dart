@@ -1,33 +1,46 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:point_system/app/models/auth_data.dart';
+import 'package:point_system/app/routes/app_pages.dart';
+import 'package:point_system/app/services/auth/auth_service.dart';
+
+import '../../../common/widgets/notify.dart';
 
 class LoginController extends GetxController {
-  final phoneOrIdController = TextEditingController();
-  final passwordController = TextEditingController();
+  final phoneOrIdController = TextEditingController(text: "012345678945");
+  final passwordController = TextEditingController(text: "123456789");
   final formKey = GlobalKey<FormState>();
   final isSubmitting = false.obs;
 
-  void submit() {
+  Future<void> submit() async {
     final form = formKey.currentState;
-    if (form != null && form.validate()) {
-      isSubmitting.value = true;
-      // TODO: Hook up actual login logic/API here
-      // After completing submission, set isSubmitting to false.
-      isSubmitting.value = false;
+    try{
+      if (form != null && form.validate()) {
+        Get.context?.loaderOverlay.show();
+        final loginRes = await Get.find<AuthService>().login(
+          identifier: phoneOrIdController.value.text,
+          password: passwordController.value.text,
+        );
+        Get.context?.loaderOverlay.hide();
+        if(loginRes.statusCode == HttpStatus.ok){
+          Get.find<AuthService>().loginData.value = AuthData.fromJson(loginRes.data['data']);
+          Notify.success(loginRes.data['message']);
+          Get.offAllNamed(Routes.BASE_VIEW);
+        }else{
+          throw Exception(loginRes.data['message']);
+        }
+      }
+    }catch (error) {
+      print(error);
+      Get.context?.loaderOverlay.hide();
+      Notify.error(error.toString(), );
+
     }
-  }
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }
