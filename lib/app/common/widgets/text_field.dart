@@ -20,6 +20,8 @@ class CustomInput extends StatefulWidget {
     this.maxLines = 1,
     this.isAuthField = false,
     this.obscureText = false,
+    this.readOnly = false,
+    this.onTap
   });
 
   final TextEditingController itemController;
@@ -34,6 +36,8 @@ class CustomInput extends StatefulWidget {
   final bool obscureText;
   final EdgeInsetsGeometry? contentPadding;
   final int? maxLines;
+  final VoidCallback? onTap;
+  final bool readOnly;
 
   @override
   State<CustomInput> createState() => _FormFieldWidgetState();
@@ -58,6 +62,8 @@ class _FormFieldWidgetState extends State<CustomInput> {
       obscureText: _obscureText,
       keyboardType: widget.itemKeyboardType,
       maxLines: widget.maxLines,
+      onTap: widget.onTap,
+      readOnly: widget.readOnly,
       style: const TextStyle(color: Colors.black),
       onChanged: ((value) => widget.onChanged?.call(value)),
       decoration: InputDecoration(

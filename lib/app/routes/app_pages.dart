@@ -9,6 +9,8 @@ import '../modules/bonus_request/bindings/bonus_request_binding.dart';
 import '../modules/bonus_request/views/bonus_request_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/change_password_view.dart';
+import '../modules/change_project/bindings/change_project_binding.dart';
+import '../modules/change_project/views/change_project_view.dart';
 import '../modules/forget_password/bindings/forget_password_binding.dart';
 import '../modules/forget_password/views/forget_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -33,6 +35,8 @@ import '../modules/scan_history/bindings/scan_history_binding.dart';
 import '../modules/scan_history/views/scan_history_view.dart';
 import '../modules/scan_successful/bindings/scan_successful_binding.dart';
 import '../modules/scan_successful/views/scan_successful_view.dart';
+import '../modules/select_project/bindings/select_project_binding.dart';
+import '../modules/select_project/views/select_project_view.dart';
 
 part 'app_routes.dart';
 
@@ -43,13 +47,10 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
-      middlewares: [
-        CheckToken()
-      ]
-    ),
+        name: _Paths.HOME,
+        page: () => const HomeView(),
+        binding: HomeBinding(),
+        middlewares: [CheckToken()]),
     GetPage(
       name: _Paths.LOGIN,
       page: () => const LoginView(),
@@ -119,6 +120,16 @@ class AppPages {
       name: _Paths.POINT_DETAILS,
       page: () => const PointDetailsView(),
       binding: PointDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_PROJECT,
+      page: () => const SelectProjectView(),
+      binding: SelectProjectBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PROJECT,
+      page: () => const ChangeProjectView(),
+      binding: ChangeProjectBinding(),
     ),
   ];
 }

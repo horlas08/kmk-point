@@ -18,6 +18,8 @@ abstract class Routes {
   static const SCAN_SUCCESSFUL = _Paths.SCAN_SUCCESSFUL;
   static const SCAN_HISTORY = _Paths.SCAN_HISTORY;
   static const POINT_DETAILS = _Paths.POINT_DETAILS;
+  static const SELECT_PROJECT = _Paths.SELECT_PROJECT;
+  static const CHANGE_PROJECT = _Paths.CHANGE_PROJECT;
 }
 
 abstract class _Paths {
@@ -37,4 +39,6 @@ abstract class _Paths {
   static const SCAN_SUCCESSFUL = '/scan-successful';
   static const SCAN_HISTORY = '/scan-history';
   static const POINT_DETAILS = '/point-details';
+  static const SELECT_PROJECT = '/select-project';
+  static const CHANGE_PROJECT = '/change-project';
 }

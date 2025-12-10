@@ -24,6 +24,7 @@ import 'app/services/api/api_service.dart';
 import 'app/services/auth/auth_service.dart';
 
 main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

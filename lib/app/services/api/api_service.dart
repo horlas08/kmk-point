@@ -41,6 +41,7 @@ class ApiService {
         'Version': Platform.version,
         'Device-manufacturer': "${Hive.box("appData").get("deviceManufacture")}",
         'Accept-Language': 'ar',
+        'fcmToken': "${Hive.box("appData").get("fcmToken")?? "no_data"}"
       };
     _initializeService();
   }
