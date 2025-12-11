@@ -7,94 +7,104 @@ import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/constants/colors.dart';
 import 'package:point_system/app/constants/svg_path.dart';
 
+import '../../../models/participant_home_page.dart';
+import '../../../services/home/home_service.dart';
+
 class PointOverview extends StatelessWidget {
   const PointOverview({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 16),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                PointCardWidget(
-                  isGradient: true,
-                  gradientBg: LinearGradient(
-                    colors: [Color(0xFFF0FDF4), Color(0xFFFFFFFF)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0.0, 1.0],
-                  ),
-                  borderColor: Color(0xFFB9F8CF),
-                  iconBgColor: Color(0xFFB9F8CF),
-                  icon: SvgPicture.asset(riseSvg),
-                  title: "this_week".tr,
-                  point: '1500',
-                  extraWidget: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+    final homeService = Get.find<HomeService>();
 
-                    children: [
-                      SvgPicture.asset(riseSvg, width: 16, height: 16),
-                      hSpace(5),
-                      Text(
-                        "increase".tr,
-                        style: textRegularGrey.copyWith(
-                          fontSize: 12.sp,
-                          color: Color(0xFF00A63E),
+
+    return Obx(() {
+      final HomePageStatistics homeStat = homeService.participantHome.value!.homePageStatistics;
+
+      return Container(
+        margin: EdgeInsets.only(top: 16),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  PointCardWidget(
+                    isGradient: true,
+                    gradientBg: LinearGradient(
+                      colors: [Color(0xFFF0FDF4), Color(0xFFFFFFFF)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.0, 1.0],
+                    ),
+                    borderColor: Color(0xFFB9F8CF),
+                    iconBgColor: Color(0xFFB9F8CF),
+                    icon: SvgPicture.asset(riseSvg),
+                    title: "this_week".tr,
+                    point: "${homeStat.week.points}",
+                    extraWidget: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+                      children: [
+                        SvgPicture.asset(riseSvg, width: 16, height: 16),
+                        hSpace(5),
+                        Text(
+                          "increase".tr,
+                          style: textRegularGrey.copyWith(
+                            fontSize: 12.sp,
+                            color: Color(0xFF00A63E),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          hSpace(16),
-          Expanded(
-            child: Column(
-              children: [
-                PointCardWidget(
-                  isGradient: true,
-                  gradientBg: LinearGradient(
-                    colors: [Color(0xFFFAF5FF), Color(0xFFFFFFFF)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0.0, 1.0],
-                  ),
-                  borderColor: Color(0xFFE9D4FF),
-                  iconBgColor: Color(0xFFF3E8FF),
-                  icon: SvgPicture.asset(starSvg),
-                  title: "this_month".tr,
-                  point: '1120',
-                  extraWidget: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+            hSpace(16),
+            Expanded(
+              child: Column(
+                children: [
+                  PointCardWidget(
+                    isGradient: true,
+                    gradientBg: LinearGradient(
+                      colors: [Color(0xFFFAF5FF), Color(0xFFFFFFFF)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.0, 1.0],
+                    ),
+                    borderColor: Color(0xFFE9D4FF),
+                    iconBgColor: Color(0xFFF3E8FF),
+                    icon: SvgPicture.asset(starSvg),
+                    title: "this_month".tr,
+                    point: '${homeStat.month.points}',
+                    extraWidget: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
 
-                    children: [
-                      SvgPicture.asset(
-                        riseSvg,
-                        width: 16,
-                        height: 16,
-                        color: Color(0xFF9810FA),
-                      ),
-                      hSpace(5),
-                      Text(
-                        "increase".tr,
-                        style: textRegularGrey.copyWith(
-                          fontSize: 12.sp,
+                      children: [
+                        SvgPicture.asset(
+                          riseSvg,
+                          width: 16,
+                          height: 16,
                           color: Color(0xFF9810FA),
                         ),
-                      ),
-                    ],
+                        hSpace(5),
+                        Text(
+                          "increase".tr,
+                          style: textRegularGrey.copyWith(
+                            fontSize: 12.sp,
+                            color: Color(0xFF9810FA),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }
 
@@ -151,7 +161,7 @@ class PointCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "3000",
+                point,
                 style: textMediumBlack.copyWith(
                   color: Colors.black87,
                   fontSize: 23,

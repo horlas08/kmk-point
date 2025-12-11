@@ -31,6 +31,8 @@ class LoginController extends GetxController {
         if(loginRes.statusCode == HttpStatus.ok){
           Get.find<AuthService>().loginData.value = AuthData.fromJson(loginRes.data['data']);
           await Hive.box("auth").put('accessToken', loginRes.data['data']['token']);
+          log(loginRes.data['data']['token']);
+
           Notify.success(loginRes.data['message']);
           Get.offAllNamed(Routes.SELECT_PROJECT);
         }else{

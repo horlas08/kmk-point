@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
+import 'package:point_system/app/constants/endpoint.dart';
 
 import '../../models/participant_home_page.dart';
 import '../api/api_service.dart';
@@ -13,7 +14,7 @@ class HomeService extends GetxService {
 
   Future<ParticipantHomePageData> fetchParticipantHome({required String projectId}) async {
     final api = Get.find<ApiService>();
-    final String path = "/points-plugin/projects/$projectId/participant-home-page";
+    final String path = Endpoints.participantHomePage(projectId);
 
     final res = await api.get(path);
 

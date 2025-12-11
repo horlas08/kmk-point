@@ -30,3 +30,5 @@ final String uploadSvg = '$assetsSvgBasePath/upload.svg';
 final String userSvg = '$assetsSvgBasePath/user.svg';
 final String lockSvg = '$assetsSvgBasePath/lock.svg';
 final String eyeSvg = '$assetsSvgBasePath/eye.svg';
+final String changeProjectSvg = '$assetsSvgBasePath/change_project.svg';
+final String roadMapSvg = '$assetsSvgBasePath/roadmap.svg';

@@ -24,4 +24,19 @@ class AuthService extends GetxService{
     });
 
   }
+
+  /// Change the logged-in participant's password.
+  /// Body: { current_password, new_password, new_password_confirmation }
+  Future<Response> changePassword({
+    required String currentPassword,
+    required String newPassword,
+    required String newPasswordConfirmation,
+  }) async {
+    final apiServices = Get.find<ApiService>();
+    return await apiServices.post(Endpoints.changePassword, data: {
+      'current_password': currentPassword,
+      'new_password': newPassword,
+      'new_password_confirmation': newPasswordConfirmation,
+    });
+  }
 }

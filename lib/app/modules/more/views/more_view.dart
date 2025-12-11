@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/constants/colors.dart';
 import 'package:point_system/app/constants/image_path.dart';
+import 'package:point_system/app/routes/app_pages.dart';
 
 import '../../../common/style/text_style.dart';
 import '../../../constants/svg_path.dart';
@@ -98,6 +99,7 @@ class MoreView extends GetView<MoreController> {
           Text("account".tr, style: textMediumBlack),
           vSpace(16),
           GestureDetector(
+            onTap: () => Get.toNamed(Routes.MANAGE_PROFILE),
             child: Container(
               padding: allPad(16),
               margin: onlyPad(bottom: 16),
@@ -128,6 +130,57 @@ class MoreView extends GetView<MoreController> {
                         Text("profile".tr, style: textMediumBlack),
                         AutoSizeText(
                           "view_edit_profile".tr,
+                          style: textRegularGrey.copyWith(fontSize: 14),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                      color: AppColors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => Get.toNamed(Routes.CHANGE_PROJECT),
+            child: Container(
+              padding: allPad(16),
+              margin: onlyPad(bottom: 16),
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColors.stroke),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryBgLight,
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: SvgPicture.asset(changeProjectSvg, fit: BoxFit.scaleDown),
+                    ),
+                  ),
+                  hSpace(16),
+                  Expanded(
+                    flex: 10,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("change_project".tr, style: textMediumBlack),
+                        AutoSizeText(
+                          "change_project_from_here".tr,
                           style: textRegularGrey.copyWith(fontSize: 14),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

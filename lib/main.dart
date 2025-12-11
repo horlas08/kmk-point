@@ -22,6 +22,7 @@ import 'app/routes/app_pages.dart';
 import 'app/localization/app_translations.dart';
 import 'app/services/api/api_service.dart';
 import 'app/services/auth/auth_service.dart';
+import 'app/services/home/home_service.dart';
 
 main() async {
   
@@ -143,5 +144,6 @@ class InitialBindings extends Bindings {
 
     // AuthService requires async init
     Get.putAsync<AuthService>(() async => await AuthService().init());
+    Get.putAsync<HomeService>(() async => await HomeService().init());
   }
 }

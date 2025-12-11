@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -145,6 +146,7 @@ class ApiService {
         ),
       );
     }
+    final token = await loadTokens();
 
     if (_accessToken != null) {
       options.headers['Authorization'] = 'Bearer $_accessToken';
@@ -217,7 +219,7 @@ class ApiService {
   Future<Response> post(
     String path, {
     Map<String, dynamic>? queryParameters,
-    dynamic data,
+    Object? data,
     void Function(int sent, int total)? onSendProgress,
     CancelToken? cancelToken,
   }) async {

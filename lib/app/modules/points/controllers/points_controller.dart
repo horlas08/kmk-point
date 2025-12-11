@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../widgets/request_reward.dart';
 import '../widgets/request_reward_sucessful.dart';
@@ -26,6 +27,16 @@ class PointsController extends GetxController {
   final selectRewardController = TextEditingController();
   final noteController = TextEditingController();
 
+  @override
+  void onInit() {
+    super.onInit();
+    Get.context?.loaderOverlay.show();
+    Future.delayed(Duration(seconds: 2), () {
+
+    });
+    Get.context?.loaderOverlay.hide();
+
+  }
 
   showRequestReward() {
     return showDialog(

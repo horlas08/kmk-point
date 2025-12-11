@@ -10,6 +10,7 @@ import 'package:point_system/app/modules/home/widgets/home_card.dart';
 import 'package:point_system/app/modules/home/widgets/point_overview.dart';
 import 'package:point_system/app/routes/app_pages.dart';
 import 'package:point_system/app/services/auth/auth_service.dart';
+import 'package:point_system/app/services/home/home_service.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../../common/style/text_style.dart';
@@ -22,6 +23,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     Get.put(HomeController());
     final student = Get.find<AuthService>().loginData.value!.student;
+    final homeService = Get.find<HomeService>();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -35,45 +37,48 @@ class HomeView extends GetView<HomeController> {
           child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    "points_system".tr,
-                    style: headerSbPrimary.copyWith(fontSize: 24),
-                    textAlign: TextAlign.center,
-                  ),
-                  Spacer(),
-
-                  TouchableOpacity(
-                    onTap: () {
-                      
-                    },
-                    child: Container(
-
-                      height: 48,
-                      width: 48,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryBgLight,
-                        borderRadius: BorderRadius.circular(14)
-                      ),
-                      child: SvgPicture.asset(notificationSvg, fit: BoxFit.scaleDown,),
+          child: Obx(() {
+            final participantData = homeService.participantHome.value;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "points_system".tr,
+                      style: headerSbPrimary.copyWith(fontSize: 24),
+                      textAlign: TextAlign.center,
                     ),
-                  )
-                ],
-              ),
-              vSpace(16),
-              Text("${'welcome_user'.tr} ${student?.user?.username ??student?.user?.firstName}", style: textMediumBlack,),
-              vSpace(8),
-              HomeCard(),
-              PointOverview(),
-              HomeBoard(),
-              TopStudents(),
-              vSpace(200),
-            ],
-          ),
+                    Spacer(),
+
+                    TouchableOpacity(
+                      onTap: () {
+                        
+                      },
+                      child: Container(
+
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryBgLight,
+                          borderRadius: BorderRadius.circular(14)
+                        ),
+                        child: SvgPicture.asset(notificationSvg, fit: BoxFit.scaleDown,),
+                      ),
+                    )
+                  ],
+                ),
+                vSpace(16),
+                Text("${'welcome_user'.tr} ${student?.user?.username ??student?.user?.firstName}", style: textMediumBlack,),
+                vSpace(8),
+                HomeCard(),
+                PointOverview(),
+                HomeBoard(),
+                TopStudents(),
+                vSpace(200),
+              ],
+            );
+          }),
         ),
       ))
     );

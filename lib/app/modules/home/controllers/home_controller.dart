@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:point_system/app/constants/svg_path.dart';
+import 'package:point_system/app/services/home/home_service.dart';
 
 class HomeController extends GetxController {
+  late final HomeService homeService;
   late final List<Map<String, dynamic>> topStudents;
   final List<Map<String, dynamic>> rankingStyleDetails = [
     {
@@ -42,24 +44,19 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    topStudents = [
-      {
-        "position": 1,
-        "name": "محمد علي عبد الرحمن",
-        "point": 1280,
-      },
-
-      {
-        "position": 2,
-        "name": "عبدالله الرافي عبد الرحمن",
-        "point": 1200,
-      },
-      {
-        "position": 3,
-        "name": "عبدالرحمن أحمد عبد الرحمن",
-        "point": 1100,
-      },
-    ];
+    homeService = Get.find<HomeService>();
+    // Populate topStudents from participantHome data
+    if (homeService.participantHome.value != null) {
+      topStudents = homeService.participantHome.value!.topTenParticipants
+          .map((participant) => {
+                "position": participant.order,
+                "name": participant.name,
+                "point": participant.points,
+              })
+          .toList();
+    } else {
+      topStudents = [];
+    }
   }
 
   @override
