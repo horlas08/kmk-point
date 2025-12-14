@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
-import '../../../services/auth/auth_service.dart';
+import '../../login/repository/auth_service.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import '../../../routes/app_pages.dart';
 import '../../../common/widgets/notify.dart';
-import '../../../services/home/home_service.dart';
+import '../../home/repository/home_service.dart';
 
 class SelectProjectController extends GetxController {
   final activeProjectId = ''.obs;

@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:point_system/app/constants/svg_path.dart';
-import 'package:point_system/app/services/home/home_service.dart';
+import 'package:point_system/app/modules/home/repository/home_service.dart';
 
 class HomeController extends GetxController {
   late final HomeService homeService;

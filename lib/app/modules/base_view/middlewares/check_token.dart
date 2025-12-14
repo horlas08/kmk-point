@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:point_system/app/services/auth/auth_service.dart';
+import 'package:point_system/app/modules/login/repository/auth_service.dart';
 
 class CheckToken extends GetMiddleware{
   @override

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:point_system/app/common/style/text_style.dart';
 import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/constants/svg_path.dart';
-import 'package:point_system/app/services/home/home_service.dart';
+import 'package:point_system/app/modules/home/repository/home_service.dart';
 import '../../../constants/colors.dart';
 
 class HomeCard extends StatelessWidget {

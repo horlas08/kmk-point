@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:point_system/app/constants/endpoint.dart';
 
-import '../../models/participant_home_page.dart';
-import '../api/api_service.dart';
+import '../../../models/participant_home_page.dart';
+import '../../../services/api/api_service.dart';
 
 class HomeService extends GetxService {
   final Rxn<ParticipantHomePageData> participantHome = Rxn<ParticipantHomePageData>();

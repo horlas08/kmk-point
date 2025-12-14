@@ -8,7 +8,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:point_system/app/models/auth_data.dart';
 import 'package:point_system/app/routes/app_pages.dart';
-import 'package:point_system/app/services/auth/auth_service.dart';
+import 'package:point_system/app/modules/login/repository/auth_service.dart';
 
 import '../../../common/widgets/notify.dart';
 

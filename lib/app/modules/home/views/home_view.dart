@@ -9,8 +9,8 @@ import 'package:point_system/app/modules/home/widgets/home_board.dart';
 import 'package:point_system/app/modules/home/widgets/home_card.dart';
 import 'package:point_system/app/modules/home/widgets/point_overview.dart';
 import 'package:point_system/app/routes/app_pages.dart';
-import 'package:point_system/app/services/auth/auth_service.dart';
-import 'package:point_system/app/services/home/home_service.dart';
+import 'package:point_system/app/modules/login/repository/auth_service.dart';
+import 'package:point_system/app/modules/home/repository/home_service.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../../common/style/text_style.dart';

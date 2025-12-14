@@ -21,8 +21,8 @@ import 'app/common/widgets/connectivity.dart';
 import 'app/routes/app_pages.dart';
 import 'app/localization/app_translations.dart';
 import 'app/services/api/api_service.dart';
-import 'app/services/auth/auth_service.dart';
-import 'app/services/home/home_service.dart';
+import 'app/modules/login/repository/auth_service.dart';
+import 'app/modules/home/repository/home_service.dart';
 
 main() async {
   

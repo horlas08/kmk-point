@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../common/widgets/notify.dart';
-import '../../../services/profile/profile_service.dart';
+import '../../account_setting/repository/profile_service.dart';
 
 class ManageProfileController extends GetxController {
   final fullNameController = TextEditingController(text: "وليد محمد");

@@ -8,7 +8,7 @@ import 'package:point_system/app/constants/colors.dart';
 import 'package:point_system/app/constants/svg_path.dart';
 
 import '../../../models/participant_home_page.dart';
-import '../../../services/home/home_service.dart';
+import '../repository/home_service.dart';
 
 class PointOverview extends StatelessWidget {
   const PointOverview({super.key});

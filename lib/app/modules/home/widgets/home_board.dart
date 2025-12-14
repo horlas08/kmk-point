@@ -6,7 +6,7 @@ import 'package:point_system/app/common/style/text_style.dart';
 import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/constants/svg_path.dart';
 import 'package:point_system/app/modules/home/controllers/home_controller.dart';
-import 'package:point_system/app/services/home/home_service.dart';
+import 'package:point_system/app/modules/home/repository/home_service.dart';
 
 import '../../../models/participant_home_page.dart';
 

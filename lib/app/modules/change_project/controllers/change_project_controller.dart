@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../../../services/auth/auth_service.dart';
+import '../../login/repository/auth_service.dart';
 import '../../../models/organization_project_pair.dart';
 import '../../select_project/controllers/select_project_controller.dart';
-import '../../../services/home/home_service.dart';
+import '../../home/repository/home_service.dart';
 import '../../../routes/app_pages.dart';
 import '../../../common/widgets/notify.dart';
 import 'package:loader_overlay/loader_overlay.dart';

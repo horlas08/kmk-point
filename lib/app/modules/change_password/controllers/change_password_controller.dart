@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../common/widgets/notify.dart';
-import '../../../services/auth/auth_service.dart';
+import '../../login/repository/auth_service.dart';
 
 class ChangePasswordController extends GetxController {
   final newpasswordController = TextEditingController();

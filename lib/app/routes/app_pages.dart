@@ -37,6 +37,10 @@ import '../modules/scan_successful/bindings/scan_successful_binding.dart';
 import '../modules/scan_successful/views/scan_successful_view.dart';
 import '../modules/select_project/bindings/select_project_binding.dart';
 import '../modules/select_project/views/select_project_view.dart';
+import '../modules/test/bindings/test_binding.dart';
+import '../modules/test/bindings/test_binding.dart';
+import '../modules/test/views/test_view.dart';
+import '../modules/test/views/test_view.dart';
 
 part 'app_routes.dart';
 
@@ -131,5 +135,6 @@ class AppPages {
       page: () => const ChangeProjectView(),
       binding: ChangeProjectBinding(),
     ),
+
   ];
 }

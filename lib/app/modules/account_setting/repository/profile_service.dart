@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response, MultipartFile, FormData;
 import 'package:path/path.dart' as p;
 
-import '../../constants/endpoint.dart';
-import '../api/api_service.dart';
+import '../../../constants/endpoint.dart';
+import '../../../services/api/api_service.dart';
 
 class ProfileService extends GetxService {
   Future<ProfileService> init() async {
