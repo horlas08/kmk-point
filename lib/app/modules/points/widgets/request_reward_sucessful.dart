@@ -10,7 +10,10 @@ import 'package:point_system/app/common/widgets/text_field.dart';
 import '../controllers/points_controller.dart';
 
 class RequestRewardSuccessful extends StatelessWidget {
-  const RequestRewardSuccessful({super.key});
+  final bool error;
+  final String message;
+
+   const RequestRewardSuccessful({super.key, this.error = false,  this.message = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +36,11 @@ class RequestRewardSuccessful extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              if (error) SvgPicture.asset("assets/svg/success.svg")
+              else Image.asset("assets/image/error.png"),
 
-
-              SvgPicture.asset(
-                "assets/svg/success.svg",
-
-              ),
               vSpace(24),
-              Text(
-                "تم تسجيل طلبك بنجاح",
-                style: TextStyle(fontSize: 20,),
-              ),
+              Text(message??"تم تسجيل طلبك بنجاح", style: TextStyle(fontSize: 20)),
             ],
           ),
         ),

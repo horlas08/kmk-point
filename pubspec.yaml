@@ -60,6 +60,8 @@ dependencies:
   device_info_plus: ^12.3.0
   dio_cache_interceptor: ^4.0.5
   http_cache_hive_store: ^5.0.1
+  image_picker: ^1.2.1
+  shimmer_animation: ^2.2.2+1
 
 flutter_launcher_icons:
   android: "launcher_icon"

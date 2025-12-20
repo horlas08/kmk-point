@@ -7,6 +7,7 @@ import 'package:touchable_opacity/touchable_opacity.dart';
 import '../../../common/widgets/custom_appbar.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/svg_path.dart';
+import '../../select_project/controllers/select_project_controller.dart';
 import '../controllers/change_project_controller.dart';
 
 class ChangeProjectView extends GetView<ChangeProjectController> {
@@ -14,6 +15,7 @@ class ChangeProjectView extends GetView<ChangeProjectController> {
 
   @override
   Widget build(BuildContext context) {
+    SelectProjectController();
     // locale-aware strings
     final isAr = Get.locale?.languageCode == 'ar';
     final title = isAr ? 'المشاريع' : 'Projects';

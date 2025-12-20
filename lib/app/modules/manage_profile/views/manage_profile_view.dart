@@ -32,9 +32,13 @@ class ManageProfileView extends GetView<ManageProfileController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
                       Row(
+
                         children: [
-                          Image.asset(pictureImage, fit: BoxFit.scaleDown),
+                          controller.selectedImage != null ?
+                          Image.file(controller.selectedImage!, fit: BoxFit.scaleDown)
+                              :Image.asset(pictureImage, fit: BoxFit.scaleDown),
                           hSpace(8),
                           Text("profile_picture".tr, style: textMediumBlack),
                         ],
@@ -74,7 +78,9 @@ class ManageProfileView extends GetView<ManageProfileController> {
                                       Text("upload_new_image".tr),
                                     ],
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.pickImage();
+                                  },
                                 ),
                               ),
                               vSpace(16),
@@ -126,7 +132,9 @@ class ManageProfileView extends GetView<ManageProfileController> {
                                   Text("save_changes".tr, style: TextStyle(fontSize: 16, color: Colors.white),),
                                 ],
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.submitProfile();
+                              },
                             ),
                             vSpace(32),
 

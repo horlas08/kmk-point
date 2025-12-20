@@ -54,6 +54,7 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                     child: OTPTextField(
                       controller: controller.otpController,
                       focusNode: controller.focusNode,
+
                       validator: (v) {
                         final val = v?.trim() ?? '';
                         if (val.isEmpty) return 'This field is required';
@@ -62,7 +63,7 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                         return null;
                       },
                       onCompleted: (String otp) {
-                        // Optionally trigger auto-validate on complete
+                        controller.validateAndProceed(() => Get.toNamed(Routes.CHANGE_PASSWORD));
                       },
                     ),
                   ),

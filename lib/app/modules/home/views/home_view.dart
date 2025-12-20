@@ -75,7 +75,7 @@ class HomeView extends GetView<HomeController> {
                 PointOverview(),
                 HomeBoard(),
                 TopStudents(),
-                vSpace(200),
+                vSpace(20),
               ],
             );
           }),

@@ -4,13 +4,17 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../common/widgets/notify.dart';
 import '../../login/repository/auth_service.dart';
+import '../../../constants/endpoint.dart';
+import '../../../services/api/api_service.dart';
 
 class ChangePasswordController extends GetxController {
   final newpasswordController = TextEditingController();
   final confirmNewpasswordController = TextEditingController();
+  final currentPasswordController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
   final isSubmitting = false.obs;
+  String? resetToken;
 
   void submit(void Function() onSuccess) {
     final form = formKey.currentState;
@@ -26,19 +30,29 @@ class ChangePasswordController extends GetxController {
 
   Future<void> _submitChangePassword(void Function() onSuccess) async {
     try {
-      // current_password is optional in this UI (no field). Send empty string.
-      final current = '';
-      final newPass = newpasswordController.text.trim();
-      final confirm = confirmNewpasswordController.text.trim();
+  final newPass = newpasswordController.text.trim();
+  final confirm = confirmNewpasswordController.text.trim();
+  final current = currentPasswordController.text.trim();
 
       Get.context?.loaderOverlay.show();
-
-      final auth = Get.find<AuthService>();
-      final res = await auth.changePassword(
-        currentPassword: current,
-        newPassword: newPass,
-        newPasswordConfirmation: confirm,
-      );
+      dynamic res;
+      if ((resetToken ?? '').isNotEmpty) {
+        // Reset-password via reset_token
+        final api = Get.find<ApiService>();
+        res = await api.post(Endpoints.resetPassword, data: {
+          'password': newPass,
+          'password_confirmation': confirm,
+          'reset_token': resetToken,
+        });
+      } else {
+        // Logged-in change password flow
+        final auth = Get.find<AuthService>();
+        res = await auth.changePassword(
+          currentPassword: current,
+          newPassword: newPass,
+          newPasswordConfirmation: confirm,
+        );
+      }
 
       Get.context?.loaderOverlay.hide();
       isSubmitting.value = false;
@@ -60,6 +74,7 @@ class ChangePasswordController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    resetToken = Get.arguments?['reset_token']?.toString();
   }
 
   @override

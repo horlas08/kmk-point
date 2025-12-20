@@ -32,7 +32,7 @@ class ApiService {
       ..options.validateStatus = (status) {
         // Do not throw for 4xx; let UI handle validation errors gracefully.
         // Only treat 500+ as transport-level errors.
-        return status != null && status < 500;
+        return status != null && status < 600;
       }
 
       ..options.headers = {
@@ -99,7 +99,7 @@ class ApiService {
         error: true,
         compact: true,
         maxWidth: 90,
-        enabled: kDebugMode,
+        enabled: true, //kDebugMode,
         filter: (options, args) {
           // // don't print requests with uris containing '/posts'
           // if(options.path.contains('/posts')){
@@ -110,6 +110,7 @@ class ApiService {
         },
       ),
     );
+    // _dio.interceptors.add(element)
   }
 
   // Save tokens to SharedPreferences
@@ -137,14 +138,42 @@ class ApiService {
     final connectivity = await Connectivity().checkConnectivity();
 
     if (connectivity == ConnectivityResult.none) {
-      // No connection
-      return handler.reject(
+      // No connection (no network interfaces are up)
+      handler.reject(
         DioException(
           requestOptions: options,
           error: 'No Internet Connection',
-          type: DioExceptionType.unknown,
+          type: DioExceptionType.connectionError,
         ),
       );
+      return;
+    }
+
+    // connectivity_plus can report a network interface (wifi/mobile) even when
+    // there's no actual Internet access. Do a lightweight DNS lookup to ensure
+    // we actually have internet connectivity before allowing the request to proceed.
+    try {
+      final lookup = await InternetAddress.lookup('example.com').timeout(const Duration(seconds: 2));
+      if (lookup.isEmpty || lookup.first.rawAddress.isEmpty) {
+        handler.reject(
+          DioException(
+              requestOptions: options,
+              error: 'No Internet Connection',
+              type: DioExceptionType.connectionError,
+            ),
+        );
+        return;
+      }
+    } catch (e) {
+      // Treat any error during lookup as no connectivity
+      handler.reject(
+        DioException(
+          requestOptions: options,
+          error: 'No Internet Connection',
+          type: DioExceptionType.connectionError,
+        ),
+      );
+      return;
     }
     final token = await loadTokens();
 

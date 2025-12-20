@@ -29,7 +29,7 @@ class OTPTextField extends StatelessWidget {
       width: 50.5.w,
       height: 56.h,
       textStyle: TextStyle(
-        color: Colors.white,
+        color: AppColors.primary,
         fontSize: 16,
         fontFamily: 'poppins'
       ),
@@ -43,7 +43,7 @@ class OTPTextField extends StatelessWidget {
       width: 50.5.w,
       height: 56.h,
       textStyle: TextStyle(
-        color: Colors.white,
+        color: AppColors.primary,
         fontSize: 16,
         fontFamily: 'poppins'
       ),
@@ -62,7 +62,9 @@ class OTPTextField extends StatelessWidget {
         border: Border.all(
           color: AppColors.primary,
         ),
+        color: AppColors.primary.withOpacity(0.4),
         borderRadius: BorderRadius.circular(8),
+
       ),
     );
     final preFilledWidget = Column(

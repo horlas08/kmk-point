@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:point_system/app/modules/home/widgets/home_card.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../../common/style/text_style.dart';
@@ -52,7 +53,8 @@ class PointsView extends GetView<PointsController> {
                       ],
                     ),
                     vSpace(16),
-                    PointCard(),
+                    // PointCard(),
+                    HomeCard(isHome: false,),
                     PointUsage(),
                     PointDetails(),
 

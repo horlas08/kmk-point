@@ -9,6 +9,8 @@ import '../../../common/widgets/space.dart';
 import '../../../constants/colors.dart';
 import '../controllers/point_details_controller.dart';
 
+import '../../../models/point_log.dart';
+
 class PointDetailsView extends GetView<PointDetailsController> {
   const PointDetailsView({super.key});
   @override
@@ -31,7 +33,7 @@ class PointDetailsView extends GetView<PointDetailsController> {
                           ListView.separated(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: controller.points.length,
+                            itemCount: controller.points.value.length,
                             itemBuilder: (context, index) {
                               return Container(
                                 height: 220,
@@ -60,7 +62,7 @@ class PointDetailsView extends GetView<PointDetailsController> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              controller.points[index]['title']!,
+                                              controller.points[index].title,
                                               style: textMediumBlack,
                                             ),
                                             vSpace(4),
@@ -74,7 +76,7 @@ class PointDetailsView extends GetView<PointDetailsController> {
                                                 borderRadius: BorderRadius.circular(8),
                                               ),
                                               child: Text(
-                                                controller.points[index]['status']!,
+                                                controller.points[index].type,
                                               ),
                                             ),
                                           ],
@@ -87,7 +89,7 @@ class PointDetailsView extends GetView<PointDetailsController> {
                                         Image.asset("assets/image/book.png"),
                                         hSpace(8),
                                         Text(
-                                          controller.points[index]['action']!,
+                                          "point".tr,
                                           style: textMediumBlack,
                                         ),
                                       ],
@@ -97,7 +99,7 @@ class PointDetailsView extends GetView<PointDetailsController> {
                                         Image.asset("assets/image/point.png"),
                                         hSpace(8),
                                         Text(
-                                          controller.points[index]['point']!,
+                                          controller.points[index].points.toString(),
                                           style: textMediumBlack.copyWith(
                                             color: Color(0xFF008236),
                                           ),
@@ -117,13 +119,13 @@ class PointDetailsView extends GetView<PointDetailsController> {
                                     vSpace(10),
                                     Row(
                                       children: [
-                                        Text(controller.points[index]['balance']!),
+                                        Text("${controller.points[index].walletBalanceAfter}"),
                                         Spacer(),
                                         Row(
                                           children: [
                                             Image.asset("assets/image/calendar.png"),
                                             hSpace(4),
-                                            Text(controller.points[index]['date']!),
+                                            Text(controller.points[index].date),
                                           ],
                                         ),
                                       ],

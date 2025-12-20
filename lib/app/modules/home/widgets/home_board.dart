@@ -7,6 +7,7 @@ import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/constants/svg_path.dart';
 import 'package:point_system/app/modules/home/controllers/home_controller.dart';
 import 'package:point_system/app/modules/home/repository/home_service.dart';
+import 'dart:math' as math;
 
 import '../../../models/participant_home_page.dart';
 
@@ -47,26 +48,23 @@ class HomeBoard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: () {
-                  // Clone list to avoid modifying the original
-
                   final styles = List<Map<String, dynamic>>.from(
                     homeController.rankingStyleDetails,
                   );
-
-                  // Find the index of position == 1
-                  final firstIndex = students?.indexWhere(
-                        (s) => s.order == 1,
-                  );
-                  if (firstIndex != -1 && students!.length >= 3) {
-                    // Remove it and insert at index 1 (middle)
-                    final first = students.removeAt(firstIndex!);
-                    final firstStyle = styles.removeAt(firstIndex);
-                    students.insert(1, first);
-                    styles.insert(1, firstStyle);
+                  final cloned = List<TopParticipant>.from(students ?? const <TopParticipant>[]);
+                  if (cloned.isEmpty) {
+                    return <Widget>[];
                   }
-
-                  return List.generate(students!.length, (index) {
-                    final student = students[index];
+                  final maxLen = math.min(3, cloned.length);
+                  final visible = cloned.take(maxLen).toList();
+                  final firstIndex = visible.indexWhere((s) => s.order == 1);
+                  if (firstIndex != -1 && visible.length >= 3) {
+                    final first = visible.removeAt(firstIndex);
+                    visible.insert(1, first);
+                  }
+                  final useLen = math.min(visible.length, styles.length);
+                  return List.generate(useLen, (index) {
+                    final student = visible[index];
                     final style = styles[index];
 
                     return Expanded(

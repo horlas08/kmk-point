@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 
 import '../../login/repository/auth_service.dart';
@@ -24,28 +26,30 @@ class ChangeProjectController extends GetxController {
     _authService = Get.find<AuthService>();
     final pairs = _authService.loginData.value?.organizationsProjectsPairs ?? [];
     projects.assignAll(pairs);
+    final selectCtrl = Get.find<SelectProjectController>();
+  // debug: show whether SelectProjectController is registered and current value
+  log('SelectProjectController registered=${Get.isRegistered<SelectProjectController>()} activeProjectId="${selectCtrl.activeProjectId.value}" ${Get.find<SelectProjectController>().activeProjectId}');
 
     // initialize selected with first project if available
-    if (projects.isNotEmpty) {
-      final first = projects.first;
-      final selectCtrl = Get.isRegistered<SelectProjectController>()
-          ? Get.find<SelectProjectController>()
-          : Get.put(SelectProjectController());
-      selectCtrl.activeProjectId.value = '${first.projectId}';
-      selectCtrl.activeOrgId.value = '${first.organizationId}';
-    }
+    // if (projects.isNotEmpty) {
+    //   final first = projects.first;
+    //   final selectCtrl = Get.isRegistered<SelectProjectController>()
+    //       ? Get.find<SelectProjectController>()
+    //       : Get.put(SelectProjectController());
+    //   selectCtrl.activeProjectId.value = '${first.projectId}';
+    //   selectCtrl.activeOrgId.value = '${first.organizationId}';
+    // }
   }
 
   /// Select a project using the shared SelectProjectController so selection
   /// is consistent across the app and other controllers can react.
   void selectProject(OrganizationProjectPair pair) {
-    final selectCtrl = Get.isRegistered<SelectProjectController>()
-        ? Get.find<SelectProjectController>()
-        : Get.put(SelectProjectController());
-    selectCtrl.activeProjectId.value = '${pair.projectId}';
-    selectCtrl.activeOrgId.value = '${pair.organizationId}';
+    final selectCtrl = Get.find<SelectProjectController>();
+  // safe conversion: avoid assigning the literal string 'null' or an actual null
+  selectCtrl.activeProjectId.value = pair.projectId != null ? '${pair.projectId}' : '';
+  selectCtrl.activeOrgId.value = pair.organizationId != null ? '${pair.organizationId}' : '';
   // Force a rebuild of the projects list so the selected card updates immediately
-  projects.refresh();
+  // projects.refresh();
     // Trigger project change API directly (Option B): fetch participant home for the
     // selected project and update HomeService.participantHome. Do NOT change UI here.
     try {

@@ -1,17 +1,21 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../common/widgets/notify.dart';
 import '../../account_setting/repository/profile_service.dart';
+import '../../login/repository/auth_service.dart';
+import '../../select_project/controllers/select_project_controller.dart';
 
 class ManageProfileController extends GetxController {
-  final fullNameController = TextEditingController(text: "وليد محمد");
-  final civilIdController = TextEditingController(text: "123-4567");
-  final mobilePhoneController = TextEditingController(text: "+1 (555) 123-4567");
-  final emailController = TextEditingController(text: "john.smith@school.edu");
+  final fullNameController = TextEditingController();
+  final civilIdController = TextEditingController();
+  final mobilePhoneController = TextEditingController();
+  final emailController = TextEditingController();
 
   File? selectedImage;
 
@@ -20,9 +24,28 @@ class ManageProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+   log(" ${Get.find<SelectProjectController>().activeProjectId}");
+
     profileService = Get.isRegistered<ProfileService>()
         ? Get.find<ProfileService>()
         : Get.put(ProfileService());
+
+    // Prefill from AuthService.loginData
+    if (Get.isRegistered<AuthService>()) {
+      final auth = Get.find<AuthService>();
+      final data = auth.loginData.value;
+      final student = data?.student;
+      final user = student?.user;
+
+      final firstName = user?.firstName?.trim() ?? '';
+      final lastName = user?.lastName?.trim() ?? '';
+      final fullName = [firstName, lastName].where((e) => e.isNotEmpty).join(' ').trim();
+      if (fullName.isNotEmpty) fullNameController.text = fullName;
+      if ((student?.civilNumber ?? '').isNotEmpty) civilIdController.text = student!.civilNumber!;
+      if ((student?.phone ?? '').isNotEmpty) mobilePhoneController.text = student!.phone!;
+      if ((user?.email ?? '').isNotEmpty) emailController.text = user!.email!;
+    }
   }
 
   /// Call this to submit the profile update. This will build a multipart/form-data
@@ -66,6 +89,20 @@ class ManageProfileController extends GetxController {
       }
     } catch (e) {
       Get.context?.loaderOverlay.hide();
+      Notify.error(e.toString());
+    }
+  }
+
+  /// Pick an image from the gallery and store it in [selectedImage]
+  Future<void> pickImage() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? picked = await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
+      if (picked != null) {
+        selectedImage = File(picked.path);
+        Notify.success('Selected image updated');
+      }
+    } catch (e) {
       Notify.error(e.toString());
     }
   }

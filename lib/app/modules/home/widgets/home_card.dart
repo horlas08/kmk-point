@@ -5,10 +5,13 @@ import 'package:point_system/app/common/style/text_style.dart';
 import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/constants/svg_path.dart';
 import 'package:point_system/app/modules/home/repository/home_service.dart';
+import 'package:point_system/app/modules/points/controllers/points_controller.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 import '../../../constants/colors.dart';
 
 class HomeCard extends StatelessWidget {
-  const HomeCard({super.key});
+  final bool isHome;
+  const HomeCard({super.key, this.isHome = true});
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +107,7 @@ class HomeCard extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
+                    if(isHome)
                     Container(
                       height: 85,
                       width: 85,
@@ -118,7 +122,40 @@ class HomeCard extends StatelessWidget {
                         height: 43,
                         color: Colors.white,
                       ),
-                    ),
+                    )
+                    else
+                      TouchableOpacity(
+                        onTap: () {
+                          if(!Get.isRegistered<PointsController>()) {
+                            Get.put(PointsController());
+                          }
+                          Get.find<PointsController>().showRequestReward();
+                        },
+                        child: Container(
+                          padding: simPad(12, 8),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.add_circle_outline,
+                                color: AppColors.primary,
+                                size: 16,
+                              ),
+                              hSpace(5),
+                              Text(
+                                "reward_request".tr,
+                                style: textMediumBlack.copyWith(
+                                  color: AppColors.primary,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                   ],
                 ),
                 vSpace(15),

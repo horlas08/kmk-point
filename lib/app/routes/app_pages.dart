@@ -21,6 +21,10 @@ import '../modules/manage_profile/bindings/manage_profile_binding.dart';
 import '../modules/manage_profile/views/manage_profile_view.dart';
 import '../modules/more/bindings/more_binding.dart';
 import '../modules/more/views/more_view.dart';
+import '../modules/notification_setting/bindings/notification_setting_binding.dart';
+import '../modules/notification_setting/views/notification_setting_view.dart';
+import '../modules/notifications/bindings/notifications_binding.dart';
+import '../modules/notifications/views/notifications_view.dart';
 import '../modules/otp_verification/bindings/otp_verification_binding.dart';
 import '../modules/otp_verification/views/otp_verification_view.dart';
 import '../modules/point_details/bindings/point_details_binding.dart';
@@ -135,6 +139,15 @@ class AppPages {
       page: () => const ChangeProjectView(),
       binding: ChangeProjectBinding(),
     ),
-
+    GetPage(
+      name: _Paths.NOTIFICATIONS,
+      page: () => const NotificationsView(),
+      binding: NotificationsBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION_SETTING,
+      page: () => const NotificationSettingView(),
+      binding: NotificationSettingBinding(),
+    ),
   ];
 }

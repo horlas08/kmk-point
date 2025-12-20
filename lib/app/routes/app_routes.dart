@@ -20,6 +20,8 @@ abstract class Routes {
   static const POINT_DETAILS = _Paths.POINT_DETAILS;
   static const SELECT_PROJECT = _Paths.SELECT_PROJECT;
   static const CHANGE_PROJECT = _Paths.CHANGE_PROJECT;
+  static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
+  static const NOTIFICATION_SETTING = _Paths.NOTIFICATION_SETTING;
 }
 
 abstract class _Paths {
@@ -41,4 +43,6 @@ abstract class _Paths {
   static const POINT_DETAILS = '/point-details';
   static const SELECT_PROJECT = '/select-project';
   static const CHANGE_PROJECT = '/change-project';
+  static const NOTIFICATIONS = '/notifications';
+  static const NOTIFICATION_SETTING = '/notification-setting';
 }

@@ -18,6 +18,7 @@ import 'package:toastification/toastification.dart';
 
 import 'app/common/widgets/connection_overlay.dart';
 import 'app/common/widgets/connectivity.dart';
+import 'app/modules/select_project/controllers/select_project_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'app/localization/app_translations.dart';
 import 'app/services/api/api_service.dart';
@@ -139,11 +140,12 @@ class InitialBindings extends Bindings {
   void dependencies() {
     Get.put(LoginController());
     Get.put(ConnectivityController(), permanent: true);
+    Get.put( AuthService(), permanent: true);
+    Get.put(SelectProjectController(), permanent: true, );
     // Make API service persistent
-    Get.put<ApiService>(ApiService(), permanent: true);
+    Get.put(ApiService(), permanent: true);
 
-    // AuthService requires async init
-    Get.putAsync<AuthService>(() async => await AuthService().init());
+    // AuthService
     Get.putAsync<HomeService>(() async => await HomeService().init());
   }
 }

@@ -5,9 +5,21 @@ sealed class Endpoints {
   static const String requestResetOtp = "/points-plugin/password/request-otp";
   static const String verifyResetOtp = "/points-plugin/password/verify-otp";
   static const String resetPassword = "/points-plugin/password/reset";
+  static const String qrCode = "/points-plugin/scan-qr";
+  static const String sendRequestReward = "/points-plugin/send-reward-request";
   static String participantHomePage(String projectId) =>
       "/points-plugin/projects/$projectId/participant-home-page";
+   static String pointLog(String projectId) =>
+      "/points-plugin/projects/$projectId/participant-points-log";
  static String getPointPageStat(String projectId) =>
-      "points-plugin/projects/$projectId/participant-points-page";
+      "/points-plugin/projects/$projectId/participant-points-page";
+ static String getPointPageSummary(String projectId) =>
+      "/points-plugin/projects/$projectId/participant-points-summary";
+ static String activateNotification(String projectId) =>
+      "/points-plugin/projects/$projectId/notifications/activate";
+ static String deactivateNotification(String projectId) =>
+      "/points-plugin/projects/$projectId/notifications/deactivate";
+ static String checkNotificationStatus(String projectId) =>
+      "/points-plugin/projects/$projectId/notifications/status";
 
 }

@@ -54,6 +54,20 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                     child: Column(
                       children: [
                         CustomInput(
+                          itemController: controller.currentPasswordController,
+                          itemHintText: "current_password".tr,
+                          prefixIcon: SvgPicture.asset(
+                            lockSvg,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          isAuthField: true,
+                          validator: (v) {
+                            if (v == null || v.trim().isEmpty) return 'This field is required';
+                            return null;
+                          },
+                        ),
+                        vSpace(8),
+                        CustomInput(
                           itemController: controller.newpasswordController,
                           itemHintText: "enter_new_password".tr,
                           prefixIcon: SvgPicture.asset(

@@ -55,8 +55,7 @@ class RequestReward extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomButton(text: "confirm_request".tr,onPressed: () {
-                            Get.back();
-                            controller.showRequestRewardSuccessful();
+                            controller.submitRequestReward();
                           },),
 
                         ),

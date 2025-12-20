@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -14,6 +16,7 @@ class SelectProjectController extends GetxController {
   final projectController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final authService = Get.find<AuthService>();
+  
   showProjectSelectionBottomSheet() {
     Get.bottomSheet(
       Container(
@@ -42,6 +45,7 @@ class SelectProjectController extends GetxController {
                   activeProjectId.value = "${e.projectId}";
                   activeOrgId.value = "${e.organizationId}";
                   projectController.text = "${e.projectName}- ${e.organizationName}";
+                  log("${activeProjectId.value}");
                   Get.back();
                 },
               );

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/constants/colors.dart';
 import 'package:point_system/app/constants/image_path.dart';
+import 'package:point_system/app/modules/login/repository/auth_service.dart';
 import 'package:point_system/app/routes/app_pages.dart';
 
 import '../../../common/style/text_style.dart';
@@ -33,50 +34,67 @@ class MoreView extends GetView<MoreController> {
                     border: Border.all(color: Color(0xFFE5E7EB)),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  child: Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          profileImage,
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      vSpace(9),
-                      Text(
-                        "وليد محمد ",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      vSpace(9),
-                      Text("رقم الهاتف: 54521456", style: textRegularGrey),
-                      vSpace(9),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            starFourSvg,
-                            width: 13,
-                            height: 13,
-                            fit: BoxFit.scaleDown,
-                            color: AppColors.primary,
+                  child: Obx(() {
+                    return Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Get
+                              .find<AuthService>()
+                              .loginData
+                              .value!
+                              .student!
+                              .image == null ? Image.asset(
+                            profileImage,
+                            height: 80,
+                            width: 80,
+                            fit: BoxFit.cover,
+                          ) : Image.network(
+                            Get
+                                .find<AuthService>()
+                                .loginData
+                                .value!
+                                .student!
+                                .image!,
+                            height: 80,
+                            width: 80,
+                            fit: BoxFit.cover,
                           ),
-                          hSpace(5),
-                          Text(
-                            "points".tr,
-                            style: textMediumBlack.copyWith(
-                              fontSize: 14,
-                              color: Colors.black,
+                        ),
+                        vSpace(9),
+                        Text(
+                          "وليد محمد ",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        vSpace(9),
+                        Text("رقم الهاتف: 54521456", style: textRegularGrey),
+                        vSpace(9),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              starFourSvg,
+                              width: 13,
+                              height: 13,
+                              fit: BoxFit.scaleDown,
+                              color: AppColors.primary,
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                            hSpace(5),
+                            Text(
+                              "points".tr,
+                              style: textMediumBlack.copyWith(
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }),
                 ),
                 Account(),
                 More()
@@ -169,7 +187,8 @@ class MoreView extends GetView<MoreController> {
                         color: AppColors.primaryBgLight,
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      child: SvgPicture.asset(changeProjectSvg, fit: BoxFit.scaleDown),
+                      child: SvgPicture.asset(
+                          changeProjectSvg, fit: BoxFit.scaleDown),
                     ),
                   ),
                   hSpace(16),
@@ -201,6 +220,7 @@ class MoreView extends GetView<MoreController> {
             ),
           ),
           GestureDetector(
+            onTap: () => Get.toNamed(Routes.CHANGE_PASSWORD),
             child: Container(
               padding: allPad(16),
               decoration: BoxDecoration(
@@ -243,6 +263,7 @@ class MoreView extends GetView<MoreController> {
       ),
     );
   }
+
   Widget More() {
     return Container(
       padding: simPad(16, 16),
@@ -253,6 +274,7 @@ class MoreView extends GetView<MoreController> {
           Text("more".tr, style: textMediumBlack),
           vSpace(16),
           GestureDetector(
+            onTap: ()=> Get.toNamed(Routes.NOTIFICATION_SETTING),
             child: Container(
               padding: allPad(16),
               margin: onlyPad(bottom: 16),
@@ -269,7 +291,8 @@ class MoreView extends GetView<MoreController> {
                       color: AppColors.primaryBgLight,
                       borderRadius: BorderRadius.circular(16.0),
                     ),
-                    child: SvgPicture.asset(notificationSvg, fit: BoxFit.scaleDown),
+                    child: SvgPicture.asset(
+                        notificationSvg, fit: BoxFit.scaleDown),
                   ),
                   hSpace(16),
                   Column(
@@ -311,7 +334,8 @@ class MoreView extends GetView<MoreController> {
                         color: AppColors.primaryBgLight,
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      child: SvgPicture.asset(supportSvg, fit: BoxFit.scaleDown),
+                      child: SvgPicture.asset(
+                          supportSvg, fit: BoxFit.scaleDown),
                     ),
                   ),
                   hSpace(16),
@@ -345,7 +369,7 @@ class MoreView extends GetView<MoreController> {
               padding: allPad(16),
               margin: onlyPad(bottom: 16),
               decoration: BoxDecoration(
-                border: Border.all(color:Color(0xFFFFC9C9)),
+                border: Border.all(color: Color(0xFFFFC9C9)),
                 borderRadius: BorderRadius.circular(16.0),
                 gradient: LinearGradient(
                   colors: [
@@ -360,20 +384,21 @@ class MoreView extends GetView<MoreController> {
               child: Row(
                 children: [
                   Container(
-                    height: 48,
-                    width: 48,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFE2E2),
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: Icon(Icons.login_rounded, color: Color(0xFFE7000B), size: 24,)
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFFE2E2),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: Icon(Icons.login_rounded, color: Color(0xFFE7000B),
+                        size: 24,)
                   ),
                   hSpace(16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("logout".tr, style: textMediumBlack.copyWith(
-                        color: Color(0xFFE7000B)
+                          color: Color(0xFFE7000B)
                       )),
 
                     ],
