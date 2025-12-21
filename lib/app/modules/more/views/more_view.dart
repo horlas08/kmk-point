@@ -316,6 +316,7 @@ class MoreView extends GetView<MoreController> {
             ),
           ),
           GestureDetector(
+            onTap: () => Get.toNamed(Routes.SCAN_HISTORY),
             child: Container(
               padding: allPad(16),
               margin: onlyPad(bottom: 16),

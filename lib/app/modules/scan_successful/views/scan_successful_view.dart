@@ -46,7 +46,7 @@ class ScanSuccessfulView extends GetView<ScanSuccessfulController> {
               ),
               vSpace(11),
               Text.rich(
-                TextSpan(text: "50+", children: [
+                TextSpan(text: "${controller.addedPoint}+", children: [
                   TextSpan(text: "point".tr, style: TextStyle(
                     fontSize: 16,
                   ),)

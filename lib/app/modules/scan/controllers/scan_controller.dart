@@ -5,6 +5,7 @@ import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../common/widgets/notify.dart';
+import '../../../routes/app_pages.dart';
 import '../../select_project/controllers/select_project_controller.dart';
 import '../repository/scan_service.dart';
 
@@ -60,7 +61,7 @@ class ScanController extends GetxController {
         projectId = Get.find<SelectProjectController>().activeProjectId.value;
       }
       if (projectId.isEmpty) {
-        Notify.error('Project not selected');
+        Notify.error('لم يتم تحديد المشروع');
         await controller?.resumeCamera();
         isProcessing.value = false;
         return;
@@ -76,7 +77,9 @@ class ScanController extends GetxController {
       final data = res.data;
       if (data is Map && (data['status'] == true || data['code'] == 200) || res.statusCode == HttpStatus.ok) {
         Notify.success(data is Map ? (data['message']?.toString() ?? 'Success') : 'Success');
-        Get.back();
+        Get.toNamed(Routes.SCAN_SUCCESSFUL, arguments: {
+          "added_point": "${data['data']['added_point']}"
+        });
       } else {
         Notify.error(data is Map ? (data['message']?.toString() ?? 'Scan failed') : 'Scan failed');
         await controller?.resumeCamera();
@@ -86,6 +89,7 @@ class ScanController extends GetxController {
       Notify.error(e.toString());
       await controller?.resumeCamera();
     } finally {
+      Get.context?.loaderOverlay.hide();
       isProcessing.value = false;
     }
   }

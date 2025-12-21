@@ -134,6 +134,10 @@ class PointDetails extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = list[index];
           return Container(
+            // In a horizontal ListView the child's width is unconstrained.
+            // Provide a finite width so widgets like Spacer / Expanded inside
+            // the item's Rows can layout correctly.
+            width: 280,
             height: 220,
             padding: simPad(16, 16),
             decoration: BoxDecoration(

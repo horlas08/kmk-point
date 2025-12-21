@@ -18,7 +18,7 @@ class BonusCard extends StatelessWidget {
       Get.put(BonusRequestController());
     }
     final controller = Get.find<BonusRequestController>();
-    return Column(
+    return Obx(() => Column(
       children: [
         Container(
           margin: EdgeInsets.only(top: 16),
@@ -44,7 +44,7 @@ class BonusCard extends StatelessWidget {
                       title: "approved".tr,
                       status: "completed_requests".tr,
                       statusColor: Color(0xFF00A63E),
-                      point: '3',
+                      point: controller.accepted.value.toString(),
                     ),
                   ],
                 ),
@@ -71,7 +71,7 @@ class BonusCard extends StatelessWidget {
                       title: "pending".tr,
                       status: "under_review".tr,
                       statusColor: Color(0xFFD08700),
-                      point: '1',
+                      point: controller.pending.value.toString(),
                     ),
                   ],
                 ),
@@ -95,10 +95,10 @@ class BonusCard extends StatelessWidget {
           title: "total_requests".tr,
           status: "under_review".tr,
           statusColor: Color(0xFF9810FA),
-          point: '5',
+          point: (controller.accepted.value + controller.pending.value + controller.rejected.value).toString(),
         ),
       ],
-    );
+    ));
   }
 }
 

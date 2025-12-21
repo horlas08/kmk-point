@@ -14,6 +14,12 @@ class ScanHistoryView extends GetView<ScanHistoryController> {
 
   @override
   Widget build(BuildContext context) {
+    // ensure fetch when visiting the page
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      try {
+        controller.fetch();
+      } catch (_) {}
+    });
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -38,7 +44,25 @@ class ScanHistoryView extends GetView<ScanHistoryController> {
                 Text("scan_history".tr),
                 vSpace(16),
 
-                ScanHistroryCard(),
+                Obx(() {
+                  final list = controller.history;
+                  if (list.isEmpty) {
+                    return Center(child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24.0),
+                      child: Text('no_scan_history'.tr),
+                    ));
+                  }
+                  return Column(
+                    children: list.map((item) => ScanHistroryCard(
+                      points: item.points,
+                      title: item.category,
+                      showBadge: true,
+                      badgeText: item.tag,
+                      tag: item.tag,
+                      createdAt: item.createdAt,
+                    )).toList(),
+                  );
+                }),
               ],
             ),
           ),
@@ -47,21 +71,39 @@ class ScanHistoryView extends GetView<ScanHistoryController> {
     );
   }
 
-  Widget ScanHistroryCard() {
+  Widget ScanHistroryCard({
+    required num points,
+    required String title,
+    String? tag,
+    required String createdAt,
+    bool showBadge = false,
+    String? badgeText,
+  }) {
+    String date = createdAt;
+    String time = '';
+    if (createdAt.contains(' ')) {
+      final parts = createdAt.split(' ');
+      date = parts[0];
+      time = parts.length > 1 ? parts[1] : '';
+    }
+
     return Container(
       width: Get.width,
       padding: EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(vertical: 6),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.stroke),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "+120",
+                "+${points}",
                 style: textMediumBlack.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
@@ -77,36 +119,36 @@ class ScanHistoryView extends GetView<ScanHistoryController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "المشاركة النشطة",
+                  title,
                   style: textRegularGrey.copyWith(
                     fontSize: 14,
                     color: Color(0xFF101828),
                   ),
                 ),
-                Container(
-                  margin: onlyPad(top: 5, bottom: 5),
-                  padding: simPad(1.74, 10.6),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFECEEF2),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    "حفظ",
-                    style: textRegularGrey.copyWith(
-                      fontSize: 11,
-                      color: Color(0xFF030213),
+                if (showBadge && badgeText != null)
+                  Container(
+                    margin: onlyPad(top: 5, bottom: 5),
+                    padding: simPad(1.74, 10.6),
+                    decoration: BoxDecoration(
+                      color: Color(0xFFECEEF2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      badgeText,
+                      style: textRegularGrey.copyWith(
+                        fontSize: 11,
+                        color: Color(0xFF030213),
+                      ),
                     ),
                   ),
-                ),
                 Row(
-
                   children: [
                     Spacer(),
-                    Text("٤ نوفمبر ٢٠٢٥"),
+                    if (date.isNotEmpty) Text(date),
                     hSpace(12),
-                    Text("."),
+                    Text('.'),
                     hSpace(12),
-                    Text("٠١:٤٨ م")
+                    if (time.isNotEmpty) Text(time)
                   ],
                 )
               ],

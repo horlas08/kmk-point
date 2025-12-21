@@ -84,6 +84,16 @@ class ChangePasswordController extends GetxController {
 
   @override
   void onClose() {
+    // dispose text controllers to avoid memory leaks
+    try {
+      newpasswordController.dispose();
+    } catch (_) {}
+    try {
+      confirmNewpasswordController.dispose();
+    } catch (_) {}
+    try {
+      currentPasswordController.dispose();
+    } catch (_) {}
     super.onClose();
   }
 }

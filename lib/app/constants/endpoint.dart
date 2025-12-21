@@ -21,5 +21,13 @@ sealed class Endpoints {
       "/points-plugin/projects/$projectId/notifications/deactivate";
  static String checkNotificationStatus(String projectId) =>
       "/points-plugin/projects/$projectId/notifications/status";
+ static String requestRewardStatAndHistory(String projectId) =>
+      "/points-plugin/projects/$projectId/reward-requests-statistics-and-history";
+ // static String scanHistory(String projectId) =>
+ //      "/points-plugin/projects/$projectId/scan-history";
+static String notification(String projectId) =>
+      "/points-plugin/projects/$projectId/notifications";
+static String scanHistory(String projectId) =>
+      "/points-plugin/projects/$projectId/scan-qr-history";
 
 }

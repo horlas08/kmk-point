@@ -53,7 +53,7 @@ class HomeView extends GetView<HomeController> {
 
                     TouchableOpacity(
                       onTap: () {
-                        
+                        Get.toNamed(Routes.NOTIFICATIONS);
                       },
                       child: Container(
 

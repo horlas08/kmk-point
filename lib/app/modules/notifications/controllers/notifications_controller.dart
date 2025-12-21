@@ -1,23 +1,60 @@
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
+import 'package:loader_overlay/loader_overlay.dart';
+import '../../../models/notification_item.dart';
+import '../repository/notifications_service.dart';
+import '../../select_project/controllers/select_project_controller.dart';
 
 class NotificationsController extends GetxController {
-  //TODO: Implement NotificationsController
+  late final NotificationsService _service;
 
-  final count = 0.obs;
+  final notifications = <NotificationItem>[].obs;
+
   @override
   void onInit() {
     super.onInit();
+    _service = Get.isRegistered<NotificationsService>()
+        ? Get.find<NotificationsService>()
+        : Get.put(NotificationsService());
+
+    // initial fetch
+    Future.microtask(() => fetch());
+
+    // listen to project changes
+    if (Get.isRegistered<SelectProjectController>()) {
+      final select = Get.find<SelectProjectController>();
+      ever(select.activeProjectId, (_) => fetch());
+    }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  Future<void> fetch() async {
+    final select = Get.isRegistered<SelectProjectController>()
+        ? Get.find<SelectProjectController>()
+        : null;
+    final projectId = select?.activeProjectId.value ?? '';
+    if (projectId.isEmpty) {
+      notifications.clear();
+      return;
+    }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+    try {
+      Get.context?.loaderOverlay.show();
+      final res = await _service.fetchNotifications(projectId: projectId);
+      final data = res.data;
+      if (data is Map && (data['status'] == true || data['code'] == 200)) {
+        final list = (data['data'] as List? ?? [])
+            .map((e) => NotificationItem.fromJson(e as Map<String, dynamic>))
+            .toList();
+        notifications.assignAll(list);
+      } else {
+        notifications.clear();
+      }
+    } catch (e) {
 
-  void increment() => count.value++;
+      notifications.clear();
+      Get.context?.loaderOverlay.hide();
+    }
+    finally{
+      Get.context?.loaderOverlay.hide();
+    }
+  }
 }

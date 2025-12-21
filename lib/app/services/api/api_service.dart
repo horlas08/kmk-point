@@ -245,6 +245,22 @@ class ApiService {
     return _dio.get(path, queryParameters: queryParameters, data: data);
   }
 
+  /// Update the FCM token used in request headers and persist it to Hive.
+  Future<void> updateFcmToken(String? token) async {
+    try {
+      final box = Hive.box('appData');
+      if (token != null && token.isNotEmpty) {
+        box.put('fcmToken', token);
+        _dio.options.headers['fcmToken'] = token;
+      } else {
+        box.put('fcmToken', 'no_data');
+        _dio.options.headers['fcmToken'] = 'no_data';
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
+
   Future<Response> post(
     String path, {
     Map<String, dynamic>? queryParameters,

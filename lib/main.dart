@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,6 +26,8 @@ import 'app/localization/app_translations.dart';
 import 'app/services/api/api_service.dart';
 import 'app/modules/login/repository/auth_service.dart';
 import 'app/modules/home/repository/home_service.dart';
+import 'app/services/push_notification_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 main() async {
   
@@ -39,6 +43,15 @@ main() async {
       statusBarIconBrightness: Brightness.dark, // Android
       statusBarBrightness: Brightness.light,
     ),
+  );
+
+  await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.currentPlatform,
+   );
+  // register background message handler for firebase messaging
+  FirebaseMessaging.onBackgroundMessage(
+    // top-level background handler defined in PushNotificationService (public)
+    firebaseMessagingBackgroundHandler,
   );
   final dm = await getManufacturer();
   await Hive.initFlutter();
@@ -144,6 +157,8 @@ class InitialBindings extends Bindings {
     Get.put(SelectProjectController(), permanent: true, );
     // Make API service persistent
     Get.put(ApiService(), permanent: true);
+  // Initialize push notifications and fetch FCM token
+  Get.putAsync<PushNotificationService>(() async => await PushNotificationService().init());
 
     // AuthService
     Get.putAsync<HomeService>(() async => await HomeService().init());

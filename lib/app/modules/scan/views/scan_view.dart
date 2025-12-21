@@ -40,6 +40,7 @@ class _ScanViewState extends State<ScanView> {
                   overlayColor: Colors.black,
 
                 ),
+
               ),
             ),
             Expanded(

@@ -139,9 +139,10 @@ class BonusDetails extends StatelessWidget {
                     ],
                   ),
                 );
-              }, separatorBuilder: (BuildContext context, int index) {
+              },
+              separatorBuilder: (BuildContext context, int index) {
                 return hSpace(16);
-            },
+              },
             ),
           ),
         ],

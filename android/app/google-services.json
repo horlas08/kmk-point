@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "132402563298",
+    "project_id": "points-2ebd5",
+    "storage_bucket": "points-2ebd5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132402563298:android:91c35676e6fcc81835f6bb",
+        "android_client_info": {
+          "package_name": "com.example.point_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADey-KPtLtaghBDWJBp_bTfs2UKLeZG_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
