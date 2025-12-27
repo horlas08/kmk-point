@@ -25,9 +25,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -40,19 +46,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB9tK9sdP6G8aV8-w34T_bSewCJ3Z-9J0g',
-    appId: '1:132402563298:web:d29abcb2ce3f7e1c35f6bb',
-    messagingSenderId: '132402563298',
-    projectId: 'points-2ebd5',
-    authDomain: 'points-2ebd5.firebaseapp.com',
-    storageBucket: 'points-2ebd5.firebasestorage.app',
-    measurementId: 'G-F98QE8NK0N',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyADey-KPtLtaghBDWJBp_bTfs2UKLeZG_U',
-    appId: '1:132402563298:android:91c35676e6fcc81835f6bb',
+    appId: '1:132402563298:android:6aae2006d71bca5a35f6bb',
     messagingSenderId: '132402563298',
     projectId: 'points-2ebd5',
     storageBucket: 'points-2ebd5.firebasestorage.app',
@@ -60,29 +56,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBPhxmU1SZurqKOk0OJHIY9fLqfg3Otchk',
-    appId: '1:132402563298:ios:423239f37bf1316835f6bb',
+    appId: '1:132402563298:ios:218fe817515f404c35f6bb',
     messagingSenderId: '132402563298',
     projectId: 'points-2ebd5',
     storageBucket: 'points-2ebd5.firebasestorage.app',
-    iosBundleId: 'com.example.pointSystem',
+    iosBundleId: 'com.point.system',
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBPhxmU1SZurqKOk0OJHIY9fLqfg3Otchk',
-    appId: '1:132402563298:ios:423239f37bf1316835f6bb',
-    messagingSenderId: '132402563298',
-    projectId: 'points-2ebd5',
-    storageBucket: 'points-2ebd5.firebasestorage.app',
-    iosBundleId: 'com.example.pointSystem',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
+  static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyB9tK9sdP6G8aV8-w34T_bSewCJ3Z-9J0g',
-    appId: '1:132402563298:web:9ef91594605ce5cc35f6bb',
+    appId: '1:132402563298:web:83997e05ae04824835f6bb',
     messagingSenderId: '132402563298',
     projectId: 'points-2ebd5',
     authDomain: 'points-2ebd5.firebaseapp.com',
     storageBucket: 'points-2ebd5.firebasestorage.app',
-    measurementId: 'G-76FVS9G8BY',
+    measurementId: 'G-3MNXKWZZ9M',
   );
+
 }

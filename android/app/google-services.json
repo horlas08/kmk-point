@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:132402563298:android:91c35676e6fcc81835f6bb",
+        "mobilesdk_app_id": "1:132402563298:android:6aae2006d71bca5a35f6bb",
         "android_client_info": {
-          "package_name": "com.example.point_system"
+          "package_name": "com.point.system"
         }
       },
       "oauth_client": [],

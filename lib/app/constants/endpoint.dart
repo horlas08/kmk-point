@@ -7,6 +7,7 @@ sealed class Endpoints {
   static const String resetPassword = "/points-plugin/password/reset";
   static const String qrCode = "/points-plugin/scan-qr";
   static const String sendRequestReward = "/points-plugin/send-reward-request";
+  static const String settings = "/points-plugin/settings";
   static String participantHomePage(String projectId) =>
       "/points-plugin/projects/$projectId/participant-home-page";
    static String pointLog(String projectId) =>
