@@ -18,6 +18,7 @@ class MoreView extends GetView<MoreController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(MoreController());
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -368,6 +369,7 @@ class MoreView extends GetView<MoreController> {
             ),
           ),
           GestureDetector(
+            onTap: () =>  Get.toNamed(Routes.LOGIN),
             child: Container(
               padding: allPad(16),
               margin: onlyPad(bottom: 16),
