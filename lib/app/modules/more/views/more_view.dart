@@ -11,6 +11,7 @@ import 'package:point_system/app/routes/app_pages.dart';
 
 import '../../../common/style/text_style.dart';
 import '../../../constants/svg_path.dart';
+import '../../home/repository/home_service.dart';
 import '../controllers/more_controller.dart';
 
 class MoreView extends GetView<MoreController> {
@@ -39,7 +40,7 @@ class MoreView extends GetView<MoreController> {
                     return Column(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(100.0),
                           child: Get
                               .find<AuthService>()
                               .loginData
@@ -64,14 +65,26 @@ class MoreView extends GetView<MoreController> {
                         ),
                         vSpace(9),
                         Text(
-                          "وليد محمد ",
+                          "${ Get
+                              .find<AuthService>()
+                              .loginData
+                              .value!
+                              .student!.user?.firstName} ${ Get
+                              .find<AuthService>()
+                              .loginData
+                              .value!
+                              .student!.user?.lastName}",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         vSpace(9),
-                        Text("رقم الهاتف: 54521456", style: textRegularGrey),
+                        Text("رقم الهاتف: ${ Get
+                            .find<AuthService>()
+                            .loginData
+                            .value!
+                            .student!.phone} ", style: textRegularGrey),
                         vSpace(9),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +98,11 @@ class MoreView extends GetView<MoreController> {
                             ),
                             hSpace(5),
                             Text(
-                              "points".tr,
+                              "${ Get
+                                  .find<HomeService>()
+                                  .participantHome
+                                  .value!
+                                  .walletInfo.walletPoints} ${'points'.tr}",
                               style: textMediumBlack.copyWith(
                                 fontSize: 14,
                                 color: Colors.black,

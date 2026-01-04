@@ -35,4 +35,11 @@ class PointsService extends GetxService {
     final path = Endpoints.getPointPageSummary(projectId);
     return api.get(path);
   }
+
+  /// Fetch rewards for given project
+  Future<Response> getRewards({required String projectId}) async {
+    final api = Get.find<ApiService>();
+    final path = Endpoints.getReward(projectId);
+    return api.get(path);
+  }
 }

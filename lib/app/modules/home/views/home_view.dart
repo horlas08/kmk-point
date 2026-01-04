@@ -23,62 +23,59 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     Get.put(HomeController());
     final student = Get.find<AuthService>().loginData.value!.student;
-    final homeService = Get.find<HomeService>();
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(Routes.SCAN);
-        },
-        child: SvgPicture.asset(qrScanSvg),
-        backgroundColor: AppColors.primary,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Get.toNamed(Routes.SCAN);
+      //   },
+      //   child: SvgPicture.asset(qrScanSvg),
+      //   backgroundColor: AppColors.primary,
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Obx(() {
-            final participantData = homeService.participantHome.value;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "points_system".tr,
-                      style: headerSbPrimary.copyWith(fontSize: 24),
-                      textAlign: TextAlign.center,
-                    ),
-                    Spacer(),
+          child:  Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "points_system".tr,
+                    style: headerSbPrimary.copyWith(fontSize: 24),
+                    textAlign: TextAlign.center,
+                  ),
+                  Spacer(),
 
-                    TouchableOpacity(
-                      onTap: () {
-                        Get.toNamed(Routes.NOTIFICATIONS);
-                      },
-                      child: Container(
+                  TouchableOpacity(
+                    onTap: () {
+                      Get.toNamed(Routes.NOTIFICATIONS);
+                    },
+                    child: Container(
 
-                        height: 48,
-                        width: 48,
-                        decoration: BoxDecoration(
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
                           color: AppColors.primaryBgLight,
                           borderRadius: BorderRadius.circular(14)
-                        ),
-                        child: SvgPicture.asset(notificationSvg, fit: BoxFit.scaleDown,),
                       ),
-                    )
-                  ],
-                ),
-                vSpace(16),
-                Text("${'welcome_user'.tr} ${student?.user?.username ??student?.user?.firstName}", style: textMediumBlack,),
-                vSpace(8),
-                HomeCard(),
-                PointOverview(),
-                HomeBoard(),
-                TopStudents(),
-                vSpace(20),
-              ],
-            );
-          }),
+                      child: SvgPicture.asset(notificationSvg, fit: BoxFit.scaleDown,),
+                    ),
+                  )
+                ],
+              ),
+              vSpace(16),
+              Text("${'welcome_user'.tr} ${student?.user?.username ??student?.user?.firstName}", style: textMediumBlack,),
+              vSpace(8),
+              HomeCard(),
+              PointOverview(),
+              HomeBoard(),
+              TopStudents(),
+              vSpace(20),
+            ],
+          ),
         ),
       ))
     );

@@ -20,7 +20,9 @@ class HomeCard extends StatelessWidget {
       final participantData = homeService.participantHome.value;
       final walletPoints = participantData?.walletInfo.walletPoints ?? 0;
       final walletBalance = participantData?.walletInfo.walletBalance ?? 0;
-      
+      final currentRank = participantData?.currentParticipantRank ?? 0;
+      final projectName = participantData?.walletInfo.projectName;
+
       return Stack(
         children: [
           Container(
@@ -65,6 +67,11 @@ class HomeCard extends StatelessWidget {
                   children: [
                     Column(
                       children: [
+                        Text("$projectName", style: textMediumBlack.copyWith(
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),),
+                        vSpace(5),
                         Row(
                           children: [
                             SvgPicture.asset(
@@ -200,7 +207,7 @@ class HomeCard extends StatelessWidget {
                         color: Color(0xFF6788E3),
                       ),
 
-                      child: Text("rank".tr, style: textRegularGrey.copyWith(
+                      child: Text("${"rank".tr} $currentRank", style: textRegularGrey.copyWith(
                         fontSize: 10,
                         color: Colors.white,
 

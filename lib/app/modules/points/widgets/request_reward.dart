@@ -42,6 +42,11 @@ class RequestReward extends StatelessWidget {
                     Text("reward_requests".tr, textAlign: TextAlign.start),
                     CustomInput(
                       itemController: controller.selectRewardController,
+                      readOnly: true,
+                      onTap: () {
+                        controller.showRewardPicker();
+                      },
+                      suffixIcon: Icon(Icons.arrow_drop_down),
                     ),
                     vSpace(16),
                     Text("notes".tr),

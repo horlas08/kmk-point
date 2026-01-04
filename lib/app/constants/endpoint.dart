@@ -8,6 +8,7 @@ sealed class Endpoints {
   static const String qrCode = "/points-plugin/scan-qr";
   static const String sendRequestReward = "/points-plugin/send-reward-request";
   static const String settings = "/points-plugin/settings";
+  static const String getUser = "/points-plugin/participant";
   static String participantHomePage(String projectId) =>
       "/points-plugin/projects/$projectId/participant-home-page";
    static String pointLog(String projectId) =>
@@ -30,5 +31,7 @@ static String notification(String projectId) =>
       "/points-plugin/projects/$projectId/notifications";
 static String scanHistory(String projectId) =>
       "/points-plugin/projects/$projectId/scan-qr-history";
+  static String getReward(String projectId) =>
+      "/points-plugin/projects/$projectId/rewards";
 
 }

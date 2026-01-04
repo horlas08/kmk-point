@@ -17,9 +17,9 @@ class PointOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeService = Get.find<HomeService>();
 
-
     return Obx(() {
-      final HomePageStatistics homeStat = homeService.participantHome.value!.homePageStatistics;
+      final HomePageStatistics homeStat =
+          homeService.participantHome.value!.homePageStatistics;
 
       return Container(
         margin: EdgeInsets.only(top: 16),
@@ -31,14 +31,24 @@ class PointOverview extends StatelessWidget {
                   PointCardWidget(
                     isGradient: true,
                     gradientBg: LinearGradient(
-                      colors: [Color(0xFFF0FDF4), Color(0xFFFFFFFF)],
+                      colors: [homeStat.week.growthDirection == 'down'
+                          ? Color(0xFFF8C8B9): Color(0xFFF0FDF4), Color(0xFFFFFFFF)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       stops: [0.0, 1.0],
                     ),
-                    borderColor: Color(0xFFB9F8CF),
-                    iconBgColor: Color(0xFFB9F8CF),
-                    icon: SvgPicture.asset(riseSvg),
+                    borderColor: homeStat.week.growthDirection == 'down'
+                        ? Color(0xFFF8C8B9)
+                        : Color(0xFFB9F8CF),
+                    iconBgColor: homeStat.week.growthDirection == 'down'
+                        ? Color(0xFFF8C8B9)
+                        : Color(0xFFB9F8CF),
+                    icon: Transform.rotate(
+                      angle: homeStat.week.growthDirection == 'down' ? 160 : 0,
+                      child: homeStat.week.growthDirection == 'neutral'
+                          ? Icon(Icons.list_outlined, color: Colors.green)
+                          : SvgPicture.asset(riseSvg, color: homeStat.week.growthDirection == 'down'? Colors.red: null,),
+                    ),
                     title: "this_week".tr,
                     point: "${homeStat.week.points}",
                     extraWidget: Row(
@@ -48,10 +58,10 @@ class PointOverview extends StatelessWidget {
                         SvgPicture.asset(riseSvg, width: 16, height: 16),
                         hSpace(5),
                         Text(
-                          "increase".tr,
+                          "${homeStat.week.growthLabel} ${homeStat.week.growthPercentage}%",
                           style: textRegularGrey.copyWith(
                             fontSize: 12.sp,
-                            color: Color(0xFF00A63E),
+                            color: homeStat.week.growthDirection == 'down'? Colors.red: Color(0xFF00A63E),
                           ),
                         ),
                       ],
@@ -82,14 +92,14 @@ class PointOverview extends StatelessWidget {
 
                       children: [
                         SvgPicture.asset(
-                          riseSvg,
+                          homeStat.month.growthDirection == 'down'?dipSvg: riseSvg,
                           width: 16,
                           height: 16,
                           color: Color(0xFF9810FA),
                         ),
                         hSpace(5),
                         Text(
-                          "increase".tr,
+                          "${homeStat.month.growthLabel} ${homeStat.month.growthPercentage}%",
                           style: textRegularGrey.copyWith(
                             fontSize: 12.sp,
                             color: Color(0xFF9810FA),

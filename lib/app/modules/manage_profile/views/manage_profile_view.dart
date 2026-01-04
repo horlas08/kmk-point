@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,6 +12,7 @@ import 'package:point_system/app/constants/colors.dart';
 import 'package:point_system/app/constants/image_path.dart';
 import 'package:point_system/app/constants/svg_path.dart';
 
+import '../../login/repository/auth_service.dart';
 import '../controllers/manage_profile_controller.dart';
 
 class ManageProfileView extends GetView<ManageProfileController> {
@@ -32,63 +34,98 @@ class ManageProfileView extends GetView<ManageProfileController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Row(
-
                         children: [
-                          controller.selectedImage != null ?
-                          Image.file(controller.selectedImage!, fit: BoxFit.scaleDown)
-                              :Image.asset(pictureImage, fit: BoxFit.scaleDown),
+                          Image.asset(pictureImage, fit: BoxFit.scaleDown),
                           hSpace(8),
                           Text("profile_picture".tr, style: textMediumBlack),
                         ],
                       ),
                       vSpace(16),
 
-                      Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(13),
-                            child: Image.asset(
-                              profileImage,
-                              fit: BoxFit.scaleDown,
-                              height: 132,
-                              width: 132,
+                      Obx(() {
+                        return Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(13),
+                              child: controller.selectedImage.value != null
+                                  ? Image.file(
+                                      controller.selectedImage.value!,
+                                      height: 132,
+                                      width: 132,
+                                      fit: BoxFit.scaleDown,
+                                    )
+                                  : Get.find<AuthService>()
+                                            .loginData
+                                            .value
+                                            ?.student
+                                            ?.image !=
+                                        null
+                                  ? Image.network(
+                                      Get.find<AuthService>()
+                                          .loginData
+                                          .value!
+                                          .student!
+                                          .image!,
+                                      fit: BoxFit.scaleDown,
+                                      height: 132,
+                                      width: 132,
+                                      frameBuilder:
+                                          (
+                                            context,
+                                            child,
+                                            frame,
+                                            wasSynchronouslyLoaded,
+                                          ) {
+                                            if (!wasSynchronouslyLoaded) {
+                                              return child;
+                                            } else {
+                                              return CupertinoActivityIndicator();
+                                            }
+                                          },
+                                    )
+                                  : Image.asset(
+                                      profileImage,
+                                      fit: BoxFit.scaleDown,
+                                      height: 132,
+                                      width: 132,
+                                    ),
                             ),
-                          ),
-                          hSpace(24),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 135,
-                                height: 34,
-                                child: CustomButton(
-                                  isOutline: true,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        uploadSvg,
-                                        color: AppColors.primary,
-                                        fit: BoxFit.scaleDown,
-                                      ),
-                                      hSpace(6),
-                                      Text("upload_new_image".tr),
-                                    ],
+                            hSpace(24),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  width: 135,
+                                  height: 34,
+                                  child: CustomButton(
+                                    isOutline: true,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          uploadSvg,
+                                          color: AppColors.primary,
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                        hSpace(6),
+                                        Text("upload_new_image".tr),
+                                      ],
+                                    ),
+                                    onPressed: () async {
+                                      await controller.pickImage();
+                                    },
                                   ),
-                                  onPressed: () {
-                                    controller.pickImage();
-                                  },
                                 ),
-                              ),
-                              vSpace(16),
-                              Text("max_size".tr),
-                            ],
-                          ),
-                        ],
-                      ),
+                                vSpace(16),
+                                Text("max_size".tr),
+                              ],
+                            ),
+                          ],
+                        );
+                      }),
                       Container(
                         margin: EdgeInsets.only(top: 32),
                         child: Column(
@@ -103,21 +140,30 @@ class ManageProfileView extends GetView<ManageProfileController> {
                             vSpace(20),
                             Text("civil_id".tr, style: textMediumBlack),
                             CustomInput(
-                              prefixIcon: SvgPicture.asset(idcardSvg, fit: BoxFit.scaleDown,),
+                              prefixIcon: SvgPicture.asset(
+                                idcardSvg,
+                                fit: BoxFit.scaleDown,
+                              ),
                               itemController: controller.civilIdController,
                               contentPadding: simPad(10, 12),
                             ),
                             vSpace(20),
                             Text("mobile_phone".tr, style: textMediumBlack),
                             CustomInput(
-                              prefixIcon: SvgPicture.asset(callSvg, fit: BoxFit.scaleDown,),
+                              prefixIcon: SvgPicture.asset(
+                                callSvg,
+                                fit: BoxFit.scaleDown,
+                              ),
                               itemController: controller.mobilePhoneController,
                               contentPadding: simPad(10, 12),
                             ),
                             vSpace(20),
                             Text("email".tr, style: textMediumBlack),
                             CustomInput(
-                              prefixIcon: SvgPicture.asset(emailSvg, fit: BoxFit.scaleDown,),
+                              prefixIcon: SvgPicture.asset(
+                                emailSvg,
+                                fit: BoxFit.scaleDown,
+                              ),
                               itemController: controller.emailController,
                               contentPadding: simPad(10, 12),
                             ),
@@ -127,9 +173,18 @@ class ManageProfileView extends GetView<ManageProfileController> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset(saveSvg, fit: BoxFit.scaleDown),
+                                  SvgPicture.asset(
+                                    saveSvg,
+                                    fit: BoxFit.scaleDown,
+                                  ),
                                   hSpace(8),
-                                  Text("save_changes".tr, style: TextStyle(fontSize: 16, color: Colors.white),),
+                                  Text(
+                                    "save_changes".tr,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ],
                               ),
                               onPressed: () {
@@ -137,7 +192,6 @@ class ManageProfileView extends GetView<ManageProfileController> {
                               },
                             ),
                             vSpace(32),
-
                           ],
                         ),
                       ),

@@ -26,7 +26,7 @@ class Student {
     userId = json['user_id'];
     phone = json['phone'];
     civilNumber = json['civil_number'];
-    image = json['image'];
+    image = json['image_url'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     user = json['user'] != null ? User.fromJson(json['user']) : null;

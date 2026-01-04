@@ -17,7 +17,7 @@ class ManageProfileController extends GetxController {
   final mobilePhoneController = TextEditingController();
   final emailController = TextEditingController();
 
-  File? selectedImage;
+  Rx<File?> selectedImage = Rx<File?>(null);
 
   late final ProfileService profileService;
 
@@ -76,13 +76,16 @@ class ManageProfileController extends GetxController {
         email: email,
         civilNumber: civil,
         phone: phone,
-        image: selectedImage,
+        image: selectedImage.value,
       );
 
       Get.context?.loaderOverlay.hide();
 
       final data = res.data;
       if (data is Map && (data['status'] == true || data['code'] == 200)) {
+        // Fetch updated user data
+        final authService = Get.find<AuthService>();
+        await authService.fetchUser();
         Notify.success(data['message']?.toString() ?? 'Profile updated');
       } else {
         Notify.error(data is Map ? (data['message']?.toString() ?? 'Update failed') : 'Update failed');
@@ -99,7 +102,7 @@ class ManageProfileController extends GetxController {
       final ImagePicker picker = ImagePicker();
       final XFile? picked = await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
       if (picked != null) {
-        selectedImage = File(picked.path);
+        selectedImage.value = File(picked.path);
         Notify.success('Selected image updated');
       }
     } catch (e) {

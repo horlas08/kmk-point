@@ -32,7 +32,7 @@ class AppTranslations extends Translations {
       'points': 'النقاط',
       'rank': 'المرتبة ',
       'this_month': 'هذا الشهر',
-      'increase': 'زيادة 15%',
+      'increase': 'زيادة',
       'this_week': 'هذا الأسبوع',
       'leaderboard': 'لوحة الشرف',
       'top_students': 'أفضل 10 طلاب',
@@ -99,6 +99,9 @@ class AppTranslations extends Translations {
       'login_pages': 'صفحات تسجيل الدخول',
       'main_pages': 'الصفحات الرئيسية',
       'other_pages': 'صفحات اخرى',
+      'added': 'تمت إضافة',
+      'deducted': 'تمت خصم',
+      'deducted_by_reward': 'تم خصم بواسطة المكافأة',
     },
     'en': {
       'app_name': 'Points system',
@@ -194,6 +197,7 @@ class AppTranslations extends Translations {
       'login_pages': 'Login Pages',
       'main_pages': 'Main Pages',
       'other_pages': 'Other Pages',
+      'added': 'Added'
     },
   };
 }

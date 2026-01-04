@@ -26,4 +26,16 @@ class AuthData {
       organizationsProjectsPairs?.map((e) => e.toJson()).toList(),
     };
   }
+
+  AuthData copyWith({
+    Student? student,
+    String? token,
+    List<OrganizationProjectPair>? organizationsProjectsPairs,
+  }) {
+    return AuthData(
+      student: student ?? this.student,
+      token: token ?? this.token,
+      organizationsProjectsPairs: organizationsProjectsPairs ?? this.organizationsProjectsPairs,
+    );
+  }
 }

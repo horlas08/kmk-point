@@ -27,10 +27,7 @@ class PointDetails extends StatelessWidget {
 
     // Resolve project id
     final projectId = Get.isRegistered<SelectProjectController>()
-        ? Get
-        .find<SelectProjectController>()
-        .activeProjectId
-        .value
+        ? Get.find<SelectProjectController>().activeProjectId.value
         : '';
 
     // If no project selected we hide the widget
@@ -48,7 +45,7 @@ class PointDetails extends StatelessWidget {
         constraints: const BoxConstraints(minHeight: 295),
         child: Column(
           children: [
-            if(pointDetailsController.points.isNotEmpty)
+            if (pointDetailsController.points.isNotEmpty)
               Row(
                 children: [
                   Text("تفاصيل النقاط".tr, style: textMediumBlack),
@@ -68,53 +65,14 @@ class PointDetails extends StatelessWidget {
             SizedBox(
               height: 220,
 
-              child: Builder(
-                builder: (context) {
-                  if (pointDetailsController.points.isNotEmpty) {
-                    // defensively handle cases where the registered controller's points
-                    // may contain Map instances (legacy) or PointLogItem instances.
-                    // final raw = pointDetailsController.points;
-                    List<
-                        PointLogItem> listFromController = pointDetailsController
-                        .points.take(5).toList();
-
-
-                    if (listFromController.isNotEmpty) {
-                      return _buildList(context, listFromController);
-                    }
-                  }
-
-                  // otherwise fetch via service
-                  return FutureBuilder(
-                    future: PointDetailsService().fetchPointLog(
-                      projectId: projectId,
-                    ),
-                    builder: (context, AsyncSnapshot snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CupertinoActivityIndicator());
-                      }
-                      if (snapshot.hasError) return SizedBox.shrink();
-                      final res = snapshot.data;
-                      final data = res.data;
-                      final List<PointLogItem> list =
-                      (data is Map &&
-                          (data['status'] == true || data['code'] == 200))
-                          ? (data['data'] as List? ?? [])
-                          .map(
-                            (e) =>
-                            PointLogItem.fromJson(
-                              e as Map<String, dynamic>,
-                            ),
-                      )
-                          .take(5)
-                          .toList()
-                          : <PointLogItem>[];
-                      if (list.isEmpty) return SizedBox.shrink();
-                      return _buildList(context, list);
-                    },
-                  );
-                },
-              ),
+              child: Obx(() {
+                if (pointDetailsController.isLoading.value) {
+                  return Center(child: CupertinoActivityIndicator());
+                }
+                final list = pointDetailsController.points.take(5).toList();
+                if (list.isEmpty) return SizedBox.shrink();
+                return _buildList(context, list);
+              }),
             ),
           ],
         ),
@@ -150,10 +108,14 @@ class PointDetails extends StatelessWidget {
                 Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: Color(0xFFDCFCE7),
+                      backgroundColor: item.type == 'added'
+                          ? Color(0xFFDCFCE7)
+                          : Color(0xFFFCE0DC),
                       radius: 24,
                       child: SvgPicture.asset(
-                        "assets/svg/rise.svg",
+                        item.type == 'added'
+                            ? "assets/svg/rise.svg"
+                            : "assets/svg/dip.svg",
                         height: 23,
                         width: 23,
                       ),
@@ -170,44 +132,49 @@ class PointDetails extends StatelessWidget {
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: Color(0xFFDCFCE7),
+                            color: item.type == 'added'
+                                ? Color(0xFFDCFCE7)
+                                : Color(0xFFFCE0DC),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Text(item.type),
+                          child: Text(item.type.tr),
                         ),
                       ],
                     ),
                   ],
                 ),
                 SizedBox(height: 24),
+                if (item.type == 'added')
+                  Row(
+                    children: [
+                      Image.asset("assets/image/book.png"),
+                      hSpace(8),
+                      Text(item.title, style: textMediumBlack),
+                    ],
+                  ),
                 Row(
                   children: [
-                    Image.asset("assets/image/book.png"),
-                    hSpace(8),
-                    Text(item.title, style: textMediumBlack),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Image.asset("assets/image/point.png"),
+                    Image.asset("assets/image/point.png", color: item.type != 'added'?Colors.red : null,),
                     hSpace(8),
                     Text(
-                      item.points.toString(),
-                      style: textMediumBlack.copyWith(color: Color(0xFF008236)),
+                      item.type == 'added'
+                          ? "${item.points.toString()}+"
+                          : "${item.points.toString()}-",
+                      style: textMediumBlack.copyWith(color:item.type != 'added'?Colors.red :Color(0xFF008236), fontSize: 16),
                     ),
                     hSpace(2),
                     Text(
                       'point'.tr,
-                      style: textMediumBlack.copyWith(color: Color(0xFF008236)),
+                      style: textMediumBlack.copyWith(color: item.type != 'added'?Colors.red :Color(0xFF008236)),
                     ),
                   ],
                 ),
                 vSpace(12),
-                Divider(color: AppColors.grey, thickness: 2),
+                Divider(color: AppColors.grey, thickness: 1),
                 vSpace(10),
                 Row(
                   children: [
-                    Text('wallet: ${list[index].walletPointsAfter}'),
+                    Text('محفظة: ${list[index].walletBalanceAfter}'),
                     Spacer(),
                     Row(
                       children: [

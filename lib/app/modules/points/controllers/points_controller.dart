@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:point_system/app/common/style/text_style.dart';
 import 'package:point_system/app/modules/change_project/controllers/change_project_controller.dart';
 
 import '../widgets/request_reward.dart';
@@ -10,6 +11,7 @@ import '../widgets/request_reward_sucessful.dart';
 import '../../select_project/controllers/select_project_controller.dart';
 import '../repository/points_service.dart';
 import '../../../common/widgets/notify.dart';
+import '../../../models/reward_request.dart';
 
 class PointsController extends GetxController {
   final points = [
@@ -32,6 +34,9 @@ class PointsController extends GetxController {
   ].obs;
   final selectRewardController = TextEditingController();
   final noteController = TextEditingController();
+  final selectedRewardId = ''.obs;
+  final rewards = <Reward>[].obs;
+  final isLoadingRewards = false.obs;
 
   @override
   void onInit() {
@@ -44,7 +49,84 @@ class PointsController extends GetxController {
 
   }
 
+  Future<void> fetchRewards() async {
+    final projectId = Get.find<SelectProjectController>().activeProjectId.value;
+    if (projectId.isEmpty) return;
+
+    isLoadingRewards.value = true;
+    try {
+      final service = Get.isRegistered<PointsService>()
+          ? Get.find<PointsService>()
+          : Get.put(PointsService());
+      final res = await service.getRewards(projectId: projectId);
+      final data = res.data;
+      if (data is Map && (data['status'] == true || data['code'] == 200)) {
+        final list = (data['data'] as List? ?? [])
+            .map((e) => Reward.fromJson(e as Map<String, dynamic>))
+            .toList();
+        rewards.assignAll(list);
+      } else {
+        rewards.clear();
+      }
+    } catch (e) {
+      rewards.clear();
+    } finally {
+      isLoadingRewards.value = false;
+    }
+  }
+
+  void showRewardPicker() {
+    fetchRewards();
+    Get.bottomSheet(
+      Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
+        ),
+        child: Obx(() {
+          if (isLoadingRewards.value) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return Column(
+            children: [
+              Text("حدد نوع المكافأة", style: textMediumBlack,),
+              SizedBox(height: 16),
+              Divider(),
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: rewards.length,
+                itemBuilder: (context, index) {
+                  final reward = rewards[index];
+                  return ListTile(
+                    enableFeedback: true,
+                    style: ListTileStyle.drawer,
+
+                    // leading: CircleAvatar(radius: 2, backgroundColor: Colors.black12,),
+                    title: Text(reward.name),
+                    onTap: () {
+                      selectRewardController.text = reward.name;
+                      selectedRewardId.value = reward.id.toString();
+                      Get.back();
+                    },
+                  );
+                },
+              ),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+
   showRequestReward() {
+    selectRewardController.clear();
+    selectedRewardId.value = '';
+    noteController.clear();
     return showDialog(
       context: Get.context!,
       fullscreenDialog: false,
@@ -66,7 +148,7 @@ class PointsController extends GetxController {
   }
 
   Future<void> submitRequestReward() async {
-    final rewardId = selectRewardController.text.trim();
+    final rewardId = selectedRewardId.value.trim();
     final notes = noteController.text.trim();
     if (rewardId.isEmpty) {
       Notify.error('الرجاء اختيار المكافأة');

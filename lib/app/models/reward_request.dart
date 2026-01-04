@@ -66,3 +66,20 @@ class RewardRequestStatAndHistory {
     );
   }
 }
+
+class Reward {
+  final int id;
+  final String name;
+
+  Reward({required this.id, required this.name});
+
+  factory Reward.fromJson(Map<String, dynamic> json) => Reward(
+        id: json['id'] is int ? json['id'] : int.tryParse('${json['id']}') ?? 0,
+        name: json['name']?.toString() ?? '',
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+      };
+}

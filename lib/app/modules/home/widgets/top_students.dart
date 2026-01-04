@@ -72,57 +72,72 @@ class TopStudents extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return TouchableOpacity(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: index == 0
-                            ? Color(0xFFFEF9C2)
-                            : index == 1
-                            ? Color(0xFFE5EEFF)
-                            : index == 2
-                            ? Color(0xFFFFEDD4)
-                            : Colors.white,
-                        border: Border.all(
-                            color: Colors.black.withOpacity(0.05)
-                        )
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 9, vertical: 8),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "${controller.topRanking[index]['rank']}#",
-                            style: textMediumBlack.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
-                          ),
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color:  index == 0
+                                ? Color(0xFFFEF9C2)
+                                : index == 1
+                                ? Color(0xFFE5EEFF)
+                                : index == 2
+                                ? Color(0xFFFFEDD4)
+                                : topStudents[index].isHighlighted ? Color(0XFFC4D3FF)
+                                : Colors.white,
+                            border: Border.all(
+                                color: Colors.black.withOpacity(0.05)
+                            )
                         ),
+                        padding: EdgeInsets.symmetric(horizontal: 9, vertical: 8),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "${controller.topRanking[index]['rank']}#",
+                                style: textMediumBlack.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
 
-                        Expanded(
-                          child: Text(
-                            "${controller.topRanking[index]['name']}",
-                            style: textMediumBlack.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
+                            Expanded(
+                              child: Text(
+                                "${controller.topRanking[index]['name']}",
+                                style: textMediumBlack.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.start,
+                              ),
                             ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
 
-                        SizedBox(
-                          width: 50,
-                          child: Text(
-                            "${controller.topRanking[index]['points']}",
-                            style: textMediumBlack.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
+                            SizedBox(
+                              width: 50,
+                              child: Text(
+                                "${controller.topRanking[index]['points']}",
+                                style: textMediumBlack.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.end,
+                              ),
                             ),
-                            textAlign: TextAlign.end,
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      if(topStudents[index].isHighlighted)
+                      Positioned(
+                        top: 0,
+                        bottom: 0,
+                        child: Container(
+                          color: AppColors.primary,
+                          width: 5,
+
+                        ),
+                      )
+                    ],
                   ),
                 );
               },

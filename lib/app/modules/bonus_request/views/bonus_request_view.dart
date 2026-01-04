@@ -72,6 +72,40 @@ class BonusRequestView extends GetView<BonusRequestController> {
 
                       ),
                       vSpace(25),
+                      TouchableOpacity(
+                        onTap: () => Get.toNamed(Routes.SCAN),
+                        child: Container(
+                          padding: simPad(12, 12),
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Color(0XFFE9F0FF),
+                        
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                        
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(qrScanSvg, width: 24, color: AppColors.primary,),
+                                      hSpace(8),
+                                      Text("امسح رمز المكافأة", style: textMediumBlack,)
+                                    ],
+                                  ),
+                                  Text("إذا كان لديك رمز، امسحه ضوئيا هنا", style: textRegularGrey,)
+                                ],
+                              ),
+                              Spacer(),
+                              Icon(Icons.arrow_forward_ios_outlined),
+                            ],
+                          ),
+                        ),
+                      ),
+                      vSpace(25),
                       Container(
                         padding: simPad(16, 16),
                         decoration: BoxDecoration(
