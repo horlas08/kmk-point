@@ -117,13 +117,14 @@ main() async {
                     : TextDirection.ltr;
                 return Directionality(
                   textDirection: direction,
-                  child: kDebugMode
-                      ? child!
-                      : Stack(
-                          children: [
-                            ConnectionOverlay(child: child ?? const SizedBox()),
-                          ],
-                        ),
+                  child: child!
+                    // kDebugMode
+                    //   ? child!
+                    //   : Stack(
+                    //       children: [
+                    //         ConnectionOverlay(child: child ?? const SizedBox()),
+                    //       ],
+                    //     ),
                 );
                 ;
               },
@@ -151,9 +152,10 @@ Future<String?> getManufacturer() async {
 class InitialBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(LoginController());
+
     Get.put(ConnectivityController(), permanent: true);
     Get.put( AuthService(), permanent: true);
+    // Get.put(LoginController());
     Get.put(SelectProjectController(), permanent: true, );
     // Make API service persistent
     Get.put(ApiService(), permanent: true);

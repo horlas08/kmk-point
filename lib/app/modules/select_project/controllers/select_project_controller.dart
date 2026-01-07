@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../login/repository/auth_service.dart';
@@ -16,6 +17,26 @@ class SelectProjectController extends GetxController {
   final projectController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final authService = Get.find<AuthService>();
+
+  @override
+  void onInit() {
+    final box = Hive.box('auth');
+    final savedProjectId = box.get('selectedProjectId')?.toString();
+    final savedOrgId = box.get('selectedOrgId')?.toString();
+    final savedProjectName = box.get('selectedProjectName')?.toString();
+
+    if (savedProjectId != null && savedProjectId.isNotEmpty) {
+      activeProjectId.value = savedProjectId;
+    }
+    if (savedOrgId != null && savedOrgId.isNotEmpty) {
+      activeOrgId.value = savedOrgId;
+    }
+    if (savedProjectName != null && savedProjectName.isNotEmpty) {
+      projectController.text = savedProjectName;
+    }
+
+    super.onInit();
+  }
   
   showProjectSelectionBottomSheet() {
     Get.bottomSheet(
@@ -45,6 +66,10 @@ class SelectProjectController extends GetxController {
                   activeProjectId.value = "${e.projectId}";
                   activeOrgId.value = "${e.organizationId}";
                   projectController.text = "${e.projectName}- ${e.organizationName}";
+                  final box = Hive.box('auth');
+                  box.put('selectedProjectId', activeProjectId.value);
+                  box.put('selectedOrgId', activeOrgId.value);
+                  box.put('selectedProjectName', projectController.text);
                   log("${activeProjectId.value}");
                   Get.back();
                 },
@@ -66,6 +91,11 @@ class SelectProjectController extends GetxController {
         Notify.error('لم يتم العثور على معرف المشروع المحدد');
         return;
       }
+
+      final box = Hive.box('auth');
+      box.put('selectedProjectId', activeProjectId.value);
+      box.put('selectedOrgId', activeOrgId.value);
+      box.put('selectedProjectName', projectController.text);
 
       Get.context?.loaderOverlay.show();
       final home = Get.isRegistered<HomeService>()

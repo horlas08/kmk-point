@@ -126,7 +126,11 @@ class ApiService {
 
   // Clear tokens from SharedPreferences
   Future<void> _clearTokens() async {
-    Hive.box("auth").delete("accessToken");
+    final box = Hive.box('auth');
+    box.delete('accessToken');
+    box.delete('selectedProjectId');
+    box.delete('selectedOrgId');
+    box.delete('selectedProjectName');
     _accessToken = null;
   }
 

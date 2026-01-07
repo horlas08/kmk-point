@@ -63,6 +63,10 @@ class LoginView extends GetView<LoginController> {
                         itemController: controller.phoneOrIdController,
                         itemHintText: "phone_or_id".tr,
                         validator: ValidationBuilder(localeName: "ar").required().build(),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) {
+                          FocusScope.of(context).requestFocus(controller.passwordFocusNode);
+                        },
                         prefixIcon: SvgPicture.asset(
                           userSvg,
                           fit: BoxFit.scaleDown,
@@ -73,11 +77,13 @@ class LoginView extends GetView<LoginController> {
                       vSpace(8),
                       CustomInput(
                         itemController: controller.passwordController,
-                        itemHintText: "password".tr,
+                        itemHintText: "أدخل كلمة المرور الخاصة بك",
                         isAuthField: true,
+                        focusNode: controller.passwordFocusNode,
+                        textInputAction: TextInputAction.done,
                         suffixIcon: SvgPicture.asset(eyeSvg),
                         prefixIcon: SvgPicture.asset(
-                          userSvg,
+                          lockSvg,
                           fit: BoxFit.scaleDown,
                           height: 20,
                           color: AppColors.formIcon,

@@ -70,19 +70,7 @@ class ManageProfileView extends GetView<ManageProfileController> {
                                       fit: BoxFit.scaleDown,
                                       height: 132,
                                       width: 132,
-                                      frameBuilder:
-                                          (
-                                            context,
-                                            child,
-                                            frame,
-                                            wasSynchronouslyLoaded,
-                                          ) {
-                                            if (!wasSynchronouslyLoaded) {
-                                              return child;
-                                            } else {
-                                              return CupertinoActivityIndicator();
-                                            }
-                                          },
+
                                     )
                                   : Image.asset(
                                       profileImage,

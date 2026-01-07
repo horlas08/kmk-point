@@ -62,10 +62,12 @@ class HomeCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
 
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("$projectName", style: textMediumBlack.copyWith(
                           fontSize: 14,
@@ -73,6 +75,8 @@ class HomeCard extends StatelessWidget {
                         ),),
                         vSpace(5),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
                               starFourSvg,
@@ -86,6 +90,7 @@ class HomeCard extends StatelessWidget {
                               "balance".tr,
                               style: textMediumBlack.copyWith(
                                 fontSize: 14,
+                                height: 1,
                                 color: Colors.white,
                               ),
                             ),
@@ -93,13 +98,17 @@ class HomeCard extends StatelessWidget {
                         ),
                         vSpace(12),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               walletBalance.toString(),
                               style: textMediumBlack.copyWith(
                                 color: Colors.white,
                                 fontSize: 23,
+                                height: 1,
                               ),
+
                             ),
                             hSpace(5),
                             Text(
@@ -107,6 +116,7 @@ class HomeCard extends StatelessWidget {
                               style: textRegularGrey.copyWith(
                                 fontSize: 10,
                                 color: Colors.white,
+                                height: 1
                               ),
                             ),
                           ],
@@ -169,19 +179,24 @@ class HomeCard extends StatelessWidget {
                 Row(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
                           "points".tr,
                           style: textRegularGrey.copyWith(
                             fontSize: 10,
                             color: Colors.white,
+                            height: 2,
                           ),
                         ),
+                        hSpace(12),
                         Text(
                           walletPoints.toString(),
                           style: textMediumBlack.copyWith(
                             color: Colors.white,
                             fontSize: 23,
+                            height: 1,
                           ),
                         ),
                         hSpace(5),
@@ -190,6 +205,7 @@ class HomeCard extends StatelessWidget {
                           style: textRegularGrey.copyWith(
                             fontSize: 10,
                             color: Colors.white,
+                            height: 1
                           ),
                         ),
                       ],
@@ -207,7 +223,7 @@ class HomeCard extends StatelessWidget {
                         color: Color(0xFF6788E3),
                       ),
 
-                      child: Text("${"rank".tr} $currentRank", style: textRegularGrey.copyWith(
+                      child: Text("${"rank".tr} #$currentRank", style: textRegularGrey.copyWith(
                         fontSize: 10,
                         color: Colors.white,
 

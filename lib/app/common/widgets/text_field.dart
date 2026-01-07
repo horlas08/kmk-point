@@ -10,10 +10,14 @@ class CustomInput extends StatefulWidget {
     super.key,
     required this.itemController,
     this.itemKeyboardType,
+    this.focusNode,
+    this.textInputAction,
     this.itemHintText,
     this.borderColor,
     this.validator,
     this.onChanged,
+    this.onFieldSubmitted,
+    this.onEditingComplete,
     this.suffixIcon,
     this.prefixIcon,
     this.contentPadding,
@@ -26,10 +30,14 @@ class CustomInput extends StatefulWidget {
 
   final TextEditingController itemController;
   final TextInputType? itemKeyboardType;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
   final String? itemHintText;
   final Color? borderColor;
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onFieldSubmitted;
+  final VoidCallback? onEditingComplete;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool isAuthField;
@@ -59,13 +67,17 @@ class _FormFieldWidgetState extends State<CustomInput> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.itemController,
+      focusNode: widget.focusNode,
       obscureText: _obscureText,
       keyboardType: widget.itemKeyboardType,
+      textInputAction: widget.textInputAction,
       maxLines: widget.maxLines,
       onTap: widget.onTap,
       readOnly: widget.readOnly,
       style: const TextStyle(color: Colors.black),
       onChanged: ((value) => widget.onChanged?.call(value)),
+      onFieldSubmitted: widget.onFieldSubmitted,
+      onEditingComplete: widget.onEditingComplete,
       decoration: InputDecoration(
         suffixIcon: widget.isAuthField
             ? IconButton(

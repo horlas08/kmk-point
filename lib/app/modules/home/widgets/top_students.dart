@@ -13,7 +13,6 @@ class TopStudents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeController>();
 
     return Obx(() {
       final topStudents = Get.find<HomeService>().participantHome.value?.topTenParticipants;
@@ -71,6 +70,7 @@ class TopStudents extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
+                final student = topStudents[index];
                 return TouchableOpacity(
                   child: Stack(
                     children: [
@@ -94,7 +94,7 @@ class TopStudents extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                "${controller.topRanking[index]['rank']}#",
+                                "${student.order}#",
                                 style: textMediumBlack.copyWith(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
@@ -104,7 +104,7 @@ class TopStudents extends StatelessWidget {
 
                             Expanded(
                               child: Text(
-                                "${controller.topRanking[index]['name']}",
+                                "${student.name}",
                                 style: textMediumBlack.copyWith(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
@@ -116,7 +116,7 @@ class TopStudents extends StatelessWidget {
                             SizedBox(
                               width: 50,
                               child: Text(
-                                "${controller.topRanking[index]['points']}",
+                                "${student.points}",
                                 style: textMediumBlack.copyWith(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
@@ -127,7 +127,7 @@ class TopStudents extends StatelessWidget {
                           ],
                         ),
                       ),
-                      if(topStudents[index].isHighlighted)
+                      if(student.isHighlighted)
                       Positioned(
                         top: 0,
                         bottom: 0,

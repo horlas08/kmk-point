@@ -21,19 +21,10 @@ class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
     final student = Get.find<AuthService>().loginData.value!.student;
 
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Get.toNamed(Routes.SCAN);
-      //   },
-      //   child: SvgPicture.asset(qrScanSvg),
-      //   backgroundColor: AppColors.primary,
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      body: SafeArea(
+        body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

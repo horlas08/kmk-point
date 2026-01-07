@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../modules/account_setting/bindings/account_setting_binding.dart';
 import '../modules/account_setting/views/account_setting_view.dart';
 import '../modules/base_view/bindings/base_view_binding.dart';
+import '../modules/base_view/middlewares/auth_middleware.dart';
 import '../modules/base_view/middlewares/check_token.dart';
 import '../modules/base_view/views/base_view_view.dart';
 import '../modules/bonus_request/bindings/bonus_request_binding.dart';
@@ -55,14 +56,16 @@ class AppPages {
 
   static final routes = [
     GetPage(
-        name: _Paths.HOME,
-        page: () => const HomeView(),
-        binding: HomeBinding(),
-        middlewares: [CheckToken()]),
+      name: _Paths.HOME,
+      page: () => const HomeView(),
+      binding: HomeBinding(),
+      // middlewares: [CheckToken()],
+    ),
     GetPage(
       name: _Paths.LOGIN,
       page: () => const LoginView(),
       binding: LoginBinding(),
+      middlewares: [AuthMiddleware()],
     ),
     GetPage(
       name: _Paths.FORGET_PASSWORD,
@@ -83,6 +86,7 @@ class AppPages {
       name: _Paths.BASE_VIEW,
       page: () => const BaseViewView(),
       binding: BaseViewBinding(),
+      // middlewares: [CheckToken()],
     ),
     GetPage(
       name: _Paths.POINTS,
@@ -133,6 +137,7 @@ class AppPages {
       name: _Paths.SELECT_PROJECT,
       page: () => const SelectProjectView(),
       binding: SelectProjectBinding(),
+      // middlewares: [CheckToken()],
     ),
     GetPage(
       name: _Paths.CHANGE_PROJECT,
