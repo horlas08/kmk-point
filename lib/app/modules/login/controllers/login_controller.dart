@@ -10,38 +10,15 @@ import 'package:point_system/app/models/auth_data.dart';
 import 'package:point_system/app/routes/app_pages.dart';
 import 'package:point_system/app/modules/login/repository/auth_service.dart';
 
-import '../../../common/helper/helper.dart';
 import '../../../common/widgets/notify.dart';
 
 class LoginController extends GetxController {
-  final phoneOrIdController = TextEditingController(text: "012345678945");//012345678945
-  final passwordController = TextEditingController(text: "123456789");//123456789
+  final phoneOrIdController = TextEditingController(text: "");//012345678945
+  final passwordController = TextEditingController(text: "");//123456789
   final passwordFocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   final isSubmitting = false.obs;
-  final box = Hive.box('auth');
-  @override
-  void onInit() {
 
-    // final rawData = box.get("authData");
-    //
-    // if (rawData != null) {
-    //   final loginData = deepParseMap(rawData);
-    //
-    //   Get.find<AuthService>().loginData.value =
-    //       AuthData.fromJson(loginData);
-    // }
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    // if (Get.find<AuthService>().loginData.value != null) {
-    //   Get.offAllNamed(Routes.SELECT_PROJECT);
-    // }
-
-    super.onReady();
-  }
   @override
   void onClose() {
     phoneOrIdController.dispose();
@@ -63,7 +40,7 @@ class LoginController extends GetxController {
         if(loginRes.statusCode == HttpStatus.ok){
           Get.find<AuthService>().loginData.value = AuthData.fromJson(loginRes.data['data']);
           await Hive.box("auth").put('accessToken', Get.find<AuthService>().loginData.value?.token?? "");
-          await Hive.box("auth").put('authData',Get.find<AuthService>().loginData.value?.toJson() );
+          await Hive.box("auth").put(Get.find<AuthService>().loginData.value?.toJson(), 'authData');
           Notify.success(loginRes.data['message']);
           final selectedProjectId = Hive.box('auth').get('selectedProjectId')?.toString();
           if (selectedProjectId != null && selectedProjectId.isNotEmpty) {
