@@ -133,7 +133,7 @@ class _FormFieldWidgetState extends State<CustomInput> {
           widget.validator ??
           (value) {
             if (value == null || value.trim().isEmpty) {
-              return 'This field is required';
+              return 'هذه الخانة مطلوبه';
             }
             return null;
           },

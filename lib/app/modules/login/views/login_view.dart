@@ -79,6 +79,7 @@ class LoginView extends GetView<LoginController> {
                         itemController: controller.passwordController,
                         itemHintText: "أدخل كلمة المرور الخاصة بك",
                         isAuthField: true,
+                        validator: ValidationBuilder(localeName: "ar").required().build(),
                         focusNode: controller.passwordFocusNode,
                         textInputAction: TextInputAction.done,
                         suffixIcon: SvgPicture.asset(eyeSvg),
