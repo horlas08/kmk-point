@@ -13,8 +13,8 @@ import 'package:point_system/app/modules/login/repository/auth_service.dart';
 import '../../../common/widgets/notify.dart';
 
 class LoginController extends GetxController {
-  final phoneOrIdController = TextEditingController(text: "222222222222");//012345678945
-  final passwordController = TextEditingController(text: "123456");//123456789
+  final phoneOrIdController = TextEditingController(text: "");//012345678945
+  final passwordController = TextEditingController(text: "");//123456789
   final passwordFocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   final isSubmitting = false.obs;

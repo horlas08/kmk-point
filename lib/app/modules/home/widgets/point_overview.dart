@@ -32,7 +32,7 @@ class PointOverview extends StatelessWidget {
                     isGradient: true,
                     gradientBg: LinearGradient(
                       colors: [homeStat.week.growthDirection == 'down'
-                          ? Color(0xFFF8C8B9): Color(0xFFF0FDF4), Color(0xFFFFFFFF)],
+                          ? Color(0xFFFEF2F2): Color(0xFFF0FDF4), Color(0xFFFFFFFF)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       stops: [0.0, 1.0],
@@ -41,7 +41,7 @@ class PointOverview extends StatelessWidget {
                         ? Color(0xFFF8C8B9)
                         : Color(0xFFB9F8CF),
                     iconBgColor: homeStat.week.growthDirection == 'down'
-                        ? Color(0xFFF8C8B9)
+                        ? Color(0xFFFFE2E2)
                         : Color(0xFFB9F8CF),
                     icon: Transform.rotate(
                       angle: homeStat.week.growthDirection == 'down' ? 160 : 0,
@@ -55,7 +55,7 @@ class PointOverview extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
 
                       children: [
-                        SvgPicture.asset(riseSvg, width: 16, height: 16),
+                        SvgPicture.asset( riseSvg, width: 16, height: 16, color: homeStat.week.growthDirection == 'down'? Colors.red: null,),
                         hSpace(5),
                         Text(
                           "${homeStat.week.growthLabel} ${homeStat.week.growthPercentage}%",
