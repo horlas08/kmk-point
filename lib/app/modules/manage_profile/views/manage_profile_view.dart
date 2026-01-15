@@ -46,14 +46,18 @@ class ManageProfileView extends GetView<ManageProfileController> {
                       Obx(() {
                         return Row(
                           children: [
+
                             ClipRRect(
+
                               borderRadius: BorderRadius.circular(13),
+                              clipBehavior: Clip.hardEdge,
+
                               child: controller.selectedImage.value != null
                                   ? Image.file(
                                       controller.selectedImage.value!,
                                       height: 132,
                                       width: 132,
-                                      fit: BoxFit.scaleDown,
+                                      fit: BoxFit.cover,
                                     )
                                   : Get.find<AuthService>()
                                             .loginData
@@ -67,17 +71,25 @@ class ManageProfileView extends GetView<ManageProfileController> {
                                           .value!
                                           .student!
                                           .image!,
-                                      fit: BoxFit.scaleDown,
+                                      fit: BoxFit.cover,
                                       height: 132,
                                       width: 132,
-
+                                loadingBuilder: (context, child, loadingProgress) {
+                                  return loadingProgress == null
+                                      ? child
+                                      : Center(
+                                          child: CupertinoActivityIndicator(),
+                                        );
+                                },
                                     )
                                   : Image.asset(
                                       profileImage,
-                                      fit: BoxFit.scaleDown,
+                                      fit: BoxFit.cover,
                                       height: 132,
                                       width: 132,
+
                                     ),
+
                             ),
                             hSpace(24),
                             Column(

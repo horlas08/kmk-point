@@ -19,56 +19,75 @@ import '../widgets/top_students.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final student = Get.find<AuthService>().loginData.value!.student;
+    final student = Get
+        .find<AuthService>()
+        .loginData
+        .value!
+        .student;
 
     return Scaffold(
         body: SafeArea(
-          child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child:  Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    "points_system".tr,
-                    style: headerSbPrimary.copyWith(fontSize: 24),
-                    textAlign: TextAlign.center,
-                  ),
-                  Spacer(),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "points_system".tr,
+                          style: headerSbPrimary.copyWith(fontSize: 24),
+                          textAlign: TextAlign.center,
+                        ),
+                        Spacer(),
 
-                  TouchableOpacity(
-                    onTap: () {
-                      Get.toNamed(Routes.NOTIFICATIONS);
-                    },
-                    child: Container(
+                        TouchableOpacity(
+                          onTap: () {
+                            Get.toNamed(Routes.NOTIFICATIONS);
+                          },
+                          child: Obx(() {
+                            return Badge(
+                              isLabelVisible: Get
+                                  .find<HomeService>()
+                                  .participantHome
+                                  .value
+                                  ?.unreadNotificationsCount != 0,
+                              label: Text("${Get.find<HomeService>().participantHome.value?.unreadNotificationsCount}"),
+                              offset: Offset(2, 2),
+                              alignment: AlignmentDirectional.topStart,
+                              child: Container(
 
-                      height: 48,
-                      width: 48,
-                      decoration: BoxDecoration(
-                          color: AppColors.primaryBgLight,
-                          borderRadius: BorderRadius.circular(14)
-                      ),
-                      child: SvgPicture.asset(notificationSvg, fit: BoxFit.scaleDown,),
+                                height: 48,
+                                width: 48,
+                                decoration: BoxDecoration(
+                                    color: AppColors.primaryBgLight,
+                                    borderRadius: BorderRadius.circular(14)
+                                ),
+                                child: SvgPicture.asset(
+                                  notificationSvg, fit: BoxFit.scaleDown,),
+                              ),
+                            );
+                          }),
+                        )
+                      ],
                     ),
-                  )
-                ],
+                    vSpace(16),
+                    Text("${'welcome_user'.tr} ${student?.user?.username ??
+                        student?.user?.firstName}", style: textMediumBlack,),
+                    vSpace(8),
+                    HomeCard(),
+                    PointOverview(),
+                    HomeBoard(),
+                    TopStudents(),
+                    vSpace(20),
+                  ],
+                ),
               ),
-              vSpace(16),
-              Text("${'welcome_user'.tr} ${student?.user?.username ??student?.user?.firstName}", style: textMediumBlack,),
-              vSpace(8),
-              HomeCard(),
-              PointOverview(),
-              HomeBoard(),
-              TopStudents(),
-              vSpace(20),
-            ],
-          ),
-        ),
-      ))
+            ))
     );
   }
 }

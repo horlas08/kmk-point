@@ -10,6 +10,7 @@ import '../../../common/style/text_style.dart';
 import '../../../common/widgets/space.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/svg_path.dart';
+import '../../home/repository/home_service.dart';
 import '../controllers/points_controller.dart';
 import '../widgets/point_details.dart';
 import '../widgets/point_usage.dart';
@@ -40,16 +41,29 @@ class PointsView extends GetView<PointsController> {
                           onTap: () {
                             Get.toNamed(Routes.NOTIFICATIONS);
                           },
-                          child: Container(
+                          child: Obx(() {
+                            return Badge(
+                              isLabelVisible: Get
+                                  .find<HomeService>()
+                                  .participantHome
+                                  .value
+                                  ?.unreadNotificationsCount != 0,
+                              label: Text("${Get.find<HomeService>().participantHome.value?.unreadNotificationsCount}"),
+                              offset: Offset(2, 2),
+                              alignment: AlignmentDirectional.topStart,
+                              child: Container(
 
-                            height: 48,
-                            width: 48,
-                            decoration: BoxDecoration(
-                                color: AppColors.primaryBgLight,
-                                borderRadius: BorderRadius.circular(14)
-                            ),
-                            child: SvgPicture.asset(notificationSvg, fit: BoxFit.scaleDown,),
-                          ),
+                                height: 48,
+                                width: 48,
+                                decoration: BoxDecoration(
+                                    color: AppColors.primaryBgLight,
+                                    borderRadius: BorderRadius.circular(14)
+                                ),
+                                child: SvgPicture.asset(
+                                  notificationSvg, fit: BoxFit.scaleDown,),
+                              ),
+                            );
+                          }),
                         )
                       ],
                     ),

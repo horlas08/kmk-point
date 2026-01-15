@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -60,6 +61,16 @@ class MoreView extends GetView<MoreController> {
                                 .image!,
                             height: 80,
                             width: 80,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              } else {
+                                return Center(
+                                  child: CupertinoActivityIndicator(
+                                  ),
+                                );
+                              }
+                            },
                             fit: BoxFit.cover,
                           ),
                         ),

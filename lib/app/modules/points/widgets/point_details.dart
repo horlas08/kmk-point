@@ -149,7 +149,7 @@ class PointDetails extends StatelessWidget {
                     children: [
                       Image.asset("assets/image/book.png"),
                       hSpace(8),
-                      Text(item.title, style: textMediumBlack),
+                      Text(item.tag, style: textMediumBlack),
                     ],
                   ),
                 Row(

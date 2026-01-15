@@ -40,7 +40,7 @@ class RequestRewardSuccessful extends StatelessWidget {
               else Image.asset("assets/image/error.png"),
 
               vSpace(24),
-              Text("تم تسجيل طلبك بنجاح", style: TextStyle(fontSize: 20)),
+              Text(message, style: TextStyle(fontSize: 20)),
             ],
           ),
         ),

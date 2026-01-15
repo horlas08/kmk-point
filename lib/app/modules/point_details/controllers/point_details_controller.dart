@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 
 import '../../../models/point_log.dart';
@@ -33,11 +35,22 @@ class PointDetailsController extends GetxController {
     }
   }
 
+  Future<void> refreshCurrentProject({bool force = false}) async {
+    final selectController = Get.find<SelectProjectController>();
+    final id = selectController.activeProjectId.value;
+    if (id.isEmpty) return;
+    if (force) {
+      currentProjectId = id;
+    }
+    await fetch(projectId: id);
+  }
+
   Future<void> fetch({required String projectId}) async {
     isLoading.value = true;
     try {
       final res = await _service.fetchPointLog(projectId: projectId);
       final data = res.data;
+      log( 'Point Details: $data' );
       if (data is Map && (data['status'] == true || data['code'] == 200)) {
         final list = (data['data'] as List? ?? [])
             .map((e) => PointLogItem.fromJson(e as Map<String, dynamic>))

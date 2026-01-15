@@ -12,6 +12,7 @@ import '../../../common/widgets/space.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/svg_path.dart';
 import '../../../routes/app_pages.dart';
+import '../../home/repository/home_service.dart';
 import '../controllers/bonus_request_controller.dart';
 
 class BonusRequestView extends GetView<BonusRequestController> {
@@ -51,17 +52,29 @@ class BonusRequestView extends GetView<BonusRequestController> {
                         onTap: () {
                           Get.toNamed(Routes.NOTIFICATIONS);
                         },
-                        child: Container(
+                        child: Obx(() {
+                          return Badge(
+                            isLabelVisible: Get
+                                .find<HomeService>()
+                                .participantHome
+                                .value
+                                ?.unreadNotificationsCount != 0,
+                            label: Text("${Get.find<HomeService>().participantHome.value?.unreadNotificationsCount}"),
+                            offset: Offset(2, 2),
+                            alignment: AlignmentDirectional.topStart,
+                            child: Container(
 
-                          height: 48,
-                          width: 48,
-                          decoration: BoxDecoration(
-                              color: AppColors.primaryBgLight,
-                              borderRadius: BorderRadius.circular(14)
-                          ),
-                          child: SvgPicture.asset(
-                            notificationSvg, fit: BoxFit.scaleDown,),
-                        ),
+                              height: 48,
+                              width: 48,
+                              decoration: BoxDecoration(
+                                  color: AppColors.primaryBgLight,
+                                  borderRadius: BorderRadius.circular(14)
+                              ),
+                              child: SvgPicture.asset(
+                                notificationSvg, fit: BoxFit.scaleDown,),
+                            ),
+                          );
+                        }),
                       )
                     ],
                   ),
@@ -183,6 +196,13 @@ class BonusRequestView extends GetView<BonusRequestController> {
                                       fontSize: 14,
                                     ),
                                   ),
+                                  Text(
+                                    "حالة",
+                                    style: textMediumBlack.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -208,8 +228,8 @@ class BonusRequestView extends GetView<BonusRequestController> {
                                           Expanded(
                                             child: Text(
                                               // use typed model fields from controller.history
-                                              "${controller.history[index]
-                                                  .reward}",
+                                              controller.history[index]
+                                                  .reward,
                                               style: textMediumBlack.copyWith(
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 14,
@@ -219,8 +239,8 @@ class BonusRequestView extends GetView<BonusRequestController> {
 
                                           Expanded(
                                             child: Text(
-                                              "${controller.history[index]
-                                                  .date}",
+                                              controller.history[index]
+                                                  .date,
                                               style: textMediumBlack.copyWith(
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 14,
@@ -236,6 +256,23 @@ class BonusRequestView extends GetView<BonusRequestController> {
                                               style: textMediumBlack.copyWith(
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 14,
+                                              ),
+                                              maxLines: 1,
+                                              textAlign: TextAlign.end,
+                                            ),
+                                          ),
+
+                                          Chip(
+                                            backgroundColor: controller.history[index]
+                                                .status == "pending" ? Colors.yellow : controller.history[index] == 'accepted' ? Colors.green : Colors.red,
+                                            label: AutoSizeText(
+                                              controller.history[index]
+                                                  .status,
+                                              style: textMediumBlack.copyWith(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14,
+                                                color: controller.history[index]
+                                                    .status == "pending" ? Colors.black : controller.history[index] == 'accepted' ? Colors.white : Colors.white,
                                               ),
                                               maxLines: 1,
                                               textAlign: TextAlign.end,

@@ -10,6 +10,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import '../../../routes/app_pages.dart';
 import '../../../common/widgets/notify.dart';
 import '../../home/repository/home_service.dart';
+import '../../../models/organization_project_pair.dart';
 
 class SelectProjectController extends GetxController {
   final activeProjectId = ''.obs;
@@ -17,6 +18,7 @@ class SelectProjectController extends GetxController {
   final projectController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final authService = Get.find<AuthService>();
+  final selectedProjectLabel = ''.obs;
 
   @override
   void onInit() {
@@ -33,9 +35,50 @@ class SelectProjectController extends GetxController {
     }
     if (savedProjectName != null && savedProjectName.isNotEmpty) {
       projectController.text = savedProjectName;
+      selectedProjectLabel.value = savedProjectName;
     }
 
     super.onInit();
+  }
+
+  List<OrganizationProjectPair> get projectPairs {
+    return authService.loginData.value?.organizationsProjectsPairs ?? [];
+  }
+
+  OrganizationProjectPair? get initialSelectedPair {
+    final pairs = projectPairs;
+    if (pairs.isEmpty) return null;
+    if (activeProjectId.value.isEmpty) return null;
+    return pairs.firstWhereOrNull(
+      (e) => '${e.projectId}' == activeProjectId.value,
+    );
+  }
+
+  Future<List<OrganizationProjectPair>> fetchProjectPairs(String filter) async {
+    try {
+      // Get.context?.loaderOverlay.show();
+      await authService.fetchUser();
+
+    } catch (_) {
+    } finally {
+      try {
+        // Get.context?.loaderOverlay.hide();
+      } catch (_) {}
+    }
+    return projectPairs;
+  }
+
+  void onProjectSelected(dynamic pair) {
+    if (pair == null) return;
+    activeProjectId.value = '${pair.projectId ?? ''}';
+    activeOrgId.value = '${pair.organizationId ?? ''}';
+    selectedProjectLabel.value = '${pair.projectName}- ${pair.organizationName}';
+    projectController.text = selectedProjectLabel.value;
+
+    final box = Hive.box('auth');
+    box.put('selectedProjectId', activeProjectId.value);
+    box.put('selectedOrgId', activeOrgId.value);
+    box.put('selectedProjectName', projectController.text);
   }
   
   showProjectSelectionBottomSheet() {

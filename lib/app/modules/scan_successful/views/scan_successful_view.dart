@@ -68,7 +68,7 @@ class ScanSuccessfulView extends GetView<ScanSuccessfulController> {
                   ),
                   hSpace(4),
 
-                  Text("active_participation"),
+                  Text(controller.category),
                 ],
               ),
               Spacer(),

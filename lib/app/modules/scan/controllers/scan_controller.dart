@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-
+import 'dart:developer';
 import '../../../common/widgets/notify.dart';
 import '../../../routes/app_pages.dart';
 import '../../select_project/controllers/select_project_controller.dart';
@@ -75,10 +75,13 @@ class ScanController extends GetxController {
       Get.context?.loaderOverlay.hide();
 
       final data = res.data;
+      log('Scan result: $data');
       if (data is Map && (data['status'] == true || data['code'] == 200) || res.statusCode == HttpStatus.ok) {
         Notify.success(data is Map ? (data['message']?.toString() ?? 'Success') : 'Success');
         Get.toNamed(Routes.SCAN_SUCCESSFUL, arguments: {
-          "added_point": "${data['data']['added_point']}"
+          "added_point": "${data['data']['added_points']}",
+          "category": "${data['data']['category']}",
+          "tag": "${data['data']['tag']}",
         });
       } else {
         Notify.error(data is Map ? (data['message']?.toString() ?? 'Scan failed') : 'Scan failed');

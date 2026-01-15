@@ -1,6 +1,7 @@
 class PointLogItem {
   final int id;
   final String title;
+  final String tag;
   final num points;
   final num walletPointsAfter;
   final num walletBalanceAfter;
@@ -10,6 +11,7 @@ class PointLogItem {
   PointLogItem({
     required this.id,
     required this.title,
+    required this.tag,
     required this.points,
     required this.walletPointsAfter,
     required this.walletBalanceAfter,
@@ -24,6 +26,7 @@ class PointLogItem {
         walletPointsAfter: json['wallet_points_after'] ?? 0,
         walletBalanceAfter: json['wallet_balance_after'] ?? 0,
         date: json['date']?.toString() ?? '',
+        tag: json['tag']?.toString() ?? '',
         type: json['type']?.toString() ?? '',
       );
 }
