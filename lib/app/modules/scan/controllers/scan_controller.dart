@@ -6,6 +6,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'dart:developer';
 import '../../../common/widgets/notify.dart';
 import '../../../routes/app_pages.dart';
+import '../../login/repository/auth_service.dart';
 import '../../select_project/controllers/select_project_controller.dart';
 import '../repository/scan_service.dart';
 
@@ -72,21 +73,24 @@ class ScanController extends GetxController {
 
       Get.context?.loaderOverlay.show();
       final res = await service.scanQr(qrCode: qrCode, projectId: projectId);
-      Get.context?.loaderOverlay.hide();
+
 
       final data = res.data;
       log('Scan result: $data');
       if (data is Map && (data['status'] == true || data['code'] == 200) || res.statusCode == HttpStatus.ok) {
+        Get.find<AuthService>().fetchUser();
         Notify.success(data is Map ? (data['message']?.toString() ?? 'Success') : 'Success');
         Get.toNamed(Routes.SCAN_SUCCESSFUL, arguments: {
           "added_point": "${data['data']['added_points']}",
           "category": "${data['data']['category']}",
           "tag": "${data['data']['tag']}",
         });
-      } else {
+      }
+      else {
         Notify.error(data is Map ? (data['message']?.toString() ?? 'Scan failed') : 'Scan failed');
         await controller?.resumeCamera();
       }
+      Get.context?.loaderOverlay.hide();
     } catch (e) {
       Get.context?.loaderOverlay.hide();
       Notify.error(e.toString());

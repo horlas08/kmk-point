@@ -258,24 +258,38 @@ class BonusRequestView extends GetView<BonusRequestController> {
                                                 fontSize: 14,
                                               ),
                                               maxLines: 1,
-                                              textAlign: TextAlign.end,
+                                              textAlign: TextAlign.center,
                                             ),
                                           ),
-
-                                          Chip(
-                                            backgroundColor: controller.history[index]
-                                                .status == "pending" ? Colors.yellow : controller.history[index] == 'accepted' ? Colors.green : Colors.red,
-                                            label: AutoSizeText(
-                                              controller.history[index]
-                                                  .status,
-                                              style: textMediumBlack.copyWith(
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 14,
+                                          hSpace(10),
+                                          Expanded(
+                                            child: Container(
+                                              padding: simPad(4, 4),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(6),
                                                 color: controller.history[index]
-                                                    .status == "pending" ? Colors.black : controller.history[index] == 'accepted' ? Colors.white : Colors.white,
+                                                    .status == "pending" ? Colors.yellow : controller.history[index].status == 'accepted' ? Colors.green : Colors.red,
                                               ),
-                                              maxLines: 1,
-                                              textAlign: TextAlign.end,
+
+                                              child: Center(
+                                                child: AutoSizeText(
+                                                  controller.history[index]
+                                                      .statusLabel,
+
+                                                  style: textMediumBlack.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 11,
+
+                                                    color: controller.history[index]
+                                                        .status == "pending" ? Colors.black : controller.history[index].status == 'accepted' ? Colors.white : Colors.white,
+                                                  ),
+                                                  maxLines: 2,
+                                                  minFontSize: 7,
+
+                                                  maxFontSize: 11,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ],

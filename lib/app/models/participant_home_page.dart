@@ -13,6 +13,27 @@ class ParticipantHomePageData {
     required this.topTenParticipants,
   });
 
+  ParticipantHomePageData copyWith({
+    WalletInfo? walletInfo,
+    int? currentParticipantRank,
+    HomePageStatistics? homePageStatistics,
+    List<TopParticipant>? topTenParticipants,
+    int? unreadNotificationsCount,
+  }) {
+    return ParticipantHomePageData(
+      walletInfo: walletInfo ?? this.walletInfo,
+      currentParticipantRank:
+      currentParticipantRank ?? this.currentParticipantRank,
+      homePageStatistics:
+      homePageStatistics ?? this.homePageStatistics,
+      topTenParticipants:
+      topTenParticipants ?? this.topTenParticipants,
+      unreadNotificationsCount:
+      unreadNotificationsCount ?? this.unreadNotificationsCount,
+    );
+  }
+
+
   factory ParticipantHomePageData.fromJson(Map<String, dynamic> json) {
     return ParticipantHomePageData(
       walletInfo: WalletInfo.fromJson(json['wallet_info'] ?? {}),

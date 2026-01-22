@@ -143,7 +143,7 @@ class PointDetailsView extends GetView<PointDetailsController> {
                                   Row(
                                     children: [
                                       Text(
-                                        "ﻟرﺻﯾد: ${controller.points[index].walletBalanceAfter}",
+                                        "اﻟرﺻﯾد: ${controller.points[index].walletBalanceAfter}",
                                       ),
                                       Spacer(),
                                       Row(

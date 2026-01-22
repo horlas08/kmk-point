@@ -1,6 +1,7 @@
 import 'package:get/get.dart' hide Response;
 import 'package:loader_overlay/loader_overlay.dart';
 import '../../../models/notification_item.dart';
+import '../../home/repository/home_service.dart';
 import '../repository/notifications_service.dart';
 import '../../select_project/controllers/select_project_controller.dart';
 
@@ -41,7 +42,7 @@ class NotificationsController extends GetxController {
       final res = await _service.fetchNotifications(projectId: projectId);
       final data = res.data;
       if (data is Map && (data['status'] == true || data['code'] == 200)) {
-        final list = (data['data'] as List? ?? [])
+        final list = (data['data']['latest_notifications'] as List? ?? [])
             .map((e) => NotificationItem.fromJson(e as Map<String, dynamic>))
             .toList();
         notifications.assignAll(list);
@@ -49,12 +50,14 @@ class NotificationsController extends GetxController {
         notifications.clear();
       }
     } catch (e) {
-
       notifications.clear();
       Get.context?.loaderOverlay.hide();
-    }
-    finally{
-      Get.context?.loaderOverlay.hide();
+    } finally {
+      Get.find<HomeService>().participantHome.value = Get.find<HomeService>().participantHome.value?.copyWith(
+        unreadNotificationsCount: 0
+      );
+      Get.context?.loaderOverlay
+          .hide();
     }
   }
 }

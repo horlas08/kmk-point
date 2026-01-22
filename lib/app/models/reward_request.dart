@@ -29,6 +29,7 @@ class RewardRequestHistoryItem {
   final num point;
   final String date;
   final String status;
+  final String statusLabel;
 
   RewardRequestHistoryItem({
     required this.id,
@@ -36,6 +37,7 @@ class RewardRequestHistoryItem {
     required this.point,
     required this.date,
     required this.status,
+    required this.statusLabel,
   });
 
   factory RewardRequestHistoryItem.fromJson(Map<String, dynamic> json) =>
@@ -44,7 +46,8 @@ class RewardRequestHistoryItem {
         reward: json['reward']?.toString() ?? json['reward_name']?.toString() ?? '',
         point: json['point'] ?? json['points'] ?? 0,
         date: json['date']?.toString() ?? json['created_at']?.toString() ?? '',
-        status: json['status']?.toString() ?? json['reward_request_status']?.toString() ?? '',
+        status: json['status']?.toString() ?? '',
+        statusLabel: json['reward_request_status']?.toString() ?? '',
       );
 }
 

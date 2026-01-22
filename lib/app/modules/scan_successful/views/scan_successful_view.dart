@@ -25,10 +25,15 @@ class ScanSuccessfulView extends GetView<ScanSuccessfulController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Align(alignment: AlignmentDirectional.centerEnd, child: TouchableOpacity(onTap: () => Get.offAndToNamed(Routes.BASE_VIEW), child: Icon(Icons.close, size: 24))),
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: TouchableOpacity(
+                  onTap: () => Get.offAndToNamed(Routes.BASE_VIEW),
+                  child: Icon(Icons.close, size: 24),
+                ),
+              ),
               Center(
                 child: Column(
-
                   children: [
                     Image.asset(successImage, fit: BoxFit.scaleDown),
                     vSpace(60),
@@ -46,13 +51,18 @@ class ScanSuccessfulView extends GetView<ScanSuccessfulController> {
               ),
               vSpace(11),
               Text.rich(
-                TextSpan(text: "${controller.addedPoint}+", children: [
-                  TextSpan(text: "point".tr, style: TextStyle(
-                    fontSize: 16,
-                  ),)
-                ],),
+                TextSpan(
+                  text: "${controller.addedPoint}+",
+                  children: [
+                    TextSpan(text: "point".tr, style: TextStyle(fontSize: 16)),
+                  ],
+                ),
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Color(0xFF00A63E),fontSize: 42, fontWeight: FontWeight.w600 ),
+                style: TextStyle(
+                  color: Color(0xFF00A63E),
+                  fontSize: 42,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               vSpace(24),
               Center(child: SizedBox(width: 300, child: Divider(height: 1))),
@@ -68,15 +78,22 @@ class ScanSuccessfulView extends GetView<ScanSuccessfulController> {
                   ),
                   hSpace(4),
 
-                  Text(controller.category),
+                  Text(controller.tag),
                 ],
               ),
               Spacer(),
-              CustomButton(text: "previous_scans".tr, onPressed: () {
-                Get.toNamed(Routes.SCAN_HISTORY);
-              },),
+              CustomButton(
+                text: "previous_scans".tr,
+                onPressed: () {
+                  Get.toNamed(Routes.SCAN_HISTORY);
+                },
+              ),
               vSpace(16),
-              CustomButton(isOutline: true, text: "scan_again".tr, onPressed: () => Get.back(),),
+              CustomButton(
+                isOutline: true,
+                text: "scan_again".tr,
+                onPressed: () => Get.back(),
+              ),
               SizedBox(height: 50),
             ],
           ),

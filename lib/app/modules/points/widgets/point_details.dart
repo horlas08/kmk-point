@@ -174,7 +174,7 @@ class PointDetails extends StatelessWidget {
                 vSpace(10),
                 Row(
                   children: [
-                    Text('محفظة: ${list[index].walletBalanceAfter}'),
+                    Text('اﻟرﺻﯾد: ${list[index].walletBalanceAfter}'),
                     Spacer(),
                     Row(
                       children: [

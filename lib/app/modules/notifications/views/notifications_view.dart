@@ -25,7 +25,7 @@ class NotificationsView extends GetView<NotificationsController> {
       body: Obx(() {
         final list = controller.notifications;
         if (list.isEmpty) {
-          return Center(child: Text('لا إخطارات'));
+          return Center(child: Text('لا توجد إشعارات أو لا توجد بيانات'));
         }
         return ListView.separated(
           padding: EdgeInsets.symmetric(vertical: 8),
