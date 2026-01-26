@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:point_system/app/common/widgets/custom_button.dart';
 import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/common/widgets/text_field.dart';
@@ -59,10 +60,15 @@ class RequestReward extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: CustomButton(text: "confirm_request".tr,onPressed: () {
-                            controller.submitRequestReward();
-                          },),
-
+                          child: CustomButton(
+                            text: "confirm_request".tr,
+                            onPressed: () async {
+                              await controller.submitRequestReward();
+                              Get.context!.loaderOverlay.show();
+                              await controller.fetchRewards();
+                              Get.context!.loaderOverlay.hide();
+                            },
+                          ),
                         ),
                         hSpace(27),
                         Expanded(

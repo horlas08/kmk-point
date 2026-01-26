@@ -136,7 +136,7 @@ class PointsController extends GetxController {
       },
     );
   }
-  showRequestRewardSuccessfulOrError({bool status = true, String? message}) {
+  Future<void> showRequestRewardSuccessfulOrError({bool status = true, String? message}) {
     return showDialog(
       context: Get.context!,
       fullscreenDialog: false,
@@ -182,12 +182,12 @@ class PointsController extends GetxController {
       final String? msg = data is Map ? data['message']?.toString() : null;
 
       // Close the input dialog before showing result
-      if (Get.isOverlaysOpen) Get.back();
-      showRequestRewardSuccessfulOrError(status: ok, message: msg);
+      Get.back();
+      await showRequestRewardSuccessfulOrError(status: ok, message: msg);
     } catch (e) {
       Get.context?.loaderOverlay.hide();
-      if (Get.isOverlaysOpen) Get.back();
-      showRequestRewardSuccessfulOrError(status: false, message: e.toString());
+      if (Get.isDialogOpen == true) Get.back();
+      await showRequestRewardSuccessfulOrError(status: false, message: e.toString());
     }
   }
 }
