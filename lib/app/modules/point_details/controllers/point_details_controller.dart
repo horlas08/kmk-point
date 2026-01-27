@@ -31,8 +31,8 @@ class PointDetailsController extends GetxController {
     // Initial fetch if already selected
     if (selectController.activeProjectId.value.isNotEmpty) {
       currentProjectId = selectController.activeProjectId.value;
-      fetch(projectId: selectController.activeProjectId.value);
     }
+    fetch(projectId: selectController.activeProjectId.value);
   }
 
   Future<void> refreshCurrentProject({bool force = false}) async {

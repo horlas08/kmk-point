@@ -6,7 +6,10 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:point_system/app/common/widgets/custom_button.dart';
 import 'package:point_system/app/common/widgets/space.dart';
 import 'package:point_system/app/common/widgets/text_field.dart';
+import 'package:point_system/app/modules/base_view/controllers/base_view_controller.dart';
+import 'package:point_system/app/modules/point_details/controllers/point_details_controller.dart';
 
+import '../../bonus_request/controllers/bonus_request_controller.dart';
 import '../controllers/points_controller.dart';
 
 class RequestReward extends StatelessWidget {
@@ -65,7 +68,12 @@ class RequestReward extends StatelessWidget {
                             onPressed: () async {
                               await controller.submitRequestReward();
                               Get.context!.loaderOverlay.show();
-                              await controller.fetchRewards();
+
+                              if(Get.find<BaseViewController>().activeIndex.value == 2) {
+                                await Get.find<BonusRequestController>().fetch();
+                              }else {
+                                // await Get.find<PointDetailsController>().refreshCurrentProject(force: true);
+                              }
                               Get.context!.loaderOverlay.hide();
                             },
                           ),

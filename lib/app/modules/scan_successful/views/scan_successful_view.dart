@@ -78,6 +78,20 @@ class ScanSuccessfulView extends GetView<ScanSuccessfulController> {
                   ),
                   hSpace(4),
 
+                  Text(controller.category),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    starFourSvg,
+                    color: AppColors.primary,
+                    fit: BoxFit.scaleDown,
+                  ),
+                  hSpace(4),
+
                   Text(controller.tag),
                 ],
               ),
@@ -95,6 +109,7 @@ class ScanSuccessfulView extends GetView<ScanSuccessfulController> {
                 onPressed: () => Get.back(),
               ),
               SizedBox(height: 50),
+
             ],
           ),
         ),

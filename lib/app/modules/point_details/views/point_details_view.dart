@@ -21,6 +21,7 @@ class PointDetailsView extends GetView<PointDetailsController> {
       initState: (_) async {
         await controller.refreshCurrentProject(force: true);
       },
+
       builder: (_) {
         return Scaffold(
           appBar: CustomAppbar(title: "تفاصيل النقاط"),

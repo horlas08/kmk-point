@@ -38,6 +38,9 @@ class PointDetails extends StatelessWidget {
     final pointDetailsController = hasDetailsController
         ? Get.find<PointDetailsController>()
         : Get.put(PointDetailsController());
+    if(Get.find<SelectProjectController>().activeProjectId.value.isNotEmpty) {
+      pointDetailsController.fetch(projectId: Get.find<SelectProjectController>().activeProjectId.value);
+    }
     return Obx(() {
       return Container(
         margin: EdgeInsets.only(top: 40),
@@ -45,7 +48,7 @@ class PointDetails extends StatelessWidget {
         constraints: const BoxConstraints(minHeight: 295),
         child: Column(
           children: [
-            if (pointDetailsController.points.isNotEmpty)
+            if (pointDetailsController.points.isNotEmpty && !pointDetailsController.isLoading.value)
               Row(
                 children: [
                   Text("تفاصيل النقاط".tr, style: textMediumBlack),
