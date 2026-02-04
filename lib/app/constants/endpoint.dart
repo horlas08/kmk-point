@@ -4,6 +4,7 @@ sealed class Endpoints {
   static const String updateProfile = "/points-plugin/update-profile";
   static const String requestResetOtp = "/points-plugin/password/request-otp";
   static const String verifyResetOtp = "/points-plugin/password/verify-otp";
+  static const String resendOtp = "/points-plugin/password/resend-otp";
   static const String resetPassword = "/points-plugin/password/reset";
   static const String qrCode = "/points-plugin/scan-qr";
   static const String sendRequestReward = "/points-plugin/send-reward-request";

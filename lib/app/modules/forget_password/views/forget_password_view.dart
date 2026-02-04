@@ -56,14 +56,17 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                         CustomInput(
                           itemController: controller.phoneController,
                           itemHintText: "enter_phone".tr,
-                          itemKeyboardType: TextInputType.phone,
+                          itemKeyboardType: TextInputType.emailAddress,
                           prefixIcon: SvgPicture.asset(
-                            callSvg,
+                            emailSvg,
                             fit: BoxFit.scaleDown,
                           ),
                           validator: (v) {
                             if (v == null || v.trim().isEmpty) return 'This field is required';
-                            if (v.replaceAll(RegExp(r'[^0-9]'), '').length < 10) return 'Enter valid phone';
+                            final email = v.trim();
+                            if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email)) {
+                              return 'Enter a valid email';
+                            }
                             return null;
                           },
                         ),

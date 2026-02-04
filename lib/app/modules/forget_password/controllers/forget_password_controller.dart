@@ -20,11 +20,11 @@ class ForgetPasswordController extends GetxController {
     if (form != null && form.validate()) {
       try {
         isSubmitting.value = true;
-        final mobile = phoneController.text.trim();
+        final email = phoneController.text.trim();
         Get.context?.loaderOverlay.show();
         final api = Get.find<ApiService>();
         final res = await api.post(Endpoints.requestResetOtp, data: {
-          'mobile': mobile,
+          'email': email,
         });
         Get.context?.loaderOverlay.hide();
         isSubmitting.value = false;
@@ -32,7 +32,7 @@ class ForgetPasswordController extends GetxController {
         if (data is Map && (data['status'] == true || data['code'] == 200)||res.statusCode == HttpStatus.ok) {
           Notify.success(data['message']?.toString() ?? 'OTP sent');
           // Navigate to OTP screen with identifier
-          Get.toNamed(Routes.OTP_VERIFICATION, arguments: {'mobile': mobile});
+          Get.toNamed(Routes.OTP_VERIFICATION, arguments: {'email': email});
         } else {
           Notify.error(data is Map ? (data['message']?.toString() ?? 'Failed to send OTP') : 'Failed to send OTP');
         }

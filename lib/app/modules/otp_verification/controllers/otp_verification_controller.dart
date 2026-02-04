@@ -16,7 +16,7 @@ class OtpVerificationController extends GetxController with GetTickerProviderSta
   final remainingSeconds = 59.obs;
   final canResend = false.obs;
   Timer? _timer;
-  late final String mobile;
+  late final String email;
 
   void startTimer({int from = 59}) {
     _timer?.cancel();
@@ -44,8 +44,8 @@ class OtpVerificationController extends GetxController with GetTickerProviderSta
     try {
       Get.context?.loaderOverlay.show();
       final api = Get.find<ApiService>();
-      final res = await api.post(Endpoints.requestResetOtp, data: {
-        'mobile': mobile,
+      final res = await api.post(Endpoints.resendOtp, data: {
+        'email': email,
       });
       Get.context?.loaderOverlay.hide();
       final data = res.data;
@@ -76,7 +76,7 @@ class OtpVerificationController extends GetxController with GetTickerProviderSta
       Get.context?.loaderOverlay.show();
       final api = Get.find<ApiService>();
       final res = await api.post(Endpoints.verifyResetOtp, data: {
-        'mobile': mobile,
+        'email': email,
         'otp': otp,
       });
       Get.context?.loaderOverlay.hide();
@@ -105,7 +105,7 @@ class OtpVerificationController extends GetxController with GetTickerProviderSta
   @override
   void onInit() {
     super.onInit();
-    mobile = (Get.arguments?['mobile'] ?? '').toString();
+    email = (Get.arguments?['email'] ?? '').toString();
     startTimer();
   }
 

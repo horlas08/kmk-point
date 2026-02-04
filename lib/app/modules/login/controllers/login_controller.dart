@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hive_ce/hive.dart';
@@ -13,8 +14,8 @@ import 'package:point_system/app/modules/login/repository/auth_service.dart';
 import '../../../common/widgets/notify.dart';
 
 class LoginController extends GetxController {
-  final phoneOrIdController = TextEditingController(text: "012345678945");//012345678945
-  final passwordController = TextEditingController(text: "123456789");//123456789
+  final phoneOrIdController = TextEditingController(text: kDebugMode?"012345678945": "");//012345678945
+  final passwordController = TextEditingController(text: kDebugMode?"123456789": "");//123456789
   final passwordFocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   final isSubmitting = false.obs;
