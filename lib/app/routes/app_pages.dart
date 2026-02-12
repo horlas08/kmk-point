@@ -34,6 +34,8 @@ import '../modules/points/bindings/points_binding.dart';
 import '../modules/points/views/points_view.dart';
 import '../modules/previous_scan/bindings/previous_scan_binding.dart';
 import '../modules/previous_scan/views/previous_scan_view.dart';
+import '../modules/reset_password/bindings/reset_password_binding.dart';
+import '../modules/reset_password/views/reset_password_view.dart';
 import '../modules/scan/bindings/scan_binding.dart';
 import '../modules/scan/views/scan_view.dart';
 import '../modules/scan_history/bindings/scan_history_binding.dart';
@@ -153,6 +155,11 @@ class AppPages {
       name: _Paths.NOTIFICATION_SETTING,
       page: () => const NotificationSettingView(),
       binding: NotificationSettingBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESET_PASSWORD,
+      page: () => const ResetPasswordView(),
+      binding: ResetPasswordBinding(),
     ),
   ];
 }

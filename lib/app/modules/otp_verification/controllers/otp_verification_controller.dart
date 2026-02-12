@@ -90,9 +90,10 @@ class OtpVerificationController extends GetxController with GetTickerProviderSta
           Notify.error('reset_token missing in response');
           return;
         }
-        Get.toNamed(Routes.CHANGE_PASSWORD, arguments: {
+        Get.toNamed(Routes.RESET_PASSWORD, arguments: {
           'reset_token': resetToken,
         });
+        return;
         onSuccess();
       } else {
         Notify.error(data is Map ? (data['message']?.toString() ?? 'Verification failed') : 'Verification failed');

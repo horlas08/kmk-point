@@ -41,30 +41,26 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                     style: textMediumBlack,
                     textAlign: TextAlign.center,
                   ),
-                  vSpace(10),
-                  AutoSizeText(
-                    "enter_phone_for_otp".tr,
-                    style: textRegularGrey,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                  ),
                   vSpace(40),
                   Form(
                     key: controller.formKey,
-                    child: OTPTextField(
-                      controller: controller.otpController,
-                      focusNode: controller.focusNode,
-
-                      validator: (v) {
-                        final val = v?.trim() ?? '';
-                        if (val.isEmpty) return 'This field is required';
-                        if (val.length < 6) return 'Enter 6-digit code';
-                        if (!RegExp(r'^\d{6}$').hasMatch(val)) return 'Digits only';
-                        return null;
-                      },
-                      onCompleted: (String otp) {
-                        controller.validateAndProceed(() => Get.toNamed(Routes.CHANGE_PASSWORD));
-                      },
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: OTPTextField(
+                        controller: controller.otpController,
+                        focusNode: controller.focusNode,
+                      
+                        validator: (v) {
+                          final val = v?.trim() ?? '';
+                          if (val.isEmpty) return 'This field is required';
+                          if (val.length < 6) return 'Enter 6-digit code';
+                          if (!RegExp(r'^\d{6}$').hasMatch(val)) return 'Digits only';
+                          return null;
+                        },
+                        onCompleted: (String otp) {
+                          controller.validateAndProceed(() => Get.toNamed(Routes.CHANGE_PASSWORD));
+                        },
+                      ),
                     ),
                   ),
                   vSpace(8),
@@ -83,7 +79,7 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                       return GestureDetector(
                         onTap: controller.resendOtp,
                         child: Text(
-                          "resend".tr,
+                          "إعادة الإرسال",
                           style: textRegularGrey.copyWith(decoration: TextDecoration.underline),
                           textAlign: TextAlign.center,
                         ),
@@ -94,7 +90,7 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                   CustomButton(
                     text: "confirm".tr,
                     onPressed: () {
-                      controller.validateAndProceed(() => Get.toNamed(Routes.CHANGE_PASSWORD));
+                      controller.validateAndProceed(() => Get.toNamed(Routes.RESET_PASSWORD));
                     },
                   ),
                 ],

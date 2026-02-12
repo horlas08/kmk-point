@@ -22,6 +22,7 @@ abstract class Routes {
   static const CHANGE_PROJECT = _Paths.CHANGE_PROJECT;
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
   static const NOTIFICATION_SETTING = _Paths.NOTIFICATION_SETTING;
+  static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
 }
 
 abstract class _Paths {
@@ -45,4 +46,5 @@ abstract class _Paths {
   static const CHANGE_PROJECT = '/change-project';
   static const NOTIFICATIONS = '/notifications';
   static const NOTIFICATION_SETTING = '/notification-setting';
+  static const RESET_PASSWORD = '/reset-password';
 }

@@ -51,14 +51,14 @@ class AccountSettingView extends GetView<AccountSettingController> {
                       Text("new_password".tr),
                       CustomInput(
                         contentPadding: simPad(10, 12),
-                        itemController: controller.newPasswordController,
+                        itemController: controller.newpasswordController,
                       ),
                       Text("password_rules".tr),
                       vSpace(8),
                       Text("confirm_new_password_field".tr),
                       CustomInput(
                         contentPadding: simPad(10, 12),
-                        itemController: controller.confirmNewPasswordController,
+                        itemController: controller.confirmNewpasswordController,
                       ),
                       vSpace(32),
                       CustomButton(
@@ -70,7 +70,9 @@ class AccountSettingView extends GetView<AccountSettingController> {
                             Text("save_changes".tr, style: TextStyle(fontSize: 16, color: Colors.white),),
                           ],
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.submit();
+                        },
                       ),
                     ],
                   ),

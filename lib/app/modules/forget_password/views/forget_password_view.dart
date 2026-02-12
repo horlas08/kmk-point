@@ -65,7 +65,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                             if (v == null || v.trim().isEmpty) return 'This field is required';
                             final email = v.trim();
                             if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email)) {
-                              return 'Enter a valid email';
+                              return 'أدخل بريدًا إلكترونيًا صالحًا';
                             }
                             return null;
                           },
