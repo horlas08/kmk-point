@@ -144,7 +144,8 @@ class SelectProjectController extends GetxController {
       final home = Get.isRegistered<HomeService>()
           ? Get.find<HomeService>()
           : Get.put(HomeService(), permanent: true);
-      await home.fetchParticipantHome(projectId: activeProjectId.value);
+      final res = await home.fetchParticipantHome(projectId: activeProjectId.value);
+      box.put("homeData", res.toJson());
       Get.context?.loaderOverlay.hide();
       Get.offAndToNamed(Routes.BASE_VIEW);
     } catch (e) {

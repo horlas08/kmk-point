@@ -160,7 +160,7 @@ class InitialBindings extends Bindings {
     // Make API service persistent
     Get.put(ApiService(), permanent: true);
   // Initialize push notifications and fetch FCM token
-  Get.putAsync<PushNotificationService>(() async => await PushNotificationService().init());
+    Get.putAsync<PushNotificationService>(() async => await PushNotificationService().init(), permanent: true, );
 
     // AuthService
     Get.putAsync<HomeService>(() async => await HomeService().init());
