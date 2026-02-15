@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:get/get.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:point_system/app/constants/svg_path.dart';
 import 'package:point_system/app/modules/home/repository/home_service.dart';
@@ -63,11 +64,13 @@ class HomeController extends GetxController {
 
     Get.context?.loaderOverlay.show();
     try {
+      final box = Hive.box('auth');
       await Get.find<AuthService>().fetchUser();
       final home = Get.isRegistered<HomeService>()
           ? Get.find<HomeService>()
           : Get.put(HomeService(), permanent: true);
-      await home.fetchParticipantHome(projectId: activeProjectId);
+      final res = await home.fetchParticipantHome(projectId: activeProjectId);
+      box.put("homeData", res.toJson());
 
     } finally {
       Get.context?.loaderOverlay.hide();

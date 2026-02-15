@@ -163,6 +163,6 @@ class InitialBindings extends Bindings {
     Get.putAsync<PushNotificationService>(() async => await PushNotificationService().init(), permanent: true, );
 
     // AuthService
-    Get.putAsync<HomeService>(() async => await HomeService().init());
+    Get.put<HomeService>(HomeService(),permanent: true,);
   }
 }

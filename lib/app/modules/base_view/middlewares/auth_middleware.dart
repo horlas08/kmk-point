@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,23 +40,30 @@ class AuthMiddleware extends GetMiddleware {
       final loginData = deepParseMap(rawData);
 
       Get.find<AuthService>().loginData.value = AuthData.fromJson(loginData);
-      return const RouteSettings(name: Routes.SELECT_PROJECT);
+      // return const RouteSettings(name: Routes.SELECT_PROJECT);
     }
     if(homeData != null){
-      Get.find<HomeService>().participantHome.value = ParticipantHomePageData.fromJson(jsonDecode(homeData));
+     final homeService = Get.isRegistered<HomeService>()
+         ? Get.find<HomeService>()
+         : Get.put(HomeService(), permanent: true);
+     final decodedHomeData = homeData is String ? jsonDecode(homeData) : homeData;
+     homeService.participantHome.value =
+         ParticipantHomePageData.fromJson(deepParseMap(decodedHomeData));
     }
     if (box.get("accessToken") == null ||
-        box.get("accessToken") == "" ||
-        box.get("accessToken").isNullOrBlank) {
-      return const RouteSettings(name: Routes.LOGIN);
+        box.get("accessToken") == "") {
+      return null;
     }else if (rawData == null) {
-      return const RouteSettings(name: Routes.LOGIN);
+      return null;
     } else if(homeData == null){
+      log("1 Home data is null");
       return const RouteSettings(name: Routes.SELECT_PROJECT);
     }
     else if (sp.activeProjectId.value.isEmpty || box.get("selectedProjectId") == null){
+      log("2 Home data is null");
       return const RouteSettings(name: Routes.SELECT_PROJECT);
     }else if (sp.activeOrgId.value.isEmpty || box.get("selectedOrgId") == null){
+      log("3 Home data is null");
       return const RouteSettings(name: Routes.SELECT_PROJECT);
     }else if( rawData != null && homeData != null && sp.activeProjectId.value.isNotEmpty && sp.activeOrgId.value.isNotEmpty ) {
       return const RouteSettings(name: Routes.BASE_VIEW);
