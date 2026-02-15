@@ -45,7 +45,7 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                   Form(
                     key: controller.formKey,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: TextDirection.ltr,
                       child: OTPTextField(
                         controller: controller.otpController,
                         focusNode: controller.focusNode,
