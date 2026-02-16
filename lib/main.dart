@@ -152,16 +152,20 @@ Future<String?> getManufacturer() async {
 class InitialBindings extends Bindings {
   @override
   void dependencies() {
-
-    Get.put(ConnectivityController(), permanent: true);
-    Get.put( AuthService(), permanent: true);
-    // Get.put(LoginController());
-    Get.put(SelectProjectController(), permanent: true, );
     // Make API service persistent
     Get.put(ApiService(), permanent: true);
-  // Initialize push notifications and fetch FCM token
-    Get.putAsync<PushNotificationService>(() async => await PushNotificationService().init(), permanent: true, );
 
+    // Initialize push notifications and fetch FCM token
+    Get.putAsync<PushNotificationService>(
+      () async => await PushNotificationService().init(),
+      permanent: true,
+    );
+
+    Get.put(ConnectivityController(), permanent: true);
+    Get.put(AuthService(), permanent: true);
+    // Get.put(LoginController());
+    Get.put(SelectProjectController(), permanent: true);
+    
     // AuthService
     Get.put<HomeService>(HomeService(),permanent: true,);
   }

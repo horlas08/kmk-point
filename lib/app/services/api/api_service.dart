@@ -179,7 +179,17 @@ class ApiService {
       );
       return;
     }
-    final token = await loadTokens();
+    await loadTokens();
+
+    // Always attach the latest FCM token (it may be written after ApiService is constructed).
+    try {
+      final fcmToken = Hive.box('appData').get('fcmToken') ?? 'no_data';
+      options.headers['fcmToken'] = '$fcmToken';
+      options.headers['fcm_token'] = '$fcmToken';
+    } catch (_) {
+      options.headers['fcmToken'] = 'no_data';
+      options.headers['fcm_token'] = 'no_data';
+    }
 
     if (_accessToken != null) {
       options.headers['Authorization'] = 'Bearer $_accessToken';

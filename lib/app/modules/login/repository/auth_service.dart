@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/src/response.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:hive_ce/hive.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -19,11 +20,27 @@ class AuthService extends GetxService{
 
   Future<Response> login({required String identifier, required String password}) async {
 
+    // Ensure we have an FCM token before login, since backend expects it in headers.
+    try {
+      final appDataBox = Hive.box('appData');
+      final current = appDataBox.get('fcmToken')?.toString();
+      if (current == null || current.isEmpty || current == 'no_data') {
+        final token = await FirebaseMessaging.instance.getToken();
+        if (token != null && token.isNotEmpty) {
+          appDataBox.put('fcmToken', token);
+          try {
+            await Get.find<ApiService>().updateFcmToken(token);
+          } catch (_) {}
+        }
+      }
+    } catch (_) {}
+
     final apiServices = Get.find<ApiService>();
     
     return await apiServices.post(Endpoints.login, data: {
       "password": password,
-      "identifier": identifier
+      "identifier": identifier,
+      'fcm_token': '${Hive.box("appData").get("fcmToken")}'
     });
 
   }

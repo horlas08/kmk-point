@@ -88,7 +88,7 @@ class PushNotificationService extends GetxService {
     try {
       final token = await _fm.getToken();
       if (token != null && token.isNotEmpty) {
-        Hive.box('appData').put('fcmToken', token);
+        await Hive.box('appData').put('fcmToken', token);
         // update ApiService header
         try {
           final api = Get.find<ApiService>();
